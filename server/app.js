@@ -57,6 +57,7 @@ app.post('/login', (req, res) => {
     username
   ])
     .then((foundUser) => {
+      console.log(foundUser);
       if (foundUser.length > 0) {
         const userID = foundUser[0].user_id;
         bcrypt.compare(password, foundUser[0].password, function (err, result) {
@@ -65,7 +66,6 @@ app.post('/login', (req, res) => {
               { username: username, userID: userID },
               `${process.env.JWT_SECRET_KEY}`
             );
-
             res.json({
               success: true,
               token: token,
@@ -110,6 +110,26 @@ app.post('/invite', (req, res) => {
   db.none('INSERT INTO space_invitees (user_id) VALUES($1)', [userID]).then(
     res.send(`User ID: ${userID} has been invited`)
   );
+});
+
+app.get('/test', (req, res) => {
+  const mySpace = 15;
+  db.any(
+    'SELECT space_id, user_id from spaces where user_id=$1 group by space_id',
+    [9]
+  ).then((foundSpaces) => {
+    console.log(foundSpaces);
+    const mappedSpaces = foundSpaces.map((space) => {
+      return space.space_id;
+    });
+    console.log(mappedSpaces);
+    if (mappedSpaces.includes(mySpace)) {
+      console.log('User is authenticated in Space');
+    } else {
+      console.log('User does not belong here');
+    }
+    res.send({ success: true });
+  });
 });
 
 app.listen(port, () => console.log('Server is running...'));
