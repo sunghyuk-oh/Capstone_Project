@@ -89,6 +89,19 @@ app.post('/login', (req, res) => {
     .catch((err) => console.error(err));
 });
 
+app.post('/createSpace', (req, res) => {
+  const { spaceName, userID } = req.body;
+
+  db.none('INSERT INTO spaces (space_name, user_id) VALUES ($1, $2)', [
+    spaceName,
+    userID
+  ])
+    .then(
+      res.json({ success: true, message: 'The new space has been created!' })
+    )
+    .catch((err) => console.log(err));
+});
+
 // Invite logic
 
 app.post('/invite', (req, res) => {

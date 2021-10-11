@@ -32,7 +32,6 @@ ReactDOM.render(
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
             <Route path="/space" component={requireAuth(Space)} />
-            {/* <Route path="/space" component={Space} /> */}
           </Switch>
         </App>
       </BrowserRouter>
