@@ -61,6 +61,9 @@ const Chat = ({ socket, username, zone }) => {
           onChange={(change) => {
             setCurrentMsg(change.target.value);
           }}
+          onKeyPress={(event) => {
+            event.key === 'Enter' && sendMsg();
+          }}
         />
         <button onClick={sendMsg}>Send</button>
       </footer>
