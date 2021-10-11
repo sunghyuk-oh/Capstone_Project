@@ -37,26 +37,53 @@ app.post('/register', (req, res) => {
 })
 
 
-app.post('/login', (req, res) => { 
-    const { username, password } = req.body
-
-    db.any('SELECT username, password FROM users WHERE username = $1', [username])
-    .then((foundUser) => {
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+  
+    db.any('SELECT user_id, username, password FROM users WHERE username = $1', [
+      username
+    ])
+      .then((foundUser) => {
         if (foundUser.length > 0) {
-            bcrypt.compare(password, foundUser[0].password, function(err, result) {
-                if (result) {
-                    const token = jwt.sign({username: username}, `${process.env.JWT_SECRET_KEY}`)
-
-                    res.json({success: true, token: token})
-                } else {
-                    res.json({success: false, message: 'Password is incorrect. Please try again.'})
-                }
-            })
+          const userID = foundUser[0].user_id;
+          bcrypt.compare(password, foundUser[0].password, function (err, result) {
+            if (result) {
+              const token = jwt.sign(
+                { username: username, userID: userID },
+                `${process.env.JWT_SECRET_KEY}`
+              )
+  
+              res.json({
+                success: true,
+                token: token,
+                username: username,
+                userID: userID
+              })
+            } else {
+              res.json({
+                  success: false, 
+                  message: 'Password is incorrect. Please try again.'
+              })
+            }
+          })
         } else {
-            res.json({success: false, message: 'Username does not exist. Please try again.'})
+          res.json({
+            success: false,
+            message: 'Username does not exist. Please try again.'
+          })
         }
-    })
-    .catch(err => console.error(err))
+      })
+      .catch((err) => console.error(err));
+})
+
+
+app.post('/createSpace', (req, res) => {
+    const { spaceName, userID } = req.body
+
+    db.none('INSERT INTO spaces (space_name, user_id) VALUES ($1, $2)', [spaceName, userID])
+    .then(res.json({success: true, message: "The new space has been created!"}))
+    .catch(err => console.log(err))
+    
 })
 
 

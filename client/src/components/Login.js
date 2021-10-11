@@ -27,25 +27,27 @@ function Login(props) {
 
     const handleLogin = () => {
         fetch('http://localhost:8080/login', {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(userLogin)
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userLogin)
         })
-        .then(response => response.json())
-        .then(result => {
+          .then((response) => response.json())
+          .then((result) => {
             if (result.success) {
-                localStorage.setItem('userToken', result.token)
-                props.onLogin()
-                props.history.push('/')
+              localStorage.setItem('userToken', result.token);
+              localStorage.setItem('username', result.username);
+              localStorage.setItem('userID', result.userID);
+              props.onLogin();
+              props.history.push('/');
             } else {
-                setLoginSuccess({success: false, message: result.message})
-                console.log('Login Failed')
+              setLoginSuccess({ success: false, message: result.message });
+              console.log('Login Failed');
             }
-        })
-        .catch(err => console.log(err))
-
-        setUserLogin({})
-    }
+          })
+          .catch((err) => console.log(err));
+    
+        setUserLogin({});
+      };
 
 
     const handleRegister = () => {
@@ -58,6 +60,11 @@ function Login(props) {
         .then(result => {
             if (result.success) {
                 setRegisterSuccess({success: true, message: result.message})
+                
+                if (registerFail) {
+                    setRegisterFail({fail: false, message: ''})
+                }
+
                 props.history.push('/login')
             } else {
                 setRegisterFail({fail: true, message: result.message})

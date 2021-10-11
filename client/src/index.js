@@ -10,7 +10,7 @@ import App from './components/App';
 import Home from './components/Home'
 import Login from './components/Login'
 import Logout from './components/Logout'
-import Zone from './components/Zone'
+import Space from './components/Space'
 import requireAuth from './components/requireAuth';
 
 
@@ -30,7 +30,7 @@ ReactDOM.render(
             <Route exact path='/' component={Home} />
             <Route path='/login' component={Login} />
             <Route path='/logout' component={Logout} />
-            <Route path='/zone' component={requireAuth(Zone)} />
+            <Route path='/space' component={requireAuth(Space)} />
           </Switch>
         </App>
       </BrowserRouter>
