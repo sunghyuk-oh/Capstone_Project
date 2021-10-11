@@ -12,8 +12,11 @@ function Space(props) {
         <section>Space List</section>
         <section>
           <span>List Members</span>
-          <input type="text" placeholder="Enter Invitee's Username" />
-          <button>Invite</button>
+          <div>
+            <span>User Invite</span>
+            <input type="text" placeholder="Enter Invitee's Username" />
+            <button>Invite</button>
+          </div>
         </section>
         <section>Post List</section>
         <section>Chat Box</section>
