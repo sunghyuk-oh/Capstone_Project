@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { connect } from 'react-redux'
 
 function Space(props) {
   const location = useLocation();
@@ -55,4 +56,4 @@ function Space(props) {
   );
 }
 
-export default Space;
+export default connect()(Space);
