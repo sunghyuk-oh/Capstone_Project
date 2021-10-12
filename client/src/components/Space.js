@@ -4,9 +4,8 @@ import { connect } from 'react-redux'
 
 function Space(props) {
   const location = useLocation();
-  const [userName, setUserName] = useState('');
   const spaceName = location.state.spaceName;
-  console.log(spaceName);
+  const [userName, setUserName] = useState('');
 
   const handleUsernameInput = (e) => {
     setUserName(e.target.value);
@@ -15,14 +14,16 @@ function Space(props) {
   const handleInviteSubmit = () => {
     fetch('http://localhost:8080/invite', {
       method: 'POST',
-      header: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ spaceName: spaceName, userName: userName })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userName: userName, spaceName: spaceName })
     })
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
       })
-      .catch((err) => console.log(err));
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -43,6 +44,7 @@ function Space(props) {
             <input
               type="text"
               placeholder="Enter Invitee's Username"
+              name="usernameInput"
               onChange={handleUsernameInput}
             />
             <button onClick={handleInviteSubmit}>Invite</button>

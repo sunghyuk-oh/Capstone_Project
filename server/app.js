@@ -1,18 +1,17 @@
-const express = require('express')
-const bcrypt = require('bcryptjs')
-const cors = require('cors')
-global.jwt = require('jsonwebtoken')
-global.pgp = require('pg-promise')()
-const app = express()
-const authenticate = require('./middlewares/auth')
-require('dotenv').config()
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const cors = require('cors');
+global.jwt = require('jsonwebtoken');
+global.pgp = require('pg-promise')();
+const app = express();
+const authenticate = require('./middlewares/auth');
+require('dotenv').config();
 
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
 
-const port = process.env.PORT
-global.db = pgp(`${process.env.DATABASE}`)
-
+const port = process.env.PORT;
+global.db = pgp(`${process.env.DATABASE}`);
 
 app.post('/register', (req, res) => {
   const { firstName, lastName, email, username, password, confirmPassword } =
@@ -60,7 +59,6 @@ app.post('/login', (req, res) => {
     username
   ])
     .then((foundUser) => {
-      console.log(foundUser);
       if (foundUser.length > 0) {
         const userID = foundUser[0].user_id;
         bcrypt.compare(password, foundUser[0].password, function (err, result) {
@@ -69,6 +67,7 @@ app.post('/login', (req, res) => {
               { username: username, userID: userID },
               `${process.env.JWT_SECRET_KEY}`
             );
+
             res.json({
               success: true,
               token: token,
@@ -95,7 +94,7 @@ app.post('/login', (req, res) => {
 
 app.post('/createSpace', (req, res) => {
   const { spaceName, userID } = req.body;
-
+  
   db.none('INSERT INTO spaces (space_name, user_id) VALUES ($1, $2)', [
     spaceName,
     userID
@@ -119,15 +118,15 @@ app.post('/createSpace', (req, res) => {
 app.post('/invite', (req, res) => {
   const userName = req.body.userName;
   const spaceName = req.body.spaceName;
-  console.log(userName, spaceName);
+  // console.log(userName, spaceName);
 
   db.any('SELECT space_id from spaces where space_name = $1', [spaceName]).then(
     (space) => {
-      console.log(space);
+      // console.log(space);
       const spaceID = space[0].space_id;
       db.any('SELECT user_id from users where username = $1', [userName]).then(
         (user) => {
-          console.log(user);
+          // console.log(user);
           const userID = user[0].user_id;
           db.none(
             'INSERT INTO spaces_invitees (space_id, user_id) VALUES($1, $2)',
@@ -143,36 +142,36 @@ app.post('/invite', (req, res) => {
   );
 });
 
+// possible method to secure space urls
+app.get('/test', (req, res) => {
+  const mySpace = 15;
+  db.any(
+    'SELECT space_id, user_id from spaces where user_id=$1 group by space_id',
+    [9]
+  ).then((foundSpaces) => {
+    // console.log(foundSpaces);
+    const mappedSpaces = foundSpaces.map((space) => {
+      return space.space_id;
+    });
+    // console.log(mappedSpaces);
+    if (mappedSpaces.includes(mySpace)) {
+      // console.log('User is authenticated in Space');
+    } else {
+      // console.log('User does not belong here');
+    }
+    res.send({ success: true });
+  });
+});
 
 app.get('/viewSpace/:userID', authenticate, (req, res) => {
-    const { userID } = req.params
+  const { userID } = req.params;
 
-    db.any('SELECT space_id, space_name, user_id from spaces where user_id = $1 group by space_id', [userID])
-    .then((foundSpaces) => {
-        res.json(foundSpaces)
-    })
-})
-
-
-app.get('/test', (req, res) => {
-    const mySpace = 15;
-    db.any(
-      'SELECT space_id, user_id from spaces where user_id=$1 group by space_id',
-      [9]
-    ).then((foundSpaces) => {
-      console.log(foundSpaces);
-      const mappedSpaces = foundSpaces.map((space) => {
-        return space.space_id;
-      });
-      console.log(mappedSpaces);
-      if (mappedSpaces.includes(mySpace)) {
-        console.log('User is authenticated in Space');
-      } else {
-        console.log('User does not belong here');
-      }
-      res.send({ success: true });
-    });
+  db.any(
+    'SELECT space_id, space_name, user_id from spaces where user_id = $1 group by space_id',
+    [userID]
+  ).then((foundSpaces) => {
+    res.json(foundSpaces);
   });
+});
 
-
-app.listen(port, () => console.log('Server is running...'))
+app.listen(port, () => console.log('Server is running...'));
