@@ -31,48 +31,6 @@ function Login(props) {
     });
   };
 
-  // const handleLogin = () => {
-  //   fetch('http://localhost:8080/login', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(userLogin)
-  //   })
-  //     .then((response) => response.json())
-  //     .then((result) => {
-  //       if (result.success) {
-  //         localStorage.setItem('userToken', result.token);
-  //         localStorage.setItem('username', result.username);
-  //         localStorage.setItem('userID', result.userID);
-  //         props.onLogin();
-  //         props.history.push('/');
-  //       } else {
-  //         setLoginSuccess({ success: false, message: result.message });
-  //         console.log('Login Failed');
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-
-  //   setUserLogin({});
-  // };
-
-  // const handleRegister = () => {
-  //   fetch('http://localhost:8080/register', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(userRegister)
-  //   })
-  //     .then((response) => response.json())
-  //     .then((result) => {
-  //       if (result.success) {
-  //         setRegisterSuccess({ success: true, message: result.message });
-  //         props.history.push('/login');
-  //       } else {
-  //         setRegisterFail({ fail: true, message: result.message });
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
   const handleLogin = () => {
     fetch('http://localhost:8080/login', {
       method: 'POST',

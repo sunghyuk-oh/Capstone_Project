@@ -96,19 +96,46 @@ app.post('/createSpace', (req, res) => {
     spaceName,
     userID
   ])
-    .then(
-      res.json({ success: true, message: 'The new space has been created!' })
-    )
+    .then(() => {
+      db.any('SELECT space_id FROM spaces where space_name = $1', [
+        spaceName
+      ]).then((space) => {
+        res.json({
+          success: true,
+          message: 'The new space has been created!',
+          spaceID: space[0].space_id
+        });
+      });
+    })
     .catch((err) => console.log(err));
 });
 
-// Invite logic
+// Invite logic - server route works good
 
 app.post('/invite', (req, res) => {
-  const userID = req.body.userID;
+  const userName = req.body.userName;
+  const spaceName = req.body.spaceName;
+  console.log(userName, spaceName);
 
-  db.none('INSERT INTO space_invitees (user_id) VALUES($1)', [userID]).then(
-    res.send(`User ID: ${userID} has been invited`)
+  db.any('SELECT space_id from spaces where space_name = $1', [spaceName]).then(
+    (space) => {
+      console.log(space);
+      const spaceID = space[0].space_id;
+      db.any('SELECT user_id from users where username = $1', [userName]).then(
+        (user) => {
+          console.log(user);
+          const userID = user[0].user_id;
+          db.none(
+            'INSERT INTO spaces_invitees (space_id, user_id) VALUES($1, $2)',
+            [spaceID, userID]
+          ).then(
+            res.send(
+              `User ID: ${userID} has been invited to Space: ${spaceName}`
+            )
+          );
+        }
+      );
+    }
   );
 });
 
