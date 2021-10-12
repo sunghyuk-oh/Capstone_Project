@@ -1,5 +1,6 @@
 const initialState = {
-    isAuth: false
+    isAuth: false,
+    mySpaceList: []
 }
 
 const reducer = (state=initialState, action) => {
@@ -13,6 +14,11 @@ const reducer = (state=initialState, action) => {
             return {
                 ...state,
                 isAuth: false
+            }
+        case 'VIEW_MY_SPACE':
+            return {
+                ...state,
+                mySpaceList: action.payload
             }
         default:
             return state

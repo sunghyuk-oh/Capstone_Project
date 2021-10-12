@@ -1,16 +1,17 @@
 const express = require('express')
-const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const pgp = require('pg-promise')()
 const cors = require('cors')
+global.jwt = require('jsonwebtoken')
+global.pgp = require('pg-promise')()
 const app = express()
+const authenticate = require('./middlewares/auth')
 require('dotenv').config()
 
 app.use(express.json())
 app.use(cors())
 
 const port = process.env.PORT
-const db = pgp(`${process.env.DATABASE}`)
+global.db = pgp(`${process.env.DATABASE}`)
 
 
 app.post('/register', (req, res) => {
@@ -40,9 +41,7 @@ app.post('/register', (req, res) => {
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
   
-    db.any('SELECT user_id, username, password FROM users WHERE username = $1', [
-      username
-    ])
+    db.any('SELECT user_id, username, password FROM users WHERE username = $1', [username])
       .then((foundUser) => {
         if (foundUser.length > 0) {
           const userID = foundUser[0].user_id;
@@ -82,9 +81,17 @@ app.post('/createSpace', (req, res) => {
 
     db.none('INSERT INTO spaces (space_name, user_id) VALUES ($1, $2)', [spaceName, userID])
     .then(res.json({success: true, message: "The new space has been created!"}))
-    .catch(err => console.log(err))
-    
+    .catch(err => console.log(err))   
 })
 
+
+app.get('/viewSpace/:userID', authenticate, (req, res) => {
+    const { userID } = req.params
+
+    db.any('SELECT space_id, space_name, user_id from spaces where user_id = $1 group by space_id', [userID])
+    .then((foundSpaces) => {
+        res.json(foundSpaces)
+    })
+})
 
 app.listen(port, () => console.log('Server is running...'))
