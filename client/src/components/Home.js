@@ -1,38 +1,42 @@
-import { useState } from 'react'
-import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function Main(props) {
-    const [ spaceName, setSpaceName] = useState("")
-    const [ isNewSpace, setIsNewSpace ] = useState(false)
-
+    const history = useHistory();
+    const [newSpace, setNewSpace] = useState(false);
+    const [spaceName, setSpaceName] = useState('');
 
     const handleNewSpaceInputPopUp = () => {
-        isNewSpace ? setIsNewSpace(false) : setIsNewSpace(true)
-    }
+        newSpace ? setNewSpace(false) : setNewSpace(true);
+    };
 
     const handleSpaceName = (e) => {
-        setSpaceName(e.target.value)
-    }
+        setSpaceName(e.target.value);
+    };
 
 
     const handleCreateSpace = () => {
-        const userID = localStorage.getItem('userID')
-        
+        const userID = localStorage.getItem('userID');
+
         fetch('http://localhost:8080/createSpace', {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({"spaceName": spaceName, 
-                                  "userID": userID})
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ spaceName: spaceName, userID: userID })
         })
-        .then(response => response.json())
-        .then(result => {
+            .then((response) => response.json())
+            .then((result) => {
             if (result.success) {
-                props.history.push('/space')
+                // sending space name variable to space component (for invites)
+                history.push({
+                pathname: `/space/${result.spaceID}`,
+                state: { spaceName: spaceName, spaceID: result.spaceID }
+                });
             }
-        })
-        .catch(err => console.log(err))
-    }
+            })
+            .catch((err) => console.log(err));
+    };
 
 
     const handleViewSpace = () => {
@@ -70,16 +74,28 @@ function Main(props) {
             <h1>FriendsZone</h1>
             <section className="">
                 <div className="">
-                    { !props.isAuth ? <button><NavLink to="/login">Login / Register</NavLink></button> : null}
-                    { props.isAuth ? <button><NavLink to="/logout">Logout</NavLink></button> : null}
-                    { props.isAuth ? <button onClick={handleNewSpaceInputPopUp}>Create New Space</button> : null}
-                    { props.isAuth && isNewSpace ? 
+                    { !props.isAuth ? (
+                        <button>
+                            <NavLink to="/login">Login / Register</NavLink>
+                        </button>
+                    ) : null }
+                    { props.isAuth ? (
+                        <button>
+                            <NavLink to="/logout">Logout</NavLink>
+                        </button>
+                    ) : null }
+                    { props.isAuth ? (
+                        <button onClick={handleNewSpaceInputPopUp}>Create New Space</button>
+                    ) : null }
+                    { props.isAuth && newSpace ? (
                         <div className="">
                             <input type="text" onChange={handleSpaceName} placeholder="Enter Space Name" />
                             <button onClick={handleCreateSpace}>Create</button>
                         </div>
-                    : null}
-                    { props.isAuth ? <button onClick={handleViewSpace}>View My Space</button> : null}
+                    ) : null }
+                    { props.isAuth ? (
+                        <button onClick={handleViewSpace}>View My Space</button>
+                    ) : null }
                 </div>
                 <div className="">
                     <img src="" />
@@ -110,3 +126,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)
+
+
+

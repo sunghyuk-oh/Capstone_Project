@@ -1,24 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import reducer from './stores/reducer'
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import reducer from './stores/reducer';
 import App from './components/App';
-import Home from './components/Home'
-import Login from './components/Login'
-import Logout from './components/Logout'
-import Space from './components/Space'
+import Home from './components/Home';
+import Login from './components/Login';
+import Logout from './components/Logout';
+import Space from './components/Space';
 import requireAuth from './components/requireAuth';
 
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-
-const token = localStorage.getItem('userToken')
+const token = localStorage.getItem('userToken');
 if (token) {
-  store.dispatch({type: 'ON_LOGIN'})
+  store.dispatch({ type: 'ON_LOGIN' });
 }
 
 ReactDOM.render(
@@ -27,10 +28,10 @@ ReactDOM.render(
       <BrowserRouter>
         <App>
           <Switch>
-            <Route exact path='/' component={Home} />
-            <Route path='/login' component={Login} />
-            <Route path='/logout' component={Logout} />
-            <Route path='/space' component={requireAuth(Space)} />
+            <Route exact path="/" component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/logout" component={Logout} />
+            <Route path="/space" component={requireAuth(Space)} />
           </Switch>
         </App>
       </BrowserRouter>
