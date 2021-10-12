@@ -13,9 +13,6 @@ app.use(cors());
 const port = process.env.PORT;
 global.db = pgp(`${process.env.DATABASE}`);
 
-const port = process.env.PORT;
-const db = pgp(`${process.env.DATABASE}`);
-
 app.post('/register', (req, res) => {
   const { firstName, lastName, email, username, password, confirmPassword } =
     req.body;
@@ -118,15 +115,15 @@ app.post('/createSpace', (req, res) => {
 app.post('/invite', (req, res) => {
   const userName = req.body.userName;
   const spaceName = req.body.spaceName;
-  console.log(userName, spaceName);
+  // console.log(userName, spaceName);
 
   db.any('SELECT space_id from spaces where space_name = $1', [spaceName]).then(
     (space) => {
-      console.log(space);
+      // console.log(space);
       const spaceID = space[0].space_id;
       db.any('SELECT user_id from users where username = $1', [userName]).then(
         (user) => {
-          console.log(user);
+          // console.log(user);
           const userID = user[0].user_id;
           db.none(
             'INSERT INTO spaces_invitees (space_id, user_id) VALUES($1, $2)',
@@ -149,15 +146,15 @@ app.get('/test', (req, res) => {
     'SELECT space_id, user_id from spaces where user_id=$1 group by space_id',
     [9]
   ).then((foundSpaces) => {
-    console.log(foundSpaces);
+    // console.log(foundSpaces);
     const mappedSpaces = foundSpaces.map((space) => {
       return space.space_id;
     });
-    console.log(mappedSpaces);
+    // console.log(mappedSpaces);
     if (mappedSpaces.includes(mySpace)) {
-      console.log('User is authenticated in Space');
+      // console.log('User is authenticated in Space');
     } else {
-      console.log('User does not belong here');
+      // console.log('User does not belong here');
     }
     res.send({ success: true });
   });
