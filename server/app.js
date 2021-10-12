@@ -1,13 +1,17 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const pgp = require('pg-promise')();
 const cors = require('cors');
+global.jwt = require('jsonwebtoken');
+global.pgp = require('pg-promise')();
 const app = express();
+const authenticate = require('./middlewares/auth');
 require('dotenv').config();
 
 app.use(express.json());
 app.use(cors());
+
+const port = process.env.PORT;
+global.db = pgp(`${process.env.DATABASE}`);
 
 const port = process.env.PORT;
 const db = pgp(`${process.env.DATABASE}`);
@@ -57,7 +61,6 @@ app.post('/login', (req, res) => {
     username
   ])
     .then((foundUser) => {
-      console.log(foundUser);
       if (foundUser.length > 0) {
         const userID = foundUser[0].user_id;
         bcrypt.compare(password, foundUser[0].password, function (err, result) {
@@ -66,6 +69,7 @@ app.post('/login', (req, res) => {
               { username: username, userID: userID },
               `${process.env.JWT_SECRET_KEY}`
             );
+
             res.json({
               success: true,
               token: token,
@@ -91,7 +95,6 @@ app.post('/login', (req, res) => {
 
 app.post('/createSpace', (req, res) => {
   const { spaceName, userID } = req.body;
-
   db.none('INSERT INTO spaces (space_name, user_id) VALUES ($1, $2)', [
     spaceName,
     userID
@@ -139,6 +142,7 @@ app.post('/invite', (req, res) => {
   );
 });
 
+// possible method to secure space urls
 app.get('/test', (req, res) => {
   const mySpace = 15;
   db.any(
@@ -156,6 +160,17 @@ app.get('/test', (req, res) => {
       console.log('User does not belong here');
     }
     res.send({ success: true });
+  });
+});
+
+app.get('/viewSpace/:userID', authenticate, (req, res) => {
+  const { userID } = req.params;
+
+  db.any(
+    'SELECT space_id, space_name, user_id from spaces where user_id = $1 group by space_id',
+    [userID]
+  ).then((foundSpaces) => {
+    res.json(foundSpaces);
   });
 });
 
