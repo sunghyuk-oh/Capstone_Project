@@ -3,9 +3,13 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const pgp = require('pg-promise')();
+global.jwt = require('jsonwebtoken');
+global.pgp = require('pg-promise')();
+const authenticate = require('./middlewares/auth');
+const port = process.env.PORT;
+global.db = pgp(`${process.env.DATABASE}`);
+
 const { urlencoded } = require('express');
 const { Server } = require('socket.io');
 
@@ -85,18 +89,25 @@ app.post('/register', (req, res) => {
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-
-  db.any('SELECT username, password FROM users WHERE username = $1', [username])
+  db.any('SELECT user_id, username, password FROM users WHERE username = $1', [
+    username
+  ])
     .then((foundUser) => {
       if (foundUser.length > 0) {
+        const userID = foundUser[0].user_id;
         bcrypt.compare(password, foundUser[0].password, function (err, result) {
           if (result) {
             const token = jwt.sign(
-              { username: username },
+              { username: username, userID: userID },
               `${process.env.JWT_SECRET_KEY}`
             );
 
-            res.json({ success: true, token: token });
+            res.json({
+              success: true,
+              token: token,
+              username: username,
+              userID: userID
+            });
           } else {
             res.json({
               success: false,
@@ -114,23 +125,94 @@ app.post('/login', (req, res) => {
     .catch((err) => console.error(err));
 });
 
-server.listen(port, () => console.log(`Server is running on port ${port}...`));
+app.post('/createSpace', (req, res) => {
+  const { spaceName, userID } = req.body;
+  db.none('INSERT INTO spaces (space_name, user_id) VALUES ($1, $2)', [
+    spaceName,
+    userID
+  ])
+    .then(() => {
+      db.any('SELECT space_id FROM spaces where space_name = $1', [
+        spaceName
+      ]).then((space) => {
+        res.json({
+          success: true,
+          message: 'The new space has been created!',
+          spaceID: space[0].space_id
+        });
+      });
+    })
+    .catch((err) => console.log(err));
+});
 
-// socket.io testing
+// Invite logic - server route works good
 
-// const socket = require('socket.io');
+app.post('/invite', (req, res) => {
+  const userName = req.body.userName;
+  const spaceID = req.body.spaceID;
+  console.log(userName, spaceID);
 
-// const io = socket(server);
+  db.any('SELECT space_name from spaces where space_id = $1', [spaceID]).then(
+    (space) => {
+      // console.log(space);
+      const spaceName = space[0].space_name;
+      db.any('SELECT user_id from users where username = $1', [userName]).then(
+        (user) => {
+          // console.log(user);
+          const userID = user[0].user_id;
+          db.none(
+            'INSERT INTO spaces_invitees (space_id, user_id) VALUES($1, $2)',
+            [spaceID, userID]
+          ).then(
+            res.json({
+              success: true,
+              message: `User ID: ${userID} has been invited to Space: ${spaceName}`
+            })
+          );
+        }
+      );
+    }
+  );
+});
 
-// io.on('connection', (socket) => {
-//   console.log(socket.id);
+// authenticate space
+app.get('/auth/:spaceid', (req, res) => {
+  const spaceID = req.params.spaceID;
+  const userID = req.body.userID;
 
-//   socket.on('chat_room', (data) => {
-//     socket.join(data);
-//     console.log('User just messaged ' + data);
-//   });
+  db.any('SELECT space_id from spaces where user_id=$1 group by space_id', [
+    userID
+  ]).then((userSpacesCreated) => {
+    const createdSpaces = userSpacesCreated.map((space) => {
+      return space.space_id;
+    });
+    db.any(
+      'SELECT space_id from spaces_invitees where user_id=$1 group by space_id',
+      [userID]
+    ).then((userSpacesInvited) => {
+      const invitedSpaces = userSpacesInvited.map((space) => {
+        return space.space_id;
+      });
+      const allSpaces = createdSpaces.concat(invitedSpaces);
+      // console.log(allSpaces);
+      if (allSpaces.includes(spaceID)) {
+        res.json({ success: true, message: 'User is authenticated in Space' });
+      } else {
+        res.redirect('http://localhost:3000/');
+      }
+    });
+  });
+});
 
-//   socket.on('disconnect', () => {
-//     console.log('USER DISCONNECTED');
-//   });
-// });
+app.get('/viewSpace/:userID', authenticate, (req, res) => {
+  const { userID } = req.params;
+
+  db.any(
+    'SELECT space_id, space_name, user_id from spaces where user_id = $1 group by space_id',
+    [userID]
+  ).then((foundSpaces) => {
+    res.json(foundSpaces);
+  });
+});
+
+app.listen(port, () => console.log('Server is running...'));

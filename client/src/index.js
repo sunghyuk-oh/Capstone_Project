@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -10,8 +9,8 @@ import App from './components/App';
 import Home from './components/Home';
 import Login from './components/Login';
 import Logout from './components/Logout';
-import Zone from './components/Zone';
 import SocketIo from './components/SocketioTest';
+import Space from './components/Space';
 import requireAuth from './components/requireAuth';
 
 const store = createStore(
@@ -34,7 +33,11 @@ ReactDOM.render(
             <Route exact path="/test" component={SocketIo} />
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
-            <Route path="/zone" component={requireAuth(Zone)} />
+            <Route
+              exact
+              path="/space/:spaceid"
+              component={requireAuth(Space)}
+            />
           </Switch>
         </App>
       </BrowserRouter>
