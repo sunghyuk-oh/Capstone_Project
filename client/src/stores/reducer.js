@@ -20,6 +20,10 @@ const reducer = (state=initialState, action) => {
                 ...state,
                 mySpaceList: action.payload
             }
+        case 'DELETE_MY_SPACE':
+            return {
+                mySpaceList: []
+            }
         default:
             return state
     }

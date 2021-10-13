@@ -9,6 +9,7 @@ require('dotenv').config();
 
 app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded())
 
 const port = process.env.PORT;
 global.db = pgp(`${process.env.DATABASE}`);
@@ -113,8 +114,8 @@ app.post('/createSpace', (req, res) => {
     .catch((err) => console.log(err));
 });
 
-// Invite logic - server route works good
 
+// Invite logic - server route works good
 app.post('/invite', (req, res) => {
   const userName = req.body.userName;
   const spaceID = req.body.spaceID;
@@ -144,9 +145,9 @@ app.post('/invite', (req, res) => {
 });
 
 // authenticate space
-app.get('/auth/:spaceid', (req, res) => {
+app.get('/auth/:spaceID/:userID', (req, res) => {
   const spaceID = req.params.spaceID;
-  const userID = req.body.userID;
+  const userID = req.params.userID;
 
   db.any('SELECT space_id from spaces where user_id=$1 group by space_id', [
     userID
@@ -161,16 +162,35 @@ app.get('/auth/:spaceid', (req, res) => {
       const invitedSpaces = userSpacesInvited.map((space) => {
         return space.space_id;
       });
+      
       const allSpaces = createdSpaces.concat(invitedSpaces);
-      // console.log(allSpaces);
-      if (allSpaces.includes(spaceID)) {
+      
+      if (allSpaces.includes(parseInt(spaceID))) {
         res.json({ success: true, message: 'User is authenticated in Space' });
       } else {
-        res.redirect('http://localhost:3000/');
+        res.json({ success: false, message: 'User is not authenticated in Space'})
       }
     });
   });
 });
+
+app.get('/displayMembers/:spaceID', (req, res) => {
+    const spaceID = req.params.spaceID;
+  
+    db.any(
+      'SELECT username, first_name, last_name from users inner join spaces on users.user_id = spaces.user_id where spaces.space_id = $1',
+      [spaceID]
+    ).then((spaceCreator) => {
+        db.any(
+            'SELECT distinct username, first_name, last_name from users inner join spaces_invitees on users.user_id = spaces_invitees.user_id where spaces_invitees.space_id = $1',
+            [spaceID]
+        ).then((spaceInvitee) => {  
+            const allMembers = spaceCreator.concat(spaceInvitee);
+
+            res.json({ success: true, members: allMembers });
+        });
+    });
+  });
 
 app.get('/viewSpace/:userID', authenticate, (req, res) => {
   const { userID } = req.params;
@@ -182,5 +202,6 @@ app.get('/viewSpace/:userID', authenticate, (req, res) => {
     res.json(foundSpaces);
   });
 });
+
 
 app.listen(port, () => console.log('Server is running...'));

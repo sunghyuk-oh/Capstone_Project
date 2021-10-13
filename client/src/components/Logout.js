@@ -5,6 +5,7 @@ function Logout(props) {
     useEffect(() => {
         localStorage.removeItem('userToken')
         props.onLogout()
+        props.onDeleteSpaceList()
         props.history.push('/')
     }, [])
 
@@ -17,7 +18,8 @@ function Logout(props) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onLogout: () => dispatch({type: 'ON_LOGOUT'})
+        onLogout: () => dispatch({type: 'ON_LOGOUT'}),
+        onDeleteSpaceList: () => dispatch({type: 'DELETE_MY_SPACE'})
     }
 }
 

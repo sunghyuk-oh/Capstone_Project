@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
@@ -7,6 +7,12 @@ function Main(props) {
   const history = useHistory();
   const [spaceName, setSpaceName] = useState('');
   const [isNewSpace, setIsNewSpace] = useState(false);
+
+  useEffect(() => {
+    if (props.isAuth) {
+        viewAllSpaces()
+    }
+  }, [])
 
   const handleNewSpaceInputPopUp = () => {
     isNewSpace ? setIsNewSpace(false) : setIsNewSpace(true);
@@ -37,7 +43,7 @@ function Main(props) {
       .catch((err) => console.log(err));
   };
 
-  const handleViewSpace = () => {
+  const viewAllSpaces = () => {
     const token = localStorage.getItem('userToken');
     const userID = localStorage.getItem('userID');
 
@@ -98,7 +104,7 @@ function Main(props) {
             </div>
           ) : null}
           {props.isAuth ? (
-            <button onClick={handleViewSpace}>View My Space</button>
+            <button>View My Space</button>
           ) : null}
         </div>
         <div className="">
