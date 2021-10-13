@@ -58,4 +58,16 @@ function Space(props) {
   );
 }
 
-export default connect()(Space);
+const mapStateToProps = (state) => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Space);
