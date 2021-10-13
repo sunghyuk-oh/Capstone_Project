@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function Space(props) {
-  const location = useLocation();
-  const spaceName = location.state.spaceName;
+  // const location = useLocation();
+  // const spaceName = location.state.spaceName;
+  const spaceID = useParams().spaceid;
   const [userName, setUserName] = useState('');
 
   const handleUsernameInput = (e) => {
@@ -14,7 +16,7 @@ function Space(props) {
     fetch('http://localhost:8080/invite', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userName: userName, spaceName: spaceName })
+      body: JSON.stringify({ userName: userName, spaceID: spaceID })
     })
       .then((response) => response.json())
       .then((result) => {
@@ -29,6 +31,7 @@ function Space(props) {
     <div>
       <header>
         <nav>
+          <span>{spaceID}</span>
           <span>logo</span>
           <button>User Account</button>
         </nav>

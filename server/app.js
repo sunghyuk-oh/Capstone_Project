@@ -114,13 +114,13 @@ app.post('/createSpace', (req, res) => {
 
 app.post('/invite', (req, res) => {
   const userName = req.body.userName;
-  const spaceName = req.body.spaceName;
-  // console.log(userName, spaceName);
+  const spaceID = req.body.spaceID;
+  console.log(userName, spaceID);
 
-  db.any('SELECT space_id from spaces where space_name = $1', [spaceName]).then(
+  db.any('SELECT space_name from spaces where space_id = $1', [spaceID]).then(
     (space) => {
       // console.log(space);
-      const spaceID = space[0].space_id;
+      const spaceName = space[0].space_name;
       db.any('SELECT user_id from users where username = $1', [userName]).then(
         (user) => {
           // console.log(user);
@@ -129,9 +129,10 @@ app.post('/invite', (req, res) => {
             'INSERT INTO spaces_invitees (space_id, user_id) VALUES($1, $2)',
             [spaceID, userID]
           ).then(
-            res.send(
-              `User ID: ${userID} has been invited to Space: ${spaceName}`
-            )
+            res.json({
+              success: true,
+              message: `User ID: ${userID} has been invited to Space: ${spaceName}`
+            })
           );
         }
       );
@@ -139,24 +140,32 @@ app.post('/invite', (req, res) => {
   );
 });
 
-// possible method to secure space urls
-app.get('/test', (req, res) => {
-  const mySpace = 15;
-  db.any(
-    'SELECT space_id, user_id from spaces where user_id=$1 group by space_id',
-    [9]
-  ).then((foundSpaces) => {
-    // console.log(foundSpaces);
-    const mappedSpaces = foundSpaces.map((space) => {
+// authenticate space
+app.get('/auth/:spaceid', (req, res) => {
+  const spaceID = req.params.spaceID;
+  const userID = req.body.userID;
+
+  db.any('SELECT space_id from spaces where user_id=$1 group by space_id', [
+    userID
+  ]).then((userSpacesCreated) => {
+    const createdSpaces = userSpacesCreated.map((space) => {
       return space.space_id;
     });
-    // console.log(mappedSpaces);
-    if (mappedSpaces.includes(mySpace)) {
-      // console.log('User is authenticated in Space');
-    } else {
-      // console.log('User does not belong here');
-    }
-    res.send({ success: true });
+    db.any(
+      'SELECT space_id from spaces_invitees where user_id=$1 group by space_id',
+      [userID]
+    ).then((userSpacesInvited) => {
+      const invitedSpaces = userSpacesInvited.map((space) => {
+        return space.space_id;
+      });
+      const allSpaces = createdSpaces.concat(invitedSpaces);
+      // console.log(allSpaces);
+      if (allSpaces.includes(spaceID)) {
+        res.json({ success: true, message: 'User is authenticated in Space' });
+      } else {
+        res.redirect('http://localhost:3000/');
+      }
+    });
   });
 });
 
