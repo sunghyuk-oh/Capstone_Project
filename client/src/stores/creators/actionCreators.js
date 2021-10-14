@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 // Home Component Actions
 export const addSpace = (data, history) => {
-  fetch('http://localhost:8080/createSpace', {
+  fetch('http://localhost:8080/spaces/createSpace', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
@@ -21,7 +21,7 @@ export const addSpace = (data, history) => {
 
 export const loadSpaces = (data) => {
   return (dispatch) => {
-    fetch(`http://localhost:8080/viewSpace/${data.userID}`, {
+    fetch(`http://localhost:8080/spaces/viewSpace/${data.userID}`, {
       method: 'GET',
       headers: { Authorization: `Bearer ${data.token}` }
     })
@@ -36,7 +36,7 @@ export const loadSpaces = (data) => {
 
 export const login = (data, history) => {
   return (dispatch) => {
-    fetch('http://localhost:8080/login', {
+    fetch('http://localhost:8080/users/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -59,7 +59,7 @@ export const login = (data, history) => {
 
 export const register = (data, history) => {
   return (dispatch) => {
-    fetch('http://localhost:8080/register', {
+    fetch('http://localhost:8080/users/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -82,7 +82,7 @@ export const register = (data, history) => {
 
 // Space Component Actions
 export const authUsers = (data, history) => {
-  fetch(`http://localhost:8080/auth/${data.spaceID}/${data.userID}`)
+  fetch(`http://localhost:8080/spaces/auth/${data.spaceID}/${data.userID}`)
     .then((response) => response.json())
     .then((result) => {
       if (result.success) {
@@ -97,7 +97,7 @@ export const authUsers = (data, history) => {
 };
 
 export const listMembers = (data, updateState) => {
-  fetch(`http://localhost:8080/displayMembers/${data}`)
+  fetch(`http://localhost:8080/spaces/displayMembers/${data}`)
     .then((response) => response.json())
     .then((result) => {
       if (result.success) {
@@ -108,7 +108,7 @@ export const listMembers = (data, updateState) => {
 };
 
 export const invite = (data) => {
-  fetch('http://localhost:8080/invite', {
+  fetch('http://localhost:8080/spaces/invite', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
