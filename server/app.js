@@ -71,14 +71,23 @@ app.post('/register', (req, res) => {
         db.none(
           'INSERT INTO users (username, password, first_name, last_name, email) VALUES ($1, $2, $3, $4, $5);',
           [username, hash, firstName, lastName, email]
-        )
-          .then(() =>
-            res.json({
-              success: true,
-              message: 'You have been successfully registered. Please Login.'
+        ).then(
+          db
+            .one('SELECT user_id from users where username = $1', [username])
+            .then((user) => {
+              const userID = user.user_id;
+              const token = jwt.sign(
+                { username: username, userID: userID },
+                `${process.env.JWT_SECRET_KEY}`
+              );
+              res.json({
+                success: true,
+                token: token,
+                username: username,
+                userID: userID
+              });
             })
-          )
-          .catch((err) => console.error(err));
+        );
       }
     })
     .catch((err) => console.error(err));

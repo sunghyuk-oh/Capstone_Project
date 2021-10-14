@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import * as actionCreators from '../stores/creators/actionCreators';
 
 function Login(props) {
+  const history = useHistory();
   const [userLogin, setUserLogin] = useState({});
   const [userRegister, setUserRegister] = useState({});
   const [loginSuccess, setLoginSuccess] = useState({
@@ -32,50 +35,13 @@ function Login(props) {
   };
 
   const handleLogin = () => {
-    fetch('http://localhost:8080/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userLogin)
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.success) {
-          localStorage.setItem('userToken', result.token);
-          localStorage.setItem('username', result.username);
-          localStorage.setItem('userID', result.userID);
-          props.onLogin();
-          props.history.push('/');
-        } else {
-          setLoginSuccess({ success: false, message: result.message });
-          console.log('Login Failed');
-        }
-      })
-      .catch((err) => console.log(err));
-
+    props.onLogin(userLogin, history);
     setUserLogin({});
   };
 
   const handleRegister = () => {
-    fetch('http://localhost:8080/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userRegister)
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.success) {
-          setRegisterSuccess({ success: true, message: result.message });
-
-          if (registerFail) {
-            setRegisterFail({ fail: false, message: '' });
-          }
-
-          props.history.push('/login');
-        } else {
-          setRegisterFail({ fail: true, message: result.message });
-        }
-      })
-      .catch((err) => console.log(err));
+    props.onRegister(userRegister, history);
+    setUserRegister({});
   };
 
   return (
@@ -145,7 +111,9 @@ function Login(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLogin: () => dispatch({ type: 'ON_LOGIN' })
+    onLogin: (data, history) => dispatch(actionCreators.login(data, history)),
+    onRegister: (data, history) =>
+      dispatch(actionCreators.register(data, history))
   };
 };
 
