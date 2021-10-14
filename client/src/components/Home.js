@@ -59,19 +59,10 @@ function Main(props) {
       <h1>FriendsZone</h1>
       <section className="">
         <div className="">
-          {!props.isAuth ? (
-            <button>
-              <NavLink to="/login">Login / Register</NavLink>
-            </button>
-          ) : null}
-          {props.isAuth ? (
-            <button>
-              <NavLink to="/logout">Logout</NavLink>
-            </button>
-          ) : null}
-          {props.isAuth ? (
-            <button onClick={handleNewSpaceInputPopUp}>Create New Space</button>
-          ) : null}
+          <button>
+            <NavLink to="/logout">Logout</NavLink>
+          </button>
+          <button onClick={handleNewSpaceInputPopUp}>Create New Space</button>
           {props.isAuth && isNewSpace ? (
             <div className="">
               <input
