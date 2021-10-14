@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import * as actionCreators from '../stores/creators/actionCreators';
 
 function Main(props) {
   const history = useHistory();
@@ -10,9 +11,9 @@ function Main(props) {
 
   useEffect(() => {
     if (props.isAuth) {
-        viewAllSpaces()
+      viewAllSpaces();
     }
-  }, [])
+  }, []);
 
   const handleNewSpaceInputPopUp = () => {
     isNewSpace ? setIsNewSpace(false) : setIsNewSpace(true);
@@ -24,37 +25,15 @@ function Main(props) {
 
   const handleCreateSpace = () => {
     const userID = localStorage.getItem('userID');
-
-    fetch('http://localhost:8080/createSpace', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ spaceName: spaceName, userID: userID })
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.success) {
-          // sending space name variable to space component (for invites)
-          history.push({
-            pathname: `/space/${result.spaceID}`,
-            state: { spaceName: spaceName, spaceID: result.spaceID }
-          });
-        }
-      })
-      .catch((err) => console.log(err));
+    const createData = { spaceName: spaceName, userID: userID };
+    actionCreators.addSpace(createData, history);
   };
 
   const viewAllSpaces = () => {
     const token = localStorage.getItem('userToken');
     const userID = localStorage.getItem('userID');
-
-    fetch(`http://localhost:8080/viewSpace/${userID}`, {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then((response) => response.json())
-      .then((mySpaces) => {
-        props.onViewMySpace(mySpaces);
-      });
+    const viewData = { userID: userID, token: token };
+    props.onViewMySpace(viewData);
   };
 
   const allMySpace = props.mySpaceList.map((space) => {
@@ -103,9 +82,6 @@ function Main(props) {
               <button onClick={handleCreateSpace}>Create</button>
             </div>
           ) : null}
-          {props.isAuth ? (
-            <button>View My Space</button>
-          ) : null}
         </div>
         <div className="">
           <img src="" />
@@ -127,8 +103,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onViewMySpace: (spaceList) =>
-      dispatch({ type: 'VIEW_MY_SPACE', payload: spaceList })
+    onViewMySpace: (data) => dispatch(actionCreators.loadSpaces(data))
   };
 };
 

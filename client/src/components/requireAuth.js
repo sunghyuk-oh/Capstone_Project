@@ -1,26 +1,25 @@
-import { Component } from "react";
-import { connect } from 'react-redux'
+import { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default function(ComposedComponent) {
-    class Authenticate extends Component {
-
-        constructor(props) {
-            super(props)
-            if(!this.props.isAuth) { 
-                this.props.history.push('/')
-            }
-        }
-
-        render() {
-            return <ComposedComponent {...this.props} />
-        }
+export default function (ComposedComponent) {
+  class Authenticate extends Component {
+    constructor(props) {
+      super(props);
+      if (!this.props.isAuth) {
+        this.props.history.push('/home');
+      }
     }
 
-    const mapStateToProps = (state) => {
-        return {
-            isAuth: state.isAuth
-        }
+    render() {
+      return <ComposedComponent {...this.props} />;
     }
+  }
 
-    return connect(mapStateToProps)(Authenticate)
+  const mapStateToProps = (state) => {
+    return {
+      isAuth: state.isAuth
+    };
+  };
+
+  return connect(mapStateToProps)(Authenticate);
 }
