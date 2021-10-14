@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-const Chat = ({ socket, username, zone }) => {
+const Chat = ({ socket, username, spaceID }) => {
   const [currentMsg, setCurrentMsg] = useState('');
   const [msgList, setMsgList] = useState([]);
 
   const sendMsg = async () => {
     if (currentMsg !== '') {
       const msgData = {
-        zone: zone,
+        space: spaceID,
         author: username,
         message: currentMsg,
         time:

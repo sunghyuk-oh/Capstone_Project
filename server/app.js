@@ -1,24 +1,17 @@
 require('dotenv').config();
-const express = require('express');
-const app = express();
-const http = require('http');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 global.jwt = require('jsonwebtoken');
 global.pgp = require('pg-promise')();
-const authenticate = require('./middlewares/auth');
 const port = process.env.PORT;
 global.db = pgp(`${process.env.DATABASE}`);
-
+const authenticate = require('./middlewares/auth');
 const { urlencoded } = require('express');
+
+const express = require('express');
+const http = require('http');
 const { Server } = require('socket.io');
-
-app.use(cors());
-app.use(express.json());
-app.use(urlencoded({ extended: true }));
-
-const port = process.env.PORT;
-const db = pgp(`${process.env.DATABASE}`);
+const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -27,17 +20,21 @@ const io = new Server(server, {
   }
 });
 
+app.use(cors());
+app.use(express.json());
+app.use(urlencoded({ extended: true }));
+
 io.on('connection', (socket) => {
   console.log(`User ${socket.id} Connected`);
 
-  socket.on('join_zone', (data) => {
+  socket.on('join_space', (data) => {
     socket.join(data);
-    console.log(`User with ID: ${socket.id} joined zone: ${data}`);
+    console.log(`User: ${socket.id} joined space: ${data}`);
   });
 
   socket.on('send_msg', (data) => {
     console.log(data);
-    socket.to(data.zone).emit('receive_msg', data);
+    socket.to(data.space).emit('receive_msg', data);
   });
 
   socket.on('disconnect', () => {
@@ -176,13 +173,14 @@ app.post('/invite', (req, res) => {
 });
 
 // authenticate space
-app.get('/auth/:spaceid', (req, res) => {
+app.get('/auth/:spaceID/:userID', (req, res) => {
   const spaceID = req.params.spaceID;
-  const userID = req.body.userID;
+  const userID = req.params.userID;
 
   db.any('SELECT space_id from spaces where user_id=$1 group by space_id', [
     userID
   ]).then((userSpacesCreated) => {
+    console.log(userSpacesCreated);
     const createdSpaces = userSpacesCreated.map((space) => {
       return space.space_id;
     });
@@ -190,15 +188,19 @@ app.get('/auth/:spaceid', (req, res) => {
       'SELECT space_id from spaces_invitees where user_id=$1 group by space_id',
       [userID]
     ).then((userSpacesInvited) => {
+      console.log(userSpacesInvited);
       const invitedSpaces = userSpacesInvited.map((space) => {
         return space.space_id;
       });
       const allSpaces = createdSpaces.concat(invitedSpaces);
-      // console.log(allSpaces);
-      if (allSpaces.includes(spaceID)) {
+      console.log(allSpaces);
+      if (allSpaces.includes(parseInt(spaceID))) {
         res.json({ success: true, message: 'User is authenticated in Space' });
       } else {
-        res.redirect('http://localhost:3000/');
+        res.json({
+          success: false,
+          message: 'User is not authenticated in Space'
+        });
       }
     });
   });
@@ -215,4 +217,4 @@ app.get('/viewSpace/:userID', authenticate, (req, res) => {
   });
 });
 
-app.listen(port, () => console.log('Server is running...'));
+server.listen(port, () => console.log('Server is running...'));

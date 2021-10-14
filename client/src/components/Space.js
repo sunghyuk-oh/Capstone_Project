@@ -1,12 +1,23 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+import Chat from './Chat';
 // import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+const socket = io.connect('http://localhost:8080');
 
 function Space(props) {
   // const location = useLocation();
   // const spaceName = location.state.spaceName;
   const spaceID = useParams().spaceid;
   const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    joinSpace();
+  }, [props]);
+
+  const joinSpace = () => {
+    socket.emit('join_space', spaceID);
+  };
 
   const handleUsernameInput = (e) => {
     setUserName(e.target.value);
@@ -31,7 +42,6 @@ function Space(props) {
     <div>
       <header>
         <nav>
-          <span>{spaceID}</span>
           <span>logo</span>
           <button>User Account</button>
         </nav>
@@ -53,7 +63,14 @@ function Space(props) {
           </div>
         </section>
         <section>Post List</section>
-        <section>Chat Box</section>
+        <section>
+          <span>Chat</span>
+          <Chat
+            socket={socket}
+            username={localStorage.username}
+            spaceID={spaceID}
+          />
+        </section>
         <section>Event List</section>
       </main>
     </div>

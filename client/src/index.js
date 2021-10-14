@@ -9,7 +9,6 @@ import App from './components/App';
 import Home from './components/Home';
 import Login from './components/Login';
 import Logout from './components/Logout';
-import SocketIo from './components/SocketioTest';
 import Space from './components/Space';
 import requireAuth from './components/requireAuth';
 
@@ -30,7 +29,6 @@ ReactDOM.render(
         <App>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/test" component={SocketIo} />
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
             <Route
