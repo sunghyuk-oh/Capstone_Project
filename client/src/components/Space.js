@@ -1,51 +1,37 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import io from 'socket.io-client';
 import Chat from './Chat';
 // import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router';
+import * as actionCreators from '../stores/creators/actionCreators';
+
 const socket = io.connect('http://localhost:8080');
 
 function Space(props) {
   // const location = useLocation();
   // const spaceName = location.state.spaceName;
+  const history = useHistory();
   const [userName, setUserName] = useState('');
-  const [members, setMembers] = useState([])
+  const [members, setMembers] = useState([]);
   const spaceID = useParams().spaceid;
   const userID = localStorage.getItem('userID');
 
   useEffect(() => {
-    authSpaceUsers()
-    displaySpaceMembers()
-  }, [])
+    authSpaceUsers();
+    displaySpaceMembers();
+    joinSpace();
+  }, []);
 
   const authSpaceUsers = () => {
-    fetch(`http://localhost:8080/auth/${spaceID}/${userID}`)
-    .then(response => response.json())
-    .then(result => {
-      if (result.success) {
-        console.log(result.message)
-      } else {
-        props.history.push('/')
-        console.log(result.message)
-      }
-    })
-    .catch(err => console.log(err))
-  }
+    const authData = { spaceID: spaceID, userID: userID };
+    actionCreators.authUsers(authData, history);
+  };
 
   const displaySpaceMembers = () => {
-    fetch(`http://localhost:8080/displayMembers/${spaceID}`)
-    .then(response => response.json())
-    .then(result => {
-      if (result.success) {
-        setMembers(result.members)
-      }
-    })
-    .catch(err => console.log(err))
-  }
-
-  useEffect(() => {
-    joinSpace();
-  }, [props]);
+    actionCreators.listMembers(spaceID, setMembers);
+  };
 
   const joinSpace = () => {
     socket.emit('join_space', spaceID);
@@ -56,32 +42,27 @@ function Space(props) {
   };
 
   const handleInviteSubmit = () => {
-    fetch('http://localhost:8080/invite', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userName: userName, spaceID: spaceID })
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const inviteData = { userName: userName, spaceID: spaceID };
+    actionCreators.invite(inviteData);
   };
 
   const allMembers = members.map((member, index) => {
-    return(
+    return (
       <div key={index} className="">
-        <h5>- {member.first_name} {member.last_name}</h5>
+        <h5>
+          - {member.first_name} {member.last_name}
+        </h5>
       </div>
-    )
-  })
+    );
+  });
 
   return (
     <div>
       <header>
         <nav>
+          <button>
+            <NavLink to="/home">Home</NavLink>
+          </button>
           <span>logo</span>
           <button>User Account</button>
         </nav>

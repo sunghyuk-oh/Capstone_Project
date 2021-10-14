@@ -1,28 +1,12 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import * as actionCreators from '../stores/creators/actionCreators';
 
 function Register(props) {
-  const [userLogin, setUserLogin] = useState({});
+  const history = useHistory();
   const [userRegister, setUserRegister] = useState({});
-  const [loginSuccess, setLoginSuccess] = useState({
-    success: true,
-    message: ''
-  });
-  const [registerSuccess, setRegisterSuccess] = useState({
-    success: false,
-    message: ''
-  });
-  const [registerFail, setRegisterFail] = useState({
-    fail: false,
-    message: ''
-  });
-
-  const handleLoginInput = (e) => {
-    setUserLogin({
-      ...userLogin,
-      [e.target.name]: e.target.value
-    });
-  };
 
   const handleRegisterInput = (e) => {
     setUserRegister({
@@ -31,76 +15,18 @@ function Register(props) {
     });
   };
 
-  const handleLogin = () => {
-    fetch('http://localhost:8080/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userLogin)
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.success) {
-          localStorage.setItem('userToken', result.token);
-          localStorage.setItem('username', result.username);
-          localStorage.setItem('userID', result.userID);
-          props.onLogin();
-          props.history.push('/');
-        } else {
-          setLoginSuccess({ success: false, message: result.message });
-          console.log('Login Failed');
-        }
-      })
-      .catch((err) => console.log(err));
-
-    setUserLogin({});
-  };
-
   const handleRegister = () => {
-    fetch('http://localhost:8080/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userRegister)
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.success) {
-          setRegisterSuccess({ success: true, message: result.message });
-
-          if (registerFail) {
-            setRegisterFail({ fail: false, message: '' });
-          }
-
-          props.history.push('/login');
-        } else {
-          setRegisterFail({ fail: true, message: result.message });
-        }
-      })
-      .catch((err) => console.log(err));
+    props.onRegister(userRegister, history);
+    setUserRegister({});
   };
 
   return (
     <section className="">
+      <button>
+        <NavLink to="/">Home</NavLink>
+      </button>
       <div className="">
-        <h3>Login</h3>
-        {!loginSuccess.success ? <p>{loginSuccess.message}</p> : null}
-        <input
-          type="text"
-          onChange={handleLoginInput}
-          name="username"
-          placeholder="Username"
-        />
-        <input
-          type="password"
-          onChange={handleLoginInput}
-          name="password"
-          placeholder="Password"
-        />
-        <button onClick={handleLogin}>Login</button>
-      </div>
-      <div className="">
-        <h3>Sign Up</h3>
-        {registerSuccess.success ? <p>{registerSuccess.message}</p> : null}
-        {registerFail.fail ? <p>{registerFail.message}</p> : null}
+        <h3>Register</h3>
         <input
           type="text"
           onChange={handleRegisterInput}
@@ -145,7 +71,8 @@ function Register(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLogin: () => dispatch({ type: 'ON_LOGIN' })
+    onRegister: (data, history) =>
+      dispatch(actionCreators.register(data, history))
   };
 };
 

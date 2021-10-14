@@ -79,3 +79,45 @@ export const register = (data, history) => {
       .catch((err) => console.log(err));
   };
 };
+
+// Space Component Actions
+export const authUsers = (data, history) => {
+  fetch(`http://localhost:8080/auth/${data.spaceID}/${data.userID}`)
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.success) {
+        console.log(result.message);
+      } else {
+        // redirect to a message component
+        history.push('/home');
+        console.log(result.message);
+      }
+    })
+    .catch((err) => console.log(err));
+};
+
+export const listMembers = (data, updateState) => {
+  fetch(`http://localhost:8080/displayMembers/${data}`)
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.success) {
+        updateState(result.members);
+      }
+    })
+    .catch((err) => console.log(err));
+};
+
+export const invite = (data) => {
+  fetch('http://localhost:8080/invite', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};

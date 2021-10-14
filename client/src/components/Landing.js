@@ -7,7 +7,10 @@ const Landing = () => {
       <section className="">
         <div className="">
           <button>
-            <NavLink to="/login">Login / Register</NavLink>
+            <NavLink to="/login">Login</NavLink>
+          </button>
+          <button>
+            <NavLink to="/register">Register</NavLink>
           </button>
         </div>
       </section>
