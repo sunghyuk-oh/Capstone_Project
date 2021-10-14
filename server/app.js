@@ -23,6 +23,7 @@ const io = new Server(server, {
 // router variables
 const usersRouter = require('./routers/users');
 const spacesRouter = require('./routers/spaces');
+const eventsRouter = require('./routers/events');
 
 app.use(cors());
 app.use(express.json());
@@ -31,6 +32,7 @@ app.use(urlencoded({ extended: true }));
 // set routers
 app.use('/users', usersRouter);
 app.use('/spaces', spacesRouter);
+app.use('/events', eventsRouter);
 
 io.on('connection', (socket) => {
   console.log(`User ${socket.id} Connected`);
