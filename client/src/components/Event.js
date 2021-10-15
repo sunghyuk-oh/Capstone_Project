@@ -22,32 +22,14 @@ const localizer = dateFnsLocalizer({
     locales
 })
 
-const events = [
-    {
-        title: "Big Meeting",
-        allDay: false,
-        start_date: new Date(2021, 9, 14, 9, 0, 0),
-        end_date: new Date(2021, 9, 14)
-    },
-    {
-        title: "Vacation",
-        start: new Date(2021, 10, 20),
-        end: new Date(2021, 10, 21)
-    }
-]
-
 function Event() {
     const spaceID = useParams().spaceid;
     const userID = localStorage.getItem('userID');
     const [newEvent, setNewEvent] = useState({ title: "", start_date: "", end_date: "", location: "", username: "", user_id: userID, space_id: spaceID })
-    const [attendee, setAttendee] = useState({ username: "" })
-    const [eventID, setEventID] = useState("")
-    
-    const [allEvents, setAllEvents] = useState(events)
+    // const [attendee, setAttendee] = useState({ username: "" })
+    // const [eventID, setEventID] = useState("")
     
     function handleEvents() {
-        setAllEvents([...allEvents, newEvent])
-
         fetch("http://localhost:8080/createEvent", {
             method: "POST",
             headers: { "Content-Type": "application/json"},
@@ -56,7 +38,6 @@ function Event() {
         .then(response => response.json())
         .then(result => {
             if (result.success) {
-                // setEventID(result.eventID.toString())
                 console.log(result.message)  
             } else {
                 console.log('Adding a new event failed')
@@ -81,8 +62,6 @@ function Event() {
         // .catch(err => console.log(err))
     }
 
-    console.log(allEvents)
-    console.log(newEvent)
     return (
         <section className="">
             <div>
