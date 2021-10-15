@@ -1,5 +1,7 @@
 import Event from './Event'
+import EventDetails from './EventDetails'
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom';
 import io from 'socket.io-client';
 import Chat from './Chat';
@@ -22,6 +24,7 @@ function Space(props) {
     authSpaceUsers();
     displaySpaceMembers();
     joinSpace();
+    displayAllEvents()
   }, []);
 
   const authSpaceUsers = () => {
@@ -35,6 +38,10 @@ function Space(props) {
 
   const joinSpace = () => {
     socket.emit('join_space', spaceID);
+  };
+
+  const displayAllEvents = () => {
+    props.onDisplayAllEvents(spaceID)
   };
 
   const handleUsernameInput = (e) => {
@@ -55,6 +62,15 @@ function Space(props) {
       </div>
     );
   });
+
+  const allEvents = props.allEvents.map((event) => {
+    return (
+      <div key={event.event_id}>
+        <h4>{event.title}</h4>
+        <p>{event.start_date} - {event.end_date}</p>
+      </div>
+    )
+  })
 
   return (
     <div>
@@ -93,11 +109,27 @@ function Space(props) {
             spaceID={spaceID}
           />
         </section>
-        <section>Event List</section>
+        <section>
+          Event List
+          {allEvents}
+        </section>
         <Event />
+        <EventDetails />
       </main>
     </div>
   );
 }
 
-export default Space;
+const mapStateToProps = (state) => {
+  return {
+    allEvents: state.allEvents
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onDisplayAllEvents: (spaceID) => dispatch(actionCreators.displayAllEvents(spaceID))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Space);
