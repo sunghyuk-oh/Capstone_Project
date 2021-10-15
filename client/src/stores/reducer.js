@@ -2,7 +2,8 @@ import * as actionTypes from '../stores/actions/actionTypes';
 
 const initialState = {
   isAuth: false,
-  mySpaceList: []
+  mySpaceList: [],
+  allEvents: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -31,6 +32,11 @@ const reducer = (state = initialState, action) => {
       return {
         mySpaceList: []
       };
+    case actionTypes.DISPLAY_ALL_EVENTS:
+      return {
+        ...state,
+        allEvents: action.payload
+      }
     default:
       return state;
   }

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { connect } from 'react-redux'
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import format from "date-fns/format";
 import getDay from "date-fns/getDay";
@@ -8,10 +9,11 @@ import startOfWeek from "date-fns/startOfWeek";
 import DatePicker from "react-datepicker";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
+import * as actionCreators from '../stores/creators/actionCreators'
 
 
 const locales = {
-    "en-US": require("date-fns/locale/en-US")
+    "en-US": require("date-fns/locale/en-US"),
 }
 
 const localizer = dateFnsLocalizer({
@@ -19,64 +21,37 @@ const localizer = dateFnsLocalizer({
     parse,
     startOfWeek,
     getDay,
-    locales
+    locales,
 })
 
-const events = [
-    {
-        title: "Big Meeting",
-        allDay: false,
-        start_date: new Date(2021, 9, 14, 9, 0, 0),
-        end_date: new Date(2021, 9, 14)
-    },
-    {
-        title: "Vacation",
-        start: new Date(2021, 10, 20),
-        end: new Date(2021, 10, 21)
-    }
-]
 
-function Event() {
+function Event(props) {
     const spaceID = useParams().spaceid;
     const userID = localStorage.getItem('userID');
-    const [newEvent, setNewEvent] = useState({ title: "", start_date: "", end_date: "", location: "", username: "", user_id: userID, space_id: spaceID })
-    const [attendee, setAttendee] = useState({ username: "" })
-    const [eventID, setEventID] = useState("")
-
-    const [allEvents, setAllEvents] = useState(events)
+    const [newEvent, setNewEvent] = useState({ title: "", start_date: "", end_date: "", location: "", user_id: userID, space_id: spaceID })
     
-    function handleEvents() {
-        fetch("http://localhost:8080/createEvent", {
-            method: "POST",
-            headers: { "Content-Type": "application/json"},
-            body: JSON.stringify(newEvent)
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
-                console.log(result.message)  
-            } else {
-                console.log('Adding a new event failed')
-            }
-        })
-        .catch(err => console.log(err))
 
-        
-        // fetch("http://localhost:8080/addEventAttendee", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json"},
-        //     body: JSON.stringify({ username: attendee.username, event_id: eventID, space_id: spaceID })
-        // })
-        // .then(response => response.json())
-        // .then(result => {
-        //     if (result.success) {
-        //         console.log(result.message)
-        //     } else {
-        //         console.log('Adding an attendee for this event failed')
-        //     }
-        // })
-        // .catch(err => console.log(err))
+    useEffect(() => {
+        displayAllEvents()
+    }, [])
+
+
+    const displayAllEvents = () => {
+        props.onDisplayAllEvents(spaceID)
     }
+
+    const handleAddEvent = (newEvent) => {
+        props.onAddNewEvent(newEvent)
+    }
+
+    const allEvents = props.allEvents.map(event => {
+        return {
+            title: event.title,
+            start_date: new Date(event.start_date),
+            end_date: new Date(event.end_date)
+        }
+    })
+
 
     return (
         <section className="">
@@ -94,12 +69,7 @@ function Event() {
                     <h3>Location:</h3>
                     <input type="text" placeholder="Full Address (optional)" value={newEvent.location} onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value})} />
                 </div>
-                <div>   
-                    <h3>Attendee:</h3>
-                    <input type="text" placeholder="Username" value={newEvent.username} onChange={e => setNewEvent({...newEvent, username: e.target.value})} />
-                </div>
-                
-                <button onClick={handleEvents}>Add Event</button>
+                <button onClick={() => handleAddEvent(newEvent)}>Add Event</button>
             </div>
 
             <Calendar localizer={localizer} events={allEvents} startAccessor="start_date" endAccessor="end_date" defaultDate={new Date()} style={{ height: 500, margin: "50px" }} />
@@ -107,4 +77,17 @@ function Event() {
     )
 }
 
-export default Event
+const mapStateToProps = (state) => {
+    return {
+        allEvents: state.allEvents
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onDisplayAllEvents: (spaceID) => dispatch(actionCreators.displayAllEvents(spaceID)),
+        onAddNewEvent: (event) => dispatch(actionCreators.addNewEvent(event))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Event)

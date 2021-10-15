@@ -70,7 +70,7 @@ export const register = (data, history) => {
           localStorage.setItem('userToken', result.token);
           localStorage.setItem('username', result.username);
           localStorage.setItem('userID', result.userID);
-          dispatch({ type: 'ON_REGISTER', payload: result.success });
+          dispatch({ type: actionTypes.ON_REGISTER, payload: result.success });
           history.push('/home');
         } else {
           console.log('Registration Failed');
@@ -121,3 +121,39 @@ export const invite = (data) => {
       console.log(error);
     });
 };
+
+
+// Event Component Actions
+export const displayAllEvents = (spaceID) => {
+  return (dispatch) => {
+    fetch(`http://localhost:8080/events/displayAllEvents/${spaceID}`)
+    .then(response => response.json())
+    .then(result => {
+      if (result.success) {
+        dispatch({ type: actionTypes.DISPLAY_ALL_EVENTS, payload: result.all_events });
+      } else {
+        console.log('Displaying all events failed.')
+      }
+    })
+    .catch(err => console.log(err))
+  }
+}
+
+export const addNewEvent = (event) => {
+  return (dispatch) => {
+    fetch("http://localhost:8080/events/createEvent", {
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify(event)
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                console.log(result.message)  
+            } else {
+                console.log('Adding a new event failed')
+            }
+        })
+        .catch(err => console.log(err))
+  }
+}

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import * as actionCreators from '../stores/creators/actionCreators';
 
-function Main(props) {
+function Home(props) {
   const history = useHistory();
   const [spaceName, setSpaceName] = useState('');
   const [isNewSpace, setIsNewSpace] = useState(false);
@@ -98,4 +98,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
