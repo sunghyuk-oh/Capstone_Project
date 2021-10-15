@@ -1,14 +1,14 @@
 require('dotenv').config();
-const cors = require('cors');
+global.express = require('express');
 global.bcrypt = require('bcryptjs');
 global.jwt = require('jsonwebtoken');
 global.pgp = require('pg-promise')();
-const port = process.env.PORT;
 global.db = pgp(`${process.env.DATABASE}`);
 global.authenticate = require('./middlewares/auth');
+const port = process.env.PORT;
+const cors = require('cors');
 const { urlencoded } = require('express');
 
-global.express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const app = express();
@@ -57,3 +57,4 @@ app.get('/', (req, res) => {
 });
 
 server.listen(port, () => console.log('Server is running...'));
+

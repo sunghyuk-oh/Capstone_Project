@@ -1,3 +1,4 @@
+import Event from './Event'
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import io from 'socket.io-client';
@@ -6,7 +7,6 @@ import Chat from './Chat';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import * as actionCreators from '../stores/creators/actionCreators';
-
 const socket = io.connect('http://localhost:8080');
 
 function Space(props) {
@@ -94,6 +94,7 @@ function Space(props) {
           />
         </section>
         <section>Event List</section>
+        <Event />
       </main>
     </div>
   );
