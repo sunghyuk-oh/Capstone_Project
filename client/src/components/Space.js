@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 // import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import Event from './Event'
 
 function Space(props) {
   // const location = useLocation();
@@ -96,6 +97,7 @@ function Space(props) {
         <section>Post List</section>
         <section>Chat Box</section>
         <section>Event List</section>
+        <Event />
       </main>
     </div>
   );
