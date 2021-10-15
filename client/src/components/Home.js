@@ -38,10 +38,11 @@ function Main(props) {
 
   const allMySpace = props.mySpaceList.map((space) => {
     return (
-      <div key={space.space_id} className="eachSpace">
-        <h3>{space.space_name}</h3>
-        <button>
+      <div key={space.space_id} className="spaceBlock">
+        <h3 className="spaceTitle">{space.space_name}</h3>
+        <button className="toSpaceBtn">
           <NavLink
+            className="spaceLink"
             to={{
               pathname: `/space/${space.space_id}`,
               state: { spaceID: space.space_id, spaceName: space.space_name }
@@ -55,33 +56,34 @@ function Main(props) {
   });
 
   return (
-    <article className="App">
-      <h1>FriendsZone</h1>
-      <section className="">
-        <div className="">
-          <button>
-            <NavLink to="/logout">Logout</NavLink>
+    <section id="home">
+      {props.isAuth && isNewSpace ? (
+        <div id="spaceCredentials">
+          <h5>Create New Space</h5>
+          <p>
+            By creating a space you can invite friends, chat, and plan new
+            events!
+          </p>
+          <input
+            type="text"
+            onChange={handleSpaceName}
+            placeholder="Enter Space Name"
+          />
+          <button id="submitSpaceBtn" onClick={handleCreateSpace}>
+            Create
           </button>
-          <button onClick={handleNewSpaceInputPopUp}>Create New Space</button>
-          {props.isAuth && isNewSpace ? (
-            <div className="">
-              <input
-                type="text"
-                onChange={handleSpaceName}
-                placeholder="Enter Space Name"
-              />
-              <button onClick={handleCreateSpace}>Create</button>
-            </div>
-          ) : null}
         </div>
-        <div className="">
-          <img src="" />
+      ) : null}
+      <section id="createSpaceSection">
+        <h3>My Spaces</h3>
+        <div id="createSpace">
+          <button id="createSpaceBtn" onClick={handleNewSpaceInputPopUp}>
+            +<span id="createHoverText">Add New Space</span>
+          </button>
         </div>
       </section>
-      <section className="">
-        {props.isAuth ? <div className="">{allMySpace}</div> : null}
-      </section>
-    </article>
+      <section id="mySpacesList">{allMySpace}</section>
+    </section>
   );
 }
 

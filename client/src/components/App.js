@@ -1,10 +1,13 @@
+import Header from './Header';
+import '../css/output.css';
 
 function App(props) {
-  return(
-    <main>
-        {props.children}
+  return (
+    <main id="baseLayout">
+      <Header />
+      {props.children}
     </main>
-  )
+  );
 }
 
-export default App
+export default App;

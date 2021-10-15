@@ -21,25 +21,26 @@ function Login(props) {
   };
 
   return (
-    <section className="">
-      <button>
-        <NavLink to="/">Home</NavLink>
-      </button>
-      <div className="">
-        <h3>Login</h3>
+    <section id="login">
+      <div id="loginCredentials">
+        <h3 id="loginTitle">Login</h3>
         <input
           type="text"
           onChange={handleLoginInput}
           name="username"
           placeholder="Username"
+          className="loginInputs"
         />
         <input
           type="password"
           onChange={handleLoginInput}
           name="password"
           placeholder="Password"
+          className="loginInputs"
         />
-        <button onClick={handleLogin}>Login</button>
+        <button id="loginBtn" onClick={handleLogin}>
+          Login
+        </button>
       </div>
     </section>
   );

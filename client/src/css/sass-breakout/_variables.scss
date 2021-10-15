@@ -1,10 +1,15 @@
-@mixin testBorder($color) {
-  border: 2px solid $color;
-}
+// color palettes
 
-@mixin flex($direction, $justify, $align) {
-  display: flex;
-  flex-direction: $direction;
-  justify-content: $justify;
-  align-items: $align;
-}
+// light palette - light purple -> pink -> blue
+$lightPalette1: #cdb4db;
+$lightPalette2: #ffc8dd;
+$lightPalette3: #ffafcc;
+$lightPalette4: #bde0fe;
+$lightPalette5: #a2d2ff;
+
+// dark palette - black -> blue -> silver
+$darkPalette1: #0d1b2a;
+$darkPalette2: #1b263b;
+$darkPalette3: #415a77;
+$darkPalette4: #778da9;
+$darkPalette5: #e0e1dd;
