@@ -174,3 +174,33 @@ export const inviteMember = (invitee, attendee, setAttendee) => {
   })
   .catch(err => console.log(err))
 }
+
+// User Account Component
+export const displayUserInfo = (userID, userToken, setUserInfo) => {
+  fetch(`http://localhost:8080/accounts/displayUserInfo/${userID}`, {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${userToken}` }
+  })
+  .then(response => response.json())
+  .then(result => {
+    if (result.success) {
+      setUserInfo(result.user)
+    } 
+  })
+  .catch(err => console.log(err))
+}
+
+export const updateUserInfo = (userInfo) => {
+  fetch('http://localhost:8080/accounts/updateUserInfo', {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(userInfo)
+  })
+  .then(response => response.json())
+  .then(result => {
+    if (result.success) {
+      console.log(result.message)
+    }
+  })
+  .catch(err => console.log(err))
+}

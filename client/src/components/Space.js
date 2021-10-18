@@ -87,15 +87,6 @@ function Space(props) {
 
   return (
     <div>
-      <header>
-        <nav>
-          <button>
-            <NavLink to="/home">Home</NavLink>
-          </button>
-          <span>logo</span>
-          <button>User Account</button>
-        </nav>
-      </header>
       <main>
         <section>Create Space</section>
         <section>Space List</section>

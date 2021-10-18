@@ -14,6 +14,7 @@ import Logout from './components/Logout';
 import Space from './components/Space';
 import requireAuth from './components/requireAuth';
 import Register from './components/Register';
+import Account from './components/Account';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -32,6 +33,7 @@ ReactDOM.render(
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route path="/home" component={requireAuth(Home)} />
+            <Route path="/account" component={requireAuth(Account)} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/logout" component={Logout} />
