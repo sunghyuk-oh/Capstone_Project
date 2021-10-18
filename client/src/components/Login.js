@@ -30,13 +30,18 @@ function Login(props) {
           name="username"
           placeholder="Username"
           className="loginInputs"
+          required
         />
         <input
           type="password"
           onChange={handleLoginInput}
+          onKeyPress={(event) => {
+            event.key === 'Enter' && handleLogin();
+          }}
           name="password"
           placeholder="Password"
           className="loginInputs"
+          required
         />
         <button id="loginBtn" onClick={handleLogin}>
           Login

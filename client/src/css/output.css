@@ -5,6 +5,7 @@
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: auto repeat(4, 1fr);
+  font-family: "Roboto", sans-serif;
 }
 #baseLayout a {
   text-decoration: none;
@@ -119,6 +120,12 @@
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: auto repeat(4, 1fr);
 }
+
+#home {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto repeat(4, 1fr);
+}
 #home #spaceCredentials {
   display: flex;
   flex-direction: column;
@@ -188,6 +195,79 @@
   color: white;
 }
 #home #mySpacesList {
+  grid-column: 1/1;
+  grid-row: 2/4;
+}
+
+#spaceNav #spaceCredentials {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  grid-column: 1/1;
+  grid-row: 2/4;
+  margin: 10px 25px 0px 25px;
+  background: linear-gradient(#ffc8dd, #bde0fe);
+  border: 2px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  height: 200px;
+}
+#spaceNav #spaceCredentials h5 {
+  margin: 0px;
+}
+#spaceNav #spaceCredentials p {
+  width: 70%;
+}
+#spaceNav #spaceCredentials input {
+  margin: 3px auto;
+  padding: 3px 0px 3px 5px;
+  height: 25px;
+  width: 190px;
+  border: none;
+  border-radius: 3px;
+}
+#spaceNav #spaceCredentials #submitSpaceBtn {
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  margin: 3px auto;
+  padding: 3px 0px 3px 5px;
+  width: 190px;
+  height: 30px;
+  transition: 0.25s;
+  font-weight: 200;
+  background-color: #cdb4db;
+}
+#spaceNav #spaceCredentials #submitSpaceBtn:hover {
+  cursor: pointer;
+  background-color: #ffc8dd;
+}
+#spaceNav #createSpaceSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+#spaceNav #createSpaceSection #createSpace #createSpaceBtn {
+  border: none;
+  margin-left: 15px;
+}
+#spaceNav #createSpaceSection #createSpace #createSpaceBtn:hover #createHoverText {
+  visibility: visible;
+}
+#spaceNav #createSpaceSection #createSpace #createSpaceBtn #createHoverText {
+  visibility: hidden;
+  position: absolute;
+  top: 50px;
+  left: 40px;
+  margin-left: 15px;
+  padding: 10px;
+  font-size: 13px;
+  background-color: #0d1b2a;
+  color: white;
+}
+#spaceNav #mySpacesList {
   grid-column: 1/1;
   grid-row: 2/4;
 }

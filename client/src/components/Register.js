@@ -30,6 +30,7 @@ function Register(props) {
           name="firstName"
           placeholder="First Name"
           className="registerInputs"
+          required
         />
         <input
           type="text"
@@ -37,6 +38,7 @@ function Register(props) {
           name="lastName"
           placeholder="Last Name"
           className="registerInputs"
+          required
         />
         <input
           type="text"
@@ -44,6 +46,7 @@ function Register(props) {
           name="email"
           placeholder="Email"
           className="registerInputs"
+          required
         />
         <input
           type="text"
@@ -51,6 +54,7 @@ function Register(props) {
           name="username"
           placeholder="Username"
           className="registerInputs"
+          required
         />
         <input
           type="password"
@@ -58,13 +62,18 @@ function Register(props) {
           name="password"
           placeholder="Password"
           className="registerInputs"
+          required
         />
         <input
           type="password"
           onChange={handleRegisterInput}
+          onKeyPress={(event) => {
+            event.key === 'Enter' && handleRegister();
+          }}
           name="confirmPassword"
           placeholder="Confirm Password"
           className="registerInputs"
+          required
         />
         <button id="registerBtn" onClick={handleRegister}>
           Register

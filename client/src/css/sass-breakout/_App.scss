@@ -10,6 +10,7 @@
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: auto repeat(4, 1fr);
+  font-family: 'Roboto', sans-serif;
   a {
     text-decoration: none;
     color: inherit;

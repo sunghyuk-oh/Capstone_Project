@@ -1,76 +1,7 @@
 @import './mixins';
+
 #home {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: auto repeat(4, 1fr);
-  #spaceCredentials {
-    @include flex(column, center, center);
-    grid-column: 1 / 1;
-    grid-row: 2 / 4;
-    margin: 10px 25px 0px 25px;
-    background: linear-gradient($lightPalette2, $lightPalette4);
-    border: 2px solid black;
-    border-radius: 10px;
-    z-index: 10;
-    height: 200px;
-    h5 {
-      margin: 0px;
-    }
-    p {
-      width: 70%;
-    }
-    input {
-      margin: 3px auto;
-      padding: 3px 0px 3px 5px;
-      height: 25px;
-      width: 190px;
-      border: none;
-      border-radius: 3px;
-    }
-    #submitSpaceBtn {
-      &:hover {
-        cursor: pointer;
-        background-color: $lightPalette2;
-      }
-      outline: none;
-      border: none;
-      border-radius: 3px;
-      margin: 3px auto;
-      padding: 3px 0px 3px 5px;
-      width: 190px;
-      height: 30px;
-      transition: 0.25s;
-      font-weight: 200;
-      background-color: $lightPalette1;
-    }
-  }
-  #createSpaceSection {
-    @include flex(row, flex-start, center);
-    #createSpace {
-      #createSpaceBtn {
-        border: none;
-        margin-left: 15px;
-        &:hover {
-          #createHoverText {
-            visibility: visible;
-          }
-        }
-        #createHoverText {
-          visibility: hidden;
-          position: absolute;
-          top: 50px;
-          left: 40px;
-          margin-left: 15px;
-          padding: 10px;
-          font-size: 13px;
-          background-color: $darkPalette1;
-          color: white;
-        }
-      }
-    }
-  }
-  #mySpacesList {
-    grid-column: 1 / 1;
-    grid-row: 2 / 4;
-  }
 }

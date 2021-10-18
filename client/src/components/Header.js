@@ -17,6 +17,7 @@ const Header = (props) => {
             <NavLink to="/logout">Logout</NavLink>
           </button>
         ) : null}
+        {props.isAuth ? <button>User Account</button> : null}
       </nav>
     </header>
   );
