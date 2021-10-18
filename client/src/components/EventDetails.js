@@ -12,14 +12,39 @@ function EventDetails(props) {
                 return event.date_created == dateCreated 
         })
 
+        const convertDateFormat = (date) => {
+                const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+                const year = date.getFullYear()
+                const month = date.getMonth()
+                const numDay = date.getDate()
+                const day = date.getDay()
+
+                return (`${month}/${numDay}/${year}  ${days[day]}`)
+        }
+
+        const convertTimeFormat = (date) => {
+                const hour = date.getHours()
+                const minute = date.getMinutes()
+                
+                console.log(hour, minute)
+                if (hour == 0) {
+                        return '00:00'
+                } else {
+                        return (`${hour}:${minute}`)
+                }
+        }
+
         const events = filteredEvents.map(event => {
-                // const startDate = convertDateFormat(event.start_date)
-                // const endDate = convertDateFormat(event.end_date)
+                const startDate = convertDateFormat(new Date(event.start_date))
+                const endDate = convertDateFormat(new Date(event.end_date))
+                const startTime = convertTimeFormat(new Date(event.start_date))
+                const endTime = convertTimeFormat(new Date(event.end_date))
 
                 return (
                         <div key={event.event_id}>
                                 <h3>{event.title}</h3>
-                                <p><strong>Date: </strong>{event.start_date} - {event.end_date}</p>
+                                <p><strong>Date: </strong>{startDate} - {endDate}</p>
+                                <p><strong>Time: </strong>{startTime} - {endTime}</p>
                                 <p><strong>Location: </strong>{event.location}</p>
                         </div>
                 )

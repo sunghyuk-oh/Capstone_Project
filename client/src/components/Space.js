@@ -63,11 +63,24 @@ function Space(props) {
     );
   });
 
+  const convertDateFormat = (date) => {
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    const year = date.getFullYear()
+    const month = date.getMonth()
+    const numDay = date.getDate()
+    const day = date.getDay()
+
+    return (`${month}/${numDay}/${year}  ${days[day]}`)
+  }
+
   const allEvents = props.allEvents.map((event) => {
+    const startDate = convertDateFormat(new Date(event.start_date))
+    const endDate = convertDateFormat(new Date(event.end_date))
+                
     return (
       <div key={event.event_id}>
         <h4>{event.title}</h4>
-        <p>{event.start_date} - {event.end_date}</p>
+        <p>{startDate} - {endDate}</p>
       </div>
     )
   })
