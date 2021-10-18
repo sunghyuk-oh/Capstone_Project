@@ -18,17 +18,21 @@ router.post('/createEvent', (req, res) => {
     .catch(err => console.log(err))
 })
 
-// router.post('/addEventAttendee', (req, res) => {
-//     db.any("SELECT user_id FROM users WHERE username = $1", [username])
-//         .then((userID) => {
-//             const user_id = userID[0].user_id
-            
-//             db.none("INSERT INTO event_invites (status, event_id, space_id, user_id) VALUES ('Maybe', $1, $2, $3)", [event_id, space_id, user_id])
-//             .then(
-//                 res.json({ success: true, message: "A new event has been created." })
-//             )
-//         })
-//         .catch(err => console.log(err))
-// })
+router.post('/inviteMember', (req, res) => {
+    const { eventID, spaceID, username } = req.body
+
+    db.any("SELECT user_id, first_name, last_name FROM users WHERE username = $1", [username])
+    .then((foundUser) => {
+        const userID = foundUser[0].user_id
+        const firstName = foundUser[0].first_name
+        const lastName = foundUser[0].last_name
+        
+        db.none("INSERT INTO event_invites (status, event_id, space_id, user_id) VALUES ('Maybe', $1, $2, $3)", [eventID, spaceID, userID])
+        .then(
+            res.json({ success: true, message: "An attendee has been added to the event.", member: {username: username, firstName: firstName, lastName: lastName}})
+        )
+    })
+    .catch(err => console.log(err))
+})
 
 module.exports = router;

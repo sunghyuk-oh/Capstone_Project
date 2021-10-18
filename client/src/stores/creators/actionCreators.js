@@ -157,3 +157,20 @@ export const addNewEvent = (event) => {
         .catch(err => console.log(err))
   }
 }
+
+export const inviteMember = (invitee, attendee, setAttendee) => {
+  fetch("http://localhost:8080/events/inviteMember", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(invitee)
+  })
+  .then(response => response.json())
+  .then(result => {
+    if (result.success) {
+      setAttendee([...attendee, result.member])
+    } else {
+      console.log('Adding an attendee to this event failed')
+    }
+  })
+  .catch(err => console.log(err))
+}
