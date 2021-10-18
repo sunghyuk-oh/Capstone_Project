@@ -1,0 +1,29 @@
+@import './mixins';
+
+#landing {
+  grid-column: 1 / 1;
+  grid-row: 2 / 4;
+  align-self: center;
+  #landingNav {
+    @include flex(column, center, center);
+    #loginLink {
+      margin-bottom: 10px;
+    }
+    .landingLink {
+      &:hover {
+        background-color: $lightPalette3;
+      }
+      @include flex(column, center, center);
+      color: black;
+      font-weight: bolder;
+      height: 50px;
+      width: 200px;
+      border-width: 4px;
+      border-style: solid;
+      border-radius: 15px;
+      border-image: linear-gradient(to right, $lightPalette3, $lightPalette5) 1;
+      backdrop-filter: blur(8px);
+      box-shadow: 2px 2px 5px 0.5px gray;
+    }
+  }
+}

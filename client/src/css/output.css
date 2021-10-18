@@ -1,3 +1,195 @@
+#baseLayout {
+  margin: 0px;
+  height: 100vh;
+  background: linear-gradient(#cdb4db, #a2d2ff);
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto repeat(4, 1fr);
+}
+#baseLayout a {
+  text-decoration: none;
+  color: inherit;
+}
 
+#headerNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#landing {
+  grid-column: 1/1;
+  grid-row: 2/4;
+  align-self: center;
+}
+#landing #landingNav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#landing #landingNav #loginLink {
+  margin-bottom: 10px;
+}
+#landing #landingNav .landingLink {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-weight: bolder;
+  height: 50px;
+  width: 200px;
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 15px;
+  border-image: linear-gradient(to right, #ffafcc, #a2d2ff) 1;
+  backdrop-filter: blur(8px);
+  box-shadow: 2px 2px 5px 0.5px gray;
+}
+#landing #landingNav .landingLink:hover {
+  background-color: #ffafcc;
+}
+
+#login #loginCredentials {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#login #loginCredentials .loginInputs {
+  margin: 3px auto;
+  padding: 3px 0px 3px 5px;
+  height: 25px;
+  width: 190px;
+  border: none;
+  border-radius: 3px;
+}
+#login #loginCredentials #loginBtn {
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  margin: 3px auto;
+  padding: 3px 0px 3px 5px;
+  width: 190px;
+  height: 30px;
+  transition: 0.25s;
+  font-weight: 200;
+  background-color: #bde0fe;
+}
+#login #loginCredentials #loginBtn:hover {
+  cursor: pointer;
+  background-color: #ffafcc;
+}
+
+#register #registerCredentials {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#register #registerCredentials .registerInputs {
+  margin: 3px auto;
+  padding: 3px 0px 3px 5px;
+  height: 25px;
+  width: 190px;
+  border: none;
+  border-radius: 3px;
+}
+#register #registerCredentials #registerBtn {
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  margin: 3px auto;
+  padding: 3px 0px 3px 5px;
+  width: 190px;
+  height: 30px;
+  transition: 0.25s;
+  font-weight: 200;
+  background-color: #ffafcc;
+}
+#register #registerCredentials #registerBtn:hover {
+  cursor: pointer;
+  background-color: #bde0fe;
+}
+
+#home {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto repeat(4, 1fr);
+}
+#home #spaceCredentials {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  grid-column: 1/1;
+  grid-row: 2/4;
+  margin: 10px 25px 0px 25px;
+  background: linear-gradient(#ffc8dd, #bde0fe);
+  border: 2px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  height: 200px;
+}
+#home #spaceCredentials h5 {
+  margin: 0px;
+}
+#home #spaceCredentials p {
+  width: 70%;
+}
+#home #spaceCredentials input {
+  margin: 3px auto;
+  padding: 3px 0px 3px 5px;
+  height: 25px;
+  width: 190px;
+  border: none;
+  border-radius: 3px;
+}
+#home #spaceCredentials #submitSpaceBtn {
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  margin: 3px auto;
+  padding: 3px 0px 3px 5px;
+  width: 190px;
+  height: 30px;
+  transition: 0.25s;
+  font-weight: 200;
+  background-color: #cdb4db;
+}
+#home #spaceCredentials #submitSpaceBtn:hover {
+  cursor: pointer;
+  background-color: #ffc8dd;
+}
+#home #createSpaceSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+#home #createSpaceSection #createSpace #createSpaceBtn {
+  border: none;
+  margin-left: 15px;
+}
+#home #createSpaceSection #createSpace #createSpaceBtn:hover #createHoverText {
+  visibility: visible;
+}
+#home #createSpaceSection #createSpace #createSpaceBtn #createHoverText {
+  visibility: hidden;
+  position: absolute;
+  top: 50px;
+  left: 40px;
+  margin-left: 15px;
+  padding: 10px;
+  font-size: 13px;
+  background-color: #0d1b2a;
+  color: white;
+}
+#home #mySpacesList {
+  grid-column: 1/1;
+  grid-row: 2/4;
+}
 
 /*# sourceMappingURL=output.css.map */

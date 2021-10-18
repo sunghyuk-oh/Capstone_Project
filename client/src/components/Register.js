@@ -21,49 +21,54 @@ function Register(props) {
   };
 
   return (
-    <section className="">
-      <button>
-        <NavLink to="/">Home</NavLink>
-      </button>
-      <div className="">
+    <section id="register">
+      <div id="registerCredentials">
         <h3>Register</h3>
         <input
           type="text"
           onChange={handleRegisterInput}
           name="firstName"
           placeholder="First Name"
+          className="registerInputs"
         />
         <input
           type="text"
           onChange={handleRegisterInput}
           name="lastName"
           placeholder="Last Name"
+          className="registerInputs"
         />
         <input
           type="text"
           onChange={handleRegisterInput}
           name="email"
           placeholder="Email"
+          className="registerInputs"
         />
         <input
           type="text"
           onChange={handleRegisterInput}
           name="username"
           placeholder="Username"
+          className="registerInputs"
         />
         <input
           type="password"
           onChange={handleRegisterInput}
           name="password"
           placeholder="Password"
+          className="registerInputs"
         />
         <input
           type="password"
           onChange={handleRegisterInput}
           name="confirmPassword"
           placeholder="Confirm Password"
+          className="registerInputs"
         />
-        <button onClick={handleRegister}>Register</button>
+        <button id="registerBtn" onClick={handleRegister}>
+          Register
+        </button>
       </div>
     </section>
   );
