@@ -103,42 +103,21 @@ function MobileSpace(props) {
       <nav id="componentSelect">
         <button
           name="titleAndMembers"
-          id="showTitleAndMembers"
           class="toggleComponents"
           onClick={handleActive}
         >
           Space Title + Members
         </button>
-        <button
-          name="spaces"
-          id="showSpaces"
-          class="toggleComponents"
-          onClick={handleActive}
-        >
+        <button name="spaces" class="toggleComponents" onClick={handleActive}>
           View Spaces
         </button>
-        <button
-          name="posts"
-          id="showPosts"
-          class="toggleComponents"
-          onClick={handleActive}
-        >
+        <button name="posts" class="toggleComponents" onClick={handleActive}>
           View Posts
         </button>
-        <button
-          name="chat"
-          id="showChat"
-          class="toggleComponents"
-          onClick={handleActive}
-        >
+        <button name="chat" class="toggleComponents" onClick={handleActive}>
           View Chat
         </button>
-        <button
-          name="events"
-          id="showEvents"
-          class="toggleComponents"
-          onClick={handleActive}
-        >
+        <button name="events" class="toggleComponents" onClick={handleActive}>
           View Events
         </button>
       </nav>

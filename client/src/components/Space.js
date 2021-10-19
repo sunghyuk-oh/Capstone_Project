@@ -19,6 +19,7 @@ function Space(props) {
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [members, setMembers] = useState([]);
+  const [isExpanded, setExpanded] = useState({ expanded: '', close: true });
   const spaceID = useParams().spaceid;
   const userID = localStorage.getItem('userID');
 
@@ -89,6 +90,11 @@ function Space(props) {
     );
   });
 
+  const toggleExpanded = (e) => {
+    let componentName = e.target.name;
+    setExpanded({ expanded: componentName, close: !isExpanded['close'] });
+  };
+
   return (
     <div>
       <MobileSpace />
@@ -96,10 +102,30 @@ function Space(props) {
         <section id="spaceTitle">
           <h1>{spaceName}</h1>
         </section>
-        <section id="spacesInfo">
+        <section
+          id={
+            isExpanded['expanded'] === 'spaces' && isExpanded['close'] === false
+              ? 'expandedSpacesInfo'
+              : 'spacesInfo'
+          }
+        >
           <SpaceNav />
+          <button
+            name="spaces"
+            className="expandComponent"
+            onClick={toggleExpanded}
+          >
+            [ + ]
+          </button>
         </section>
-        <section id="memberInfo">
+        <section
+          id={
+            isExpanded['expanded'] === 'members' &&
+            isExpanded['close'] === false
+              ? 'expandedMemberInfo'
+              : 'memberInfo'
+          }
+        >
           <span>Members</span>
           <div id="memberList">{allMembers}</div>
           <div>
@@ -112,6 +138,13 @@ function Space(props) {
             />
             <button onClick={handleInviteSubmit}>Invite</button>
           </div>
+          <button
+            name="members"
+            className="expandComponent"
+            onClick={toggleExpanded}
+          >
+            [ + ]
+          </button>
         </section>
         <section id="postSection">Post List</section>
         <section id="chatSection">
