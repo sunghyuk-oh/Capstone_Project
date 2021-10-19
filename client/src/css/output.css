@@ -183,17 +183,18 @@
     scroll-behavior: smooth;
     border: 2px solid gray;
   }
-  #space #event {
+  #space #eventContainer {
     overflow-y: scroll;
     scroll-behavior: smooth;
-    border: 2px solid purple;
+  }
+  #space #eventContainer #event {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     padding-bottom: 25px;
   }
-  #space #event #newEvent #eventDataInput {
+  #space #eventContainer #event #newEvent #eventDataInput {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -241,7 +242,7 @@
     grid-column: 1/2;
     grid-row: 6/12;
   }
-  #space #event {
+  #space #eventContainer {
     border: 2px solid purple;
     grid-column: 6/8;
     grid-row: 1/5;

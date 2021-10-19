@@ -14,6 +14,9 @@ import Logout from './components/Logout';
 import Space from './components/Space';
 import requireAuth from './components/requireAuth';
 import Register from './components/Register';
+import io from 'socket.io-client';
+
+window.socket = io.connect('http://localhost:8080');
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

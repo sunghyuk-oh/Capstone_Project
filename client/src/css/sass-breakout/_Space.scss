@@ -51,18 +51,16 @@
       scroll-behavior: smooth;
       @include testBorder(gray);
     }
-    #event {
+    #eventContainer {
       overflow-y: scroll;
       scroll-behavior: smooth;
-      @include testBorder(purple);
-      @include flex(column, flex-start, center);
-      padding-bottom: 25px;
-      // #calendar {
-      //   padding-top: 260px;
-      // }
-      #newEvent {
-        #eventDataInput {
-          @include flex(column, center, center);
+      #event {
+        @include flex(column, flex-start, center);
+        padding-bottom: 25px;
+        #newEvent {
+          #eventDataInput {
+            @include flex(column, center, center);
+          }
         }
       }
     }
@@ -110,7 +108,7 @@
       grid-column: 1 / 2;
       grid-row: 6 / 12;
     }
-    #event {
+    #eventContainer {
       @include testBorder(purple);
       grid-column: 6 / 8;
       grid-row: 1 / 5;

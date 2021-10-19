@@ -3,7 +3,6 @@ import EventDetails from './EventDetails';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import io from 'socket.io-client';
 import Chat from './Chat';
 import SpaceNav from './SpaceNav';
 import MobileSpace from './MobileSpace';
@@ -11,9 +10,9 @@ import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import * as actionCreators from '../stores/creators/actionCreators';
-const socket = io.connect('http://localhost:8080');
 
 function Space(props) {
+  const socket = window.socket;
   const location = useLocation();
   const spaceName = location.state.spaceName;
   const history = useHistory();
@@ -97,7 +96,11 @@ function Space(props) {
 
   return (
     <div>
-      <MobileSpace />
+      <MobileSpace
+        socket={socket}
+        username={localStorage.username}
+        spaceID={spaceID}
+      />
       <section id="space">
         <section id="spaceTitle">
           <h1>{spaceName}</h1>
@@ -109,7 +112,6 @@ function Space(props) {
               : 'spacesInfo'
           }
         >
-          <SpaceNav />
           <button
             name="spaces"
             className="expandComponent"
@@ -117,6 +119,7 @@ function Space(props) {
           >
             [ + ]
           </button>
+          <SpaceNav />
         </section>
         <section
           id={
@@ -126,6 +129,13 @@ function Space(props) {
               : 'memberInfo'
           }
         >
+          <button
+            name="members"
+            className="expandComponent"
+            onClick={toggleExpanded}
+          >
+            [ + ]
+          </button>
           <span>Members</span>
           <div id="memberList">{allMembers}</div>
           <div>
@@ -138,16 +148,37 @@ function Space(props) {
             />
             <button onClick={handleInviteSubmit}>Invite</button>
           </div>
+        </section>
+        <section
+          id={
+            isExpanded['expanded'] === 'posts' && isExpanded['close'] === false
+              ? 'expandedPostSection'
+              : 'postSection'
+          }
+        >
           <button
-            name="members"
+            name="posts"
             className="expandComponent"
             onClick={toggleExpanded}
           >
             [ + ]
           </button>
+          Post List
         </section>
-        <section id="postSection">Post List</section>
-        <section id="chatSection">
+        <section
+          id={
+            isExpanded['expanded'] === 'chat' && isExpanded['close'] === false
+              ? 'expandedChatSection'
+              : 'chatSection'
+          }
+        >
+          <button
+            name="chat"
+            className="expandComponent"
+            onClick={toggleExpanded}
+          >
+            [ + ]
+          </button>
           <span>Chat</span>
           <Chat
             socket={socket}
@@ -159,7 +190,22 @@ function Space(props) {
           Event List
           {allEvents}
         </section>
-        <Event />
+        <div
+          id={
+            isExpanded['expanded'] === 'event' && isExpanded['close'] === false
+              ? 'expandedEventContainer'
+              : 'eventContainer'
+          }
+        >
+          <button
+            name="event"
+            className="expandComponent"
+            onClick={toggleExpanded}
+          >
+            [ + ]
+          </button>
+          <Event />
+        </div>
         <EventDetails />
       </section>
     </div>
