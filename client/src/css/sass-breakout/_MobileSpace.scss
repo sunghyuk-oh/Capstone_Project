@@ -1,0 +1,75 @@
+@import './mixins';
+
+#mobileSpace {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto repeat(4, 1fr);
+  height: 100vh;
+  width: 100%;
+  #showTitle {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    z-index: 10;
+  }
+  #spaceTitle {
+    @include testBorder(yellow);
+  }
+  #spacesInfo {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
+    @include testBorder(red);
+  }
+  #memberInfo {
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+    @include flex(column, center, center);
+    @include testBorder(black);
+    #memberList {
+      @include flex(row, center, center);
+    }
+  }
+  #postSection {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    grid-column: 1 / 4;
+    grid-row: 3 / 4;
+    @include testBorder(blue);
+  }
+  #chatSection {
+    @include testBorder(green);
+  }
+  #eventList {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    @include testBorder(gray);
+  }
+  #event {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    @include testBorder(purple);
+    @include flex(column, flex-start, center);
+    padding-bottom: 25px;
+    // #calendar {
+    //   padding-top: 260px;
+    // }
+    #newEvent {
+      #eventDataInput {
+        @include flex(column, center, center);
+      }
+    }
+  }
+  #eventDetails {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    @include testBorder(gold);
+  }
+}
+
+// portrait tablets
+@media (min-width: 641px) {
+  #mobileSpace {
+    display: none;
+  }
+}

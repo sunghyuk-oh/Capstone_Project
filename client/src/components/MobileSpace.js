@@ -6,19 +6,25 @@ import { NavLink } from 'react-router-dom';
 import io from 'socket.io-client';
 import Chat from './Chat';
 import SpaceNav from './SpaceNav';
-import MobileSpace from './MobileSpace';
 import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import * as actionCreators from '../stores/creators/actionCreators';
 const socket = io.connect('http://localhost:8080');
 
-function Space(props) {
+function MobileSpace(props) {
   const location = useLocation();
   const spaceName = location.state.spaceName;
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [members, setMembers] = useState([]);
+  const [isHidden, setHidden] = useState({
+    spaces: true,
+    titleAndMembers: false,
+    chat: false,
+    posts: false,
+    events: false
+  });
   const spaceID = useParams().spaceid;
   const userID = localStorage.getItem('userID');
 
@@ -89,31 +95,77 @@ function Space(props) {
     );
   });
 
+  const handleHidden = (e) => {
+    let hiddenName = e.target.name;
+    let hiddenStatus = isHidden[hiddenName];
+    setHidden({
+      ...isHidden,
+      [hiddenName]: !hiddenStatus
+    });
+  };
+
   return (
-    <div>
-      <MobileSpace />
-      <section id="space">
-        <section id="spaceTitle">
-          <h1>{spaceName}</h1>
-        </section>
+    <section id="mobileSpace">
+      <button
+        name="titleAndMembers"
+        id="showTitleAndMembers"
+        class="toggleComponents"
+        onClick={handleHidden}
+      >
+        Space Title + Members
+      </button>
+      {isHidden['titleAndMembers'] ? (
+        <div>
+          <section id="spaceTitle">
+            <h1>{spaceName}</h1>
+          </section>
+          <section id="memberInfo">
+            <span>Members</span>
+            <div id="memberList">{allMembers}</div>
+            <div>
+              <span>User Invite</span>
+              <input
+                type="text"
+                placeholder="Enter Invitee's Username"
+                name="usernameInput"
+                onChange={handleUsernameInput}
+              />
+              <button onClick={handleInviteSubmit}>Invite</button>
+            </div>
+          </section>
+        </div>
+      ) : null}
+      <button
+        name="spaces"
+        id="showSpaces"
+        class="toggleComponents"
+        onClick={handleHidden}
+      >
+        View Spaces
+      </button>
+      {isHidden['spaces'] ? (
         <section id="spacesInfo">
           <SpaceNav />
         </section>
-        <section id="memberInfo">
-          <span>Members</span>
-          <div id="memberList">{allMembers}</div>
-          <div>
-            <span>User Invite</span>
-            <input
-              type="text"
-              placeholder="Enter Invitee's Username"
-              name="usernameInput"
-              onChange={handleUsernameInput}
-            />
-            <button onClick={handleInviteSubmit}>Invite</button>
-          </div>
-        </section>
-        <section id="postSection">Post List</section>
+      ) : null}
+      <button
+        name="posts"
+        id="showPosts"
+        class="toggleComponents"
+        onClick={handleHidden}
+      >
+        View Posts
+      </button>
+      {isHidden['posts'] ? <section id="postSection">Post List</section> : null}
+      <button
+        name="chat"
+        id="showChat"
+        class="toggleComponents"
+        onClick={handleHidden}
+      >
+        View Chat
+      </button>
+      {isHidden['chat'] ? (
         <section id="chatSection">
           <span>Chat</span>
           <Chat
@@ -122,14 +174,27 @@ function Space(props) {
             spaceID={spaceID}
           />
         </section>
-        <section id="eventList">
-          Event List
-          {allEvents}
-        </section>
-        <Event />
-        <EventDetails />
-      </section>
-    </div>
+      ) : null}
+
+      <button
+        name="events"
+        id="showEvents"
+        class="toggleComponents"
+        onClick={handleHidden}
+      >
+        View Events
+      </button>
+      {isHidden['events'] ? (
+        <div>
+          <section id="eventList">
+            Event List
+            {allEvents}
+          </section>
+          <Event />
+          <EventDetails />
+        </div>
+      ) : null}
+    </section>
   );
 }
 
@@ -146,4 +211,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Space);
+export default connect(mapStateToProps, mapDispatchToProps)(MobileSpace);

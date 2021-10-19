@@ -2,7 +2,7 @@ import SpaceNav from './SpaceNav';
 
 const Home = () => {
   return (
-    <div>
+    <div id="home">
       <SpaceNav />
     </div>
   );

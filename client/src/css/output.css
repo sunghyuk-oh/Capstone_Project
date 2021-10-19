@@ -6,6 +6,7 @@
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: auto repeat(4, 1fr);
   font-family: "Roboto", sans-serif;
+  overflow: hidden;
 }
 #baseLayout a {
   text-decoration: none;
@@ -120,92 +121,226 @@
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: auto repeat(4, 1fr);
 }
-
-#home {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: auto repeat(4, 1fr);
+#home #spaceNav {
+  grid-column: 1/1;
+  grid-row: 2/4;
 }
-#home #spaceCredentials {
+
+#space {
+  display: none;
+}
+
+@media (min-width: 641px) {
+  #space {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto repeat(4, 1fr);
+    height: 100vh;
+    width: 100%;
+  }
+  #space #showTitle {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    z-index: 10;
+  }
+  #space #spaceTitle {
+    border: 2px solid yellow;
+  }
+  #space #spacesInfo {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    grid-column: 1/4;
+    grid-row: 2/3;
+    border: 2px solid red;
+  }
+  #space #memberInfo {
+    grid-column: 1/4;
+    grid-row: 1/2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+  }
+  #space #memberInfo #memberList {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #postSection {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    grid-column: 1/4;
+    grid-row: 3/4;
+    border: 2px solid blue;
+  }
+  #space #chatSection {
+    border: 2px solid green;
+  }
+  #space #eventList {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    border: 2px solid gray;
+  }
+  #space #event {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    border: 2px solid purple;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 25px;
+  }
+  #space #event #newEvent #eventDataInput {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #eventDetails {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    border: 2px solid gold;
+  }
+}
+@media (min-width: 1025px) {
+  #space {
+    grid-template-columns: 25% repeat(5, 1fr) 25%;
+    grid-template-rows: auto repeat(10, 1fr);
+    width: 100%;
+  }
+  #space #spaceTitle {
+    border: 2px solid yellow;
+    grid-column: 2/6;
+    grid-row: 1/2;
+  }
+  #space #spacesInfo {
+    grid-column: 1/2;
+    grid-row: 1/6;
+    border: 2px solid red;
+  }
+  #space #memberInfo {
+    grid-column: 2/6;
+    grid-row: 2/3;
+  }
+  #space #memberInfo #memberList {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #postSection {
+    grid-column: 2/6;
+    grid-row: 3/12;
+    border: 2px solid blue;
+  }
+  #space #chatSection {
+    border: 2px solid green;
+    grid-column: 1/2;
+    grid-row: 6/12;
+  }
+  #space #event {
+    border: 2px solid purple;
+    grid-column: 6/8;
+    grid-row: 1/5;
+  }
+  #space #eventList {
+    border: 2px solid gray;
+    grid-column: 6/8;
+    grid-row: 5/8;
+  }
+  #space #eventDetails {
+    grid-column: 6/8;
+    grid-row: 8/12;
+    border: 2px solid gold;
+  }
+}
+#mobileSpace {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto repeat(4, 1fr);
+  height: 100vh;
+  width: 100%;
+}
+#mobileSpace #showTitle {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  z-index: 10;
+}
+#mobileSpace #spaceTitle {
+  border: 2px solid yellow;
+}
+#mobileSpace #spacesInfo {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  grid-column: 1/4;
+  grid-row: 2/3;
+  border: 2px solid red;
+}
+#mobileSpace #memberInfo {
+  grid-column: 1/4;
+  grid-row: 1/2;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  grid-column: 1/1;
-  grid-row: 2/4;
-  margin: 10px 25px 0px 25px;
-  background: linear-gradient(#ffc8dd, #bde0fe);
   border: 2px solid black;
-  border-radius: 10px;
-  z-index: 10;
-  height: 200px;
 }
-#home #spaceCredentials h5 {
-  margin: 0px;
-}
-#home #spaceCredentials p {
-  width: 70%;
-}
-#home #spaceCredentials input {
-  margin: 3px auto;
-  padding: 3px 0px 3px 5px;
-  height: 25px;
-  width: 190px;
-  border: none;
-  border-radius: 3px;
-}
-#home #spaceCredentials #submitSpaceBtn {
-  outline: none;
-  border: none;
-  border-radius: 3px;
-  margin: 3px auto;
-  padding: 3px 0px 3px 5px;
-  width: 190px;
-  height: 30px;
-  transition: 0.25s;
-  font-weight: 200;
-  background-color: #cdb4db;
-}
-#home #spaceCredentials #submitSpaceBtn:hover {
-  cursor: pointer;
-  background-color: #ffc8dd;
-}
-#home #createSpaceSection {
+#mobileSpace #memberInfo #memberList {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 }
-#home #createSpaceSection #createSpace #createSpaceBtn {
-  border: none;
-  margin-left: 15px;
+#mobileSpace #postSection {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  grid-column: 1/4;
+  grid-row: 3/4;
+  border: 2px solid blue;
 }
-#home #createSpaceSection #createSpace #createSpaceBtn:hover #createHoverText {
-  visibility: visible;
+#mobileSpace #chatSection {
+  border: 2px solid green;
 }
-#home #createSpaceSection #createSpace #createSpaceBtn #createHoverText {
-  visibility: hidden;
-  position: absolute;
-  top: 50px;
-  left: 40px;
-  margin-left: 15px;
-  padding: 10px;
-  font-size: 13px;
-  background-color: #0d1b2a;
-  color: white;
+#mobileSpace #eventList {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  border: 2px solid gray;
 }
-#home #mySpacesList {
-  grid-column: 1/1;
-  grid-row: 2/4;
+#mobileSpace #event {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  border: 2px solid purple;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 25px;
+}
+#mobileSpace #event #newEvent #eventDataInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#mobileSpace #eventDetails {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  border: 2px solid gold;
 }
 
+@media (min-width: 641px) {
+  #mobileSpace {
+    display: none;
+  }
+}
 #spaceNav #spaceCredentials {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  grid-column: 1/1;
-  grid-row: 2/4;
   margin: 10px 25px 0px 25px;
   background: linear-gradient(#ffc8dd, #bde0fe);
   border: 2px solid black;
