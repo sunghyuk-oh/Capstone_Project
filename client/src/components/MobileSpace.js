@@ -18,12 +18,8 @@ function MobileSpace(props) {
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [members, setMembers] = useState([]);
-  const [isHidden, setHidden] = useState({
-    spaces: true,
-    titleAndMembers: false,
-    chat: false,
-    posts: false,
-    events: false
+  const [isActive, setActive] = useState({
+    active: 'titleAndMembers'
   });
   const spaceID = useParams().spaceid;
   const userID = localStorage.getItem('userID');
@@ -95,26 +91,59 @@ function MobileSpace(props) {
     );
   });
 
-  const handleHidden = (e) => {
-    let hiddenName = e.target.name;
-    let hiddenStatus = isHidden[hiddenName];
-    setHidden({
-      ...isHidden,
-      [hiddenName]: !hiddenStatus
+  const handleActive = (e) => {
+    let componentName = e.target.name;
+    setActive({
+      active: componentName
     });
   };
 
   return (
     <section id="mobileSpace">
-      <button
-        name="titleAndMembers"
-        id="showTitleAndMembers"
-        class="toggleComponents"
-        onClick={handleHidden}
-      >
-        Space Title + Members
-      </button>
-      {isHidden['titleAndMembers'] ? (
+      <nav id="componentSelect">
+        <button
+          name="titleAndMembers"
+          id="showTitleAndMembers"
+          class="toggleComponents"
+          onClick={handleActive}
+        >
+          Space Title + Members
+        </button>
+        <button
+          name="spaces"
+          id="showSpaces"
+          class="toggleComponents"
+          onClick={handleActive}
+        >
+          View Spaces
+        </button>
+        <button
+          name="posts"
+          id="showPosts"
+          class="toggleComponents"
+          onClick={handleActive}
+        >
+          View Posts
+        </button>
+        <button
+          name="chat"
+          id="showChat"
+          class="toggleComponents"
+          onClick={handleActive}
+        >
+          View Chat
+        </button>
+        <button
+          name="events"
+          id="showEvents"
+          class="toggleComponents"
+          onClick={handleActive}
+        >
+          View Events
+        </button>
+      </nav>
+
+      {isActive['active'] === 'titleAndMembers' ? (
         <div>
           <section id="spaceTitle">
             <h1>{spaceName}</h1>
@@ -135,37 +164,18 @@ function MobileSpace(props) {
           </section>
         </div>
       ) : null}
-      <button
-        name="spaces"
-        id="showSpaces"
-        class="toggleComponents"
-        onClick={handleHidden}
-      >
-        View Spaces
-      </button>
-      {isHidden['spaces'] ? (
+
+      {isActive['active'] === 'spaces' ? (
         <section id="spacesInfo">
           <SpaceNav />
         </section>
       ) : null}
-      <button
-        name="posts"
-        id="showPosts"
-        class="toggleComponents"
-        onClick={handleHidden}
-      >
-        View Posts
-      </button>
-      {isHidden['posts'] ? <section id="postSection">Post List</section> : null}
-      <button
-        name="chat"
-        id="showChat"
-        class="toggleComponents"
-        onClick={handleHidden}
-      >
-        View Chat
-      </button>
-      {isHidden['chat'] ? (
+
+      {isActive['active'] === 'posts' ? (
+        <section id="postSection">Post List</section>
+      ) : null}
+
+      {isActive['active'] === 'chat' ? (
         <section id="chatSection">
           <span>Chat</span>
           <Chat
@@ -175,16 +185,7 @@ function MobileSpace(props) {
           />
         </section>
       ) : null}
-
-      <button
-        name="events"
-        id="showEvents"
-        class="toggleComponents"
-        onClick={handleHidden}
-      >
-        View Events
-      </button>
-      {isHidden['events'] ? (
+      {isActive['active'] === 'events' ? (
         <div>
           <section id="eventList">
             Event List

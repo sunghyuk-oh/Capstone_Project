@@ -260,56 +260,63 @@
 #mobileSpace {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
   height: 100vh;
   width: 100%;
 }
-#mobileSpace #showTitle {
-  grid-column: 1/2;
-  grid-row: 1/2;
-  z-index: 10;
+#mobileSpace div {
+  grid-column: 1/4;
+  grid-row: 1/5;
 }
-#mobileSpace #spaceTitle {
+#mobileSpace div #spaceTitle {
   border: 2px solid yellow;
 }
-#mobileSpace #spacesInfo {
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-  grid-column: 1/4;
-  grid-row: 2/3;
-  border: 2px solid red;
-}
-#mobileSpace #memberInfo {
-  grid-column: 1/4;
-  grid-row: 1/2;
+#mobileSpace div #memberInfo {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border: 2px solid black;
 }
-#mobileSpace #memberInfo #memberList {
+#mobileSpace div #memberInfo #memberList {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
+#mobileSpace #spacesInfo {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  grid-column: 1/4;
+  grid-row: 1/5;
+  border: 2px solid red;
+}
 #mobileSpace #postSection {
   overflow-y: scroll;
   scroll-behavior: smooth;
   grid-column: 1/4;
-  grid-row: 3/4;
+  grid-row: 1/5;
   border: 2px solid blue;
 }
 #mobileSpace #chatSection {
   border: 2px solid green;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  grid-column: 1/4;
+  grid-row: 1/5;
 }
-#mobileSpace #eventList {
+#mobileSpace div {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  grid-column: 1/4;
+  grid-row: 1/5;
+}
+#mobileSpace div #eventList {
   overflow-y: scroll;
   scroll-behavior: smooth;
   border: 2px solid gray;
 }
-#mobileSpace #event {
+#mobileSpace div #event {
   overflow-y: scroll;
   scroll-behavior: smooth;
   border: 2px solid purple;
@@ -319,16 +326,28 @@
   align-items: center;
   padding-bottom: 25px;
 }
-#mobileSpace #event #newEvent #eventDataInput {
+#mobileSpace div #event #newEvent #eventDataInput {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-#mobileSpace #eventDetails {
+#mobileSpace div #eventDetails {
   overflow-y: scroll;
   scroll-behavior: smooth;
   border: 2px solid gold;
+}
+#mobileSpace #componentSelect {
+  grid-column: 1/5;
+  grid-row: 5/6;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+}
+#mobileSpace #componentSelect .toggleComponents {
+  margin: 0px 10px;
 }
 
 @media (min-width: 641px) {
