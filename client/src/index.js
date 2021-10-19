@@ -5,6 +5,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import 'semantic-ui-css/semantic.min.css'
 import reducer from './stores/reducer';
 import App from './components/App';
 import Landing from './components/Landing';

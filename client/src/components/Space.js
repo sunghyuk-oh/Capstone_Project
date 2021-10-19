@@ -9,6 +9,7 @@ import Chat from './Chat';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import * as actionCreators from '../stores/creators/actionCreators';
+import Post from './Post';
 const socket = io.connect('http://localhost:8080');
 
 function Space(props) {
@@ -104,7 +105,10 @@ function Space(props) {
             <button onClick={handleInviteSubmit}>Invite</button>
           </div>
         </section>
-        <section>Post List</section>
+        <section>
+          <h2>Post List</h2>
+          <Post spaceID={spaceID} />
+        </section>
         <section>
           <span>Chat</span>
           <Chat

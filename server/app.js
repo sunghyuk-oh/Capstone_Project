@@ -25,6 +25,7 @@ const usersRouter = require('./routers/users');
 const spacesRouter = require('./routers/spaces');
 const eventsRouter = require('./routers/events');
 const accountsRouter = require('./routers/accounts')
+const postsRouter = require('./routers/posts')
 
 app.use(cors());
 app.use(express.json());
@@ -35,6 +36,7 @@ app.use('/users', usersRouter);
 app.use('/spaces', spacesRouter);
 app.use('/events', eventsRouter);
 app.use('/accounts', accountsRouter)
+app.use('/posts', postsRouter)
 
 io.on('connection', (socket) => {
   console.log(`User ${socket.id} Connected`);

@@ -3,7 +3,8 @@ import * as actionTypes from '../stores/actions/actionTypes';
 const initialState = {
   isAuth: false,
   mySpaceList: [],
-  allEvents: []
+  allEvents: [],
+  posts: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -37,6 +38,15 @@ const reducer = (state = initialState, action) => {
         ...state,
         allEvents: action.payload
       }
+    case actionTypes.DISPLAY_POSTS:
+      return {
+        ...state,
+        posts: action.payload
+      }
+    // case actionTypes.ON_POST:
+    //   return {
+      // state.posts.concat(action.payload)
+    // }
     default:
       return state;
   }
