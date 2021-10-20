@@ -13,7 +13,7 @@ import * as actionCreators from '../stores/creators/actionCreators';
 function MobileSpace(props) {
   const socket = window.socket;
   const location = useLocation();
-  const spaceName = location.state.spaceName;
+  const spaceName = props.isAuth ? location.state.spaceName : "Error"
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [members, setMembers] = useState([]);

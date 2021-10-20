@@ -6,7 +6,7 @@ export default function (ComposedComponent) {
     constructor(props) {
       super(props);
       if (!this.props.isAuth) {
-        this.props.history.push('/home');
+        this.props.history.push('/');
       }
     }
 

@@ -15,7 +15,7 @@ import Post from './Post';
 function Space(props) {
   const socket = window.socket;
   const location = useLocation();
-  const spaceName = location.state.spaceName;
+  const spaceName = props.isAuth ? location.state.spaceName : "Error"
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [members, setMembers] = useState([]);
@@ -246,7 +246,8 @@ function Space(props) {
 
 const mapStateToProps = (state) => {
   return {
-    allEvents: state.allEvents
+    allEvents: state.allEvents,
+    isAuth: state.isAuth
   };
 };
 

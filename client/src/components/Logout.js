@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 function Logout(props) {
     useEffect(() => {
         localStorage.removeItem('userToken')
+        localStorage.removeItem('username')
+        localStorage.removeItem('userID')
         props.onLogout()
         props.onDeleteSpaceList()
         props.history.push('/')
