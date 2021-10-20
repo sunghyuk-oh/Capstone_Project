@@ -5,6 +5,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import 'semantic-ui-css/semantic.min.css'
 import reducer from './stores/reducer';
 import App from './components/App';
 import Landing from './components/Landing';
@@ -17,6 +18,7 @@ import Register from './components/Register';
 import io from 'socket.io-client';
 
 window.socket = io.connect('http://localhost:8080');
+import Account from './components/Account';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -35,6 +37,7 @@ ReactDOM.render(
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route path="/home" component={requireAuth(Home)} />
+            <Route path="/account" component={requireAuth(Account)} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/logout" component={Logout} />

@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import * as actionCreators from '../stores/creators/actionCreators';
+import Post from './Post';
 
 function Space(props) {
   const socket = window.socket;
@@ -163,7 +164,8 @@ function Space(props) {
           >
             [ + ]
           </button>
-          Post List
+          <span>Post List</span>
+          <Post spaceID={spaceID} />
         </section>
         <section
           id={
