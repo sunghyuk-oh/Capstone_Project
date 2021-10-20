@@ -4,8 +4,10 @@ import '../css/output.css';
 function App(props) {
   return (
     <main id="baseLayout">
-      <Header />
-      {props.children}
+      <div id="secondLayerContainer">
+        <Header />
+        {props.children}
+      </div>
     </main>
   );
 }

@@ -37,7 +37,7 @@ function Event(props) {
 
   useEffect(() => {
     displayAllEvents();
-  }, []);
+  }, [spaceID]);
 
   const displayAllEvents = () => {
     props.onDisplayAllEvents(spaceID);
@@ -60,7 +60,7 @@ function Event(props) {
       <div id="calendar">
         <Calendar
           localizer={localizer}
-          events={allEvents}
+          events={props.allEvents}
           startAccessor="start_date"
           endAccessor="end_date"
           defaultDate={new Date()}

@@ -30,6 +30,7 @@ function EventDetails(props) {
     const hour = date.getHours();
     const minute = date.getMinutes();
 
+    console.log(hour, minute);
     if (hour == 0) {
       return '00:00';
     } else {
@@ -77,7 +78,7 @@ function EventDetails(props) {
   });
 
   return (
-    <section id="eventDetails">
+    <section>
       <div>
         {events}
         {allAttendees}

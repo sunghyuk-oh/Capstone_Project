@@ -2,18 +2,20 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import * as actionCreators from '../stores/creators/actionCreators';
 
 function SpaceNav(props) {
   const history = useHistory();
   const [spaceName, setSpaceName] = useState('');
   const [isNewSpace, setIsNewSpace] = useState(false);
+  const spaceID = useParams().spaceid;
 
   useEffect(() => {
     if (props.isAuth) {
       viewAllSpaces();
     }
-  }, []);
+  }, [spaceID]);
 
   const handleNewSpaceInputPopUp = () => {
     isNewSpace ? setIsNewSpace(false) : setIsNewSpace(true);

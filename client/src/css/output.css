@@ -1,12 +1,14 @@
 #baseLayout {
   margin: 0px;
   height: 100vh;
-  background: linear-gradient(#cdb4db, #a2d2ff);
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: auto repeat(4, 1fr);
+  background: linear-gradient(#a2d2ff, #ffc8dd);
   font-family: "Roboto", sans-serif;
   overflow: hidden;
+}
+#baseLayout #secondLayerContainer {
+  height: 100vh;
+  background: center url("/src/images/Gather-3-min.png") no-repeat;
+  background-size: cover;
 }
 #baseLayout a {
   text-decoration: none;
@@ -19,13 +21,22 @@
   justify-content: flex-start;
   align-items: center;
 }
+#headerNav #logo2 {
+  height: 50px;
+  margin: 10px;
+}
 
 #landing {
-  grid-column: 1/1;
-  grid-row: 2/4;
-  align-self: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto repeat(3, 1fr);
+  column-gap: 10px;
+  height: 100vh;
 }
 #landing #landingNav {
+  grid-column: 1/2;
+  grid-row: 2/4;
+  margin-left: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,7 +53,7 @@
   color: black;
   font-weight: bolder;
   height: 50px;
-  width: 200px;
+  width: 130px;
   border-width: 4px;
   border-style: solid;
   border-radius: 15px;
@@ -53,7 +64,53 @@
 #landing #landingNav .landingLink:hover {
   background-color: #ffafcc;
 }
+#landing #bodyLogo {
+  grid-column: 2/3;
+  grid-row: 2/4;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#landing #bodyLogo #logo1 {
+  height: 200px;
+}
 
+@media (min-width: 641px) {
+  #landing #landingNav #loginLink {
+    margin-bottom: 20px;
+  }
+  #landing #landingNav .landingLink {
+    color: black;
+    font-size: 1.2em;
+    height: 80px;
+    width: 200px;
+  }
+  #landing #landingNav .landingLink:hover {
+    background-color: #ffafcc;
+  }
+  #landing #bodyLogo #logo1 {
+    height: 400px;
+  }
+}
+@media (min-width: 961px) {
+  #landing #landingNav #loginLink {
+    margin-bottom: 30px;
+  }
+  #landing #landingNav .landingLink {
+    color: black;
+    font-size: 1.4em;
+    height: 80px;
+    width: 300px;
+  }
+  #landing #landingNav .landingLink:hover {
+    background-color: #ffafcc;
+  }
+  #landing #bodyLogo #logo1 {
+    height: 500px;
+  }
+}
 #login #loginCredentials {
   display: flex;
   flex-direction: column;

@@ -15,7 +15,7 @@ import Post from './Post';
 function Space(props) {
   const socket = window.socket;
   const location = useLocation();
-  const spaceName = props.isAuth ? location.state.spaceName : "Error"
+  const spaceName = props.isAuth ? location.state.spaceName : 'Error';
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [members, setMembers] = useState([]);
@@ -25,11 +25,13 @@ function Space(props) {
 
   useEffect(() => {
     authSpaceUsers();
-    displaySpaceMembers();
     joinSpace();
-    displayAllEvents();
+    displaySpaceMembers();
   }, [spaceID]);
 
+  useEffect(() => {
+    displayAllEvents();
+  }, [spaceID]);
   const authSpaceUsers = () => {
     const authData = { spaceID: spaceID, userID: userID };
     actionCreators.authUsers(authData, history);

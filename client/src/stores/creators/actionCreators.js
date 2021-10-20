@@ -122,154 +122,159 @@ export const invite = (data) => {
     });
 };
 
-
 // Event Component Actions
 export const displayAllEvents = (spaceID) => {
   return (dispatch) => {
     fetch(`http://localhost:8080/events/displayAllEvents/${spaceID}`)
-    .then(response => response.json())
-    .then(result => {
-      if (result.success) {
-        dispatch({ type: actionTypes.DISPLAY_ALL_EVENTS, payload: result.all_events });
-      } else {
-        console.log('Displaying all events failed.')
-      }
-    })
-    .catch(err => console.log(err))
-  }
-}
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.success) {
+          dispatch({
+            type: actionTypes.DISPLAY_ALL_EVENTS,
+            payload: result.all_events
+          });
+        } else {
+          console.log('Displaying all events failed.');
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+};
 
 export const addNewEvent = (event) => {
   return (dispatch) => {
-    fetch("http://localhost:8080/events/createEvent", {
-            method: "POST",
-            headers: { "Content-Type": "application/json"},
-            body: JSON.stringify(event)
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
-                console.log(result.message)  
-            } else {
-                console.log('Adding a new event failed')
-            }
-        })
-        .catch(err => console.log(err))
-  }
-}
+    fetch('http://localhost:8080/events/createEvent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(event)
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.success) {
+          console.log(result.message);
+        } else {
+          console.log('Adding a new event failed');
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+};
 
 export const inviteMember = (invitee, attendee, setAttendee) => {
-  fetch("http://localhost:8080/events/inviteMember", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
+  fetch('http://localhost:8080/events/inviteMember', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(invitee)
   })
-  .then(response => response.json())
-  .then(result => {
-    if (result.success) {
-      setAttendee([...attendee, result.member])
-    } else {
-      console.log('Adding an attendee to this event failed')
-    }
-  })
-  .catch(err => console.log(err))
-}
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.success) {
+        setAttendee([...attendee, result.member]);
+      } else {
+        console.log('Adding an attendee to this event failed');
+      }
+    })
+    .catch((err) => console.log(err));
+};
 
 // User Account Component
 export const displayUserInfo = (userID, userToken, setUserInfo) => {
   fetch(`http://localhost:8080/accounts/displayUserInfo/${userID}`, {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${userToken}` }
+    method: 'GET',
+    headers: { Authorization: `Bearer ${userToken}` }
   })
-  .then(response => response.json())
-  .then(result => {
-    if (result.success) {
-      setUserInfo(result.user)
-    } 
-  })
-  .catch(err => console.log(err))
-}
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.success) {
+        setUserInfo(result.user);
+      }
+    })
+    .catch((err) => console.log(err));
+};
 
 export const updateUserInfo = (userInfo) => {
   fetch('http://localhost:8080/accounts/updateUserInfo', {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(userInfo)
   })
-  .then(response => response.json())
-  .then(result => {
-    if (result.success) {
-      console.log(result.message)
-    }
-  })
-  .catch(err => console.log(err))
-}
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.success) {
+        console.log(result.message);
+      }
+    })
+    .catch((err) => console.log(err));
+};
 
 // Post component
 export const displayAllPosts = (spaceID) => {
   return (dispatch) => {
     fetch(`http://localhost:8080/posts/displayAllPosts/${spaceID}`)
-    .then(response => response.json())
-    .then(result => {
-      if (result.success) {
-        dispatch({ type: actionTypes.DISPLAY_POSTS, payload: result.allPosts})
-      }
-    })
-    .catch(err => console.log(err))
-  }
-}
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.success) {
+          dispatch({
+            type: actionTypes.DISPLAY_POSTS,
+            payload: result.allPosts
+          });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+};
 
 export const onPost = (post) => {
-    fetch('http://localhost:8080/posts/savePost', {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(post)
-    })
-    .then(response => response.json())
-    .then(result => {
+  fetch('http://localhost:8080/posts/savePost', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(post)
+  })
+    .then((response) => response.json())
+    .then((result) => {
       if (result.success) {
-        console.log(result.message)
+        console.log(result.message);
       }
     })
-    .catch(err => console.log(err))
-}
+    .catch((err) => console.log(err));
+};
 
 export const displayAllComments = (postID, setAllComments) => {
   fetch(`http://localhost:8080/posts/DisplayAllComments/${postID}`)
-  .then(response => response.json())
-  .then(result => {
-    if (result.success) {
-      setAllComments(result.allComments)
-    }
-  })
-}
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.success) {
+        setAllComments(result.allComments);
+      }
+    });
+};
 
 export const saveAndDisplayComments = (comment, setAllComments) => {
-    fetch('http://localhost:8080/posts/saveAndDisplayComments', {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(comment)
-    })
-    .then(response => response.json())
-    .then(result => {
+  fetch('http://localhost:8080/posts/saveAndDisplayComments', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(comment)
+  })
+    .then((response) => response.json())
+    .then((result) => {
       if (result.success) {
-        setAllComments(result.comments)
+        setAllComments(result.comments);
       }
     })
-    .catch(err => console.log(err))
-}
+    .catch((err) => console.log(err));
+};
 
 export const incrementLike = (postID) => {
   fetch('http://localhost:8080/posts/incrementLike', {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ postID: postID })
   })
-  .then(response => response.json())
-  .then(result => {
-    if (result.success) {
-      console.log(result.message)
-    }
-  })
-  .catch(err => console.log(err))
-}
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.success) {
+        console.log(result.message);
+      }
+    })
+    .catch((err) => console.log(err));
+};

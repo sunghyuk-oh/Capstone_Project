@@ -13,7 +13,7 @@ import * as actionCreators from '../stores/creators/actionCreators';
 function MobileSpace(props) {
   const socket = window.socket;
   const location = useLocation();
-  const spaceName = props.isAuth ? location.state.spaceName : "Error"
+  const spaceName = props.isAuth ? location.state.spaceName : 'Error';
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [members, setMembers] = useState([]);
@@ -25,10 +25,13 @@ function MobileSpace(props) {
 
   useEffect(() => {
     authSpaceUsers();
-    displaySpaceMembers();
     joinSpace();
-    displayAllEvents();
+    displaySpaceMembers();
   }, [spaceID]);
+
+  useEffect(() => {
+    displayAllEvents();
+  }, []);
 
   const authSpaceUsers = () => {
     const authData = { spaceID: spaceID, userID: userID };
