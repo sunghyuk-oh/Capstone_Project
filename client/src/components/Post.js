@@ -55,8 +55,8 @@ function Post(props) {
             <div className="">
                 <h4>{post.first_name} {post.last_name[0]}. ({post.username})</h4>
                 <span>{post.body_text}</span>
-                <button onClick={() => actionCreators.incrementLike(post.post_id)}><Icon name='heart' color="red" />Like</button>
-                <button name={post.post_id} onClick={handleCommentToggle}><Icon name='comment outline' color="blue" />Comment</button> 
+                <button onClick={() => actionCreators.incrementLike(post.post_id)}><Icon name='heart' color="red" />Like ({post.like})</button>
+                <button name={post.post_id} onClick={handleCommentToggle}><Icon name='comment outline' color="blue" />Comment ({post.comment})</button> 
                 {
                     isToggle && commentBtnToggle === post.post_id.toString() ? 
                     <div className="">

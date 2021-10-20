@@ -4,7 +4,7 @@ const router = express.Router();
 router.get('/displayAllPosts/:spaceID', (req, res) => {
     const { spaceID } = req.params
 
-    db.any('SELECT users.user_id, users.username, users.first_name, users.last_name, posts.post_id, posts.body_text, posts.date_created FROM posts INNER JOIN users ON users.user_id = posts.user_id WHERE posts.space_id = $1 ORDER BY posts.post_id ASC', [spaceID])
+    db.any('SELECT users.user_id, users.username, users.first_name, users.last_name, posts.post_id, posts.body_text, posts.date_created, COUNT(DISTINCT likes.like_id) AS like, COUNT(DISTINCT comments.comment_id) AS comment FROM posts LEFT JOIN likes ON likes.post_id = posts.post_id LEFT JOIN comments ON comments.post_id = posts.post_id INNER JOIN users ON users.user_id = posts.user_id WHERE posts.space_id = $1 GROUP BY posts.post_id, users.user_id ORDER BY posts.post_id ASC', [spaceID])
     .then((allPosts) => {
         res.json({success: true, allPosts: allPosts})
     })
