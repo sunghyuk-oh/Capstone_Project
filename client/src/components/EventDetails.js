@@ -13,7 +13,7 @@ function EventDetails(props) {
   const dateCreated = '2021-10-15T03:36:54.084Z';
 
   const filteredEvents = props.allEvents.filter((event) => {
-    return event.date_created == dateCreated;
+    return event.date_created === dateCreated;
   });
 
   const convertDateFormat = (date) => {
@@ -30,7 +30,7 @@ function EventDetails(props) {
     const hour = date.getHours();
     const minute = date.getMinutes();
 
-    if (hour == 0) {
+    if (hour === 0) {
       return '00:00';
     } else {
       return `${hour}:${minute}`;

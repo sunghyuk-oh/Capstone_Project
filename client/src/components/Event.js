@@ -35,32 +35,32 @@ function Event(props) {
     space_id: spaceID
   });
 
-  useEffect(() => {
-    displayAllEvents();
-  }, []);
+  // useEffect(() => {
+  //   // displayAllEvents();
+  // }, []);
 
-  const displayAllEvents = () => {
-    props.onDisplayAllEvents(spaceID);
-  };
+  // const displayAllEvents = () => {
+  //   props.onDisplayAllEvents(spaceID);
+  // };
 
   const handleAddEvent = (newEvent) => {
     props.onAddNewEvent(newEvent);
   };
 
-  const allEvents = props.allEvents.map((event) => {
-    return {
-      title: event.title,
-      start_date: new Date(event.start_date),
-      end_date: new Date(event.end_date)
-    };
-  });
+  // const allEvents = props.allEvents.map((event) => {
+  //   return {
+  //     title: event.title,
+  //     start_date: new Date(event.start_date),
+  //     end_date: new Date(event.end_date)
+  //   };
+  // });
 
   return (
     <section id="event">
       <div id="calendar">
         <Calendar
           localizer={localizer}
-          events={allEvents}
+          events={props.allEvents}
           startAccessor="start_date"
           endAccessor="end_date"
           defaultDate={new Date()}

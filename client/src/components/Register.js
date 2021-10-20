@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import * as actionCreators from '../stores/creators/actionCreators';
 

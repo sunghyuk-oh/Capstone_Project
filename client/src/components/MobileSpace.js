@@ -2,7 +2,6 @@ import Event from './Event';
 import EventDetails from './EventDetails';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import Chat from './Chat';
 import SpaceNav from './SpaceNav';
 import { useLocation } from 'react-router-dom';
@@ -169,7 +168,7 @@ function MobileSpace(props) {
             Event List
             {allEvents}
           </section>
-          <Event />
+          <Event allEvents={allEvents} />
           <EventDetails />
         </div>
       ) : null}

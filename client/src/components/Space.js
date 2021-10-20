@@ -2,7 +2,6 @@ import Event from './Event';
 import EventDetails from './EventDetails';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import Chat from './Chat';
 import SpaceNav from './SpaceNav';
 import MobileSpace from './MobileSpace';
@@ -44,7 +43,9 @@ function Space(props) {
   };
 
   const displayAllEvents = () => {
+    console.log(props.allEvents)
     props.onDisplayAllEvents(spaceID);
+    console.log(props.allEvents)
   };
 
   const handleUsernameInput = (e) => {
@@ -220,7 +221,7 @@ function Space(props) {
           >
             [ + ]
           </button>
-          <Event />
+          <Event allEvents={allEvents} />
         </div>
         <div
           id={
