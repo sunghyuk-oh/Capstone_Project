@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
@@ -35,32 +35,24 @@ function Event(props) {
     space_id: spaceID
   });
 
-  // useEffect(() => {
-  //   // displayAllEvents();
-  // }, []);
-
-  // const displayAllEvents = () => {
-  //   props.onDisplayAllEvents(spaceID);
-  // };
-
   const handleAddEvent = (newEvent) => {
     props.onAddNewEvent(newEvent);
   };
 
-  // const allEvents = props.allEvents.map((event) => {
-  //   return {
-  //     title: event.title,
-  //     start_date: new Date(event.start_date),
-  //     end_date: new Date(event.end_date)
-  //   };
-  // });
-
+  const allEvents = props.events.map((event) => {
+    return {
+      title: event.title,
+      start_date: new Date(event.start_date),
+      end_date: new Date(event.end_date)
+    };
+  });
+  
   return (
     <section id="event">
       <div id="calendar">
         <Calendar
           localizer={localizer}
-          events={props.allEvents}
+          events={allEvents}
           startAccessor="start_date"
           endAccessor="end_date"
           defaultDate={new Date()}
@@ -112,18 +104,10 @@ function Event(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    allEvents: state.allEvents
-  };
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
-    onDisplayAllEvents: (spaceID) =>
-      dispatch(actionCreators.displayAllEvents(spaceID)),
     onAddNewEvent: (event) => dispatch(actionCreators.addNewEvent(event))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Event);
+export default connect(null, mapDispatchToProps)(Event);

@@ -16,6 +16,7 @@ function MobileSpace(props) {
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [members, setMembers] = useState([]);
+  const [events, setEvents] = useState([]);
   const [isActive, setActive] = useState({
     active: 'titleAndMembers'
   });
@@ -43,7 +44,7 @@ function MobileSpace(props) {
   };
 
   const displayAllEvents = () => {
-    props.onDisplayAllEvents(spaceID);
+    actionCreators.displayAllEvents(spaceID, setEvents)
   };
 
   const handleUsernameInput = (e) => {
@@ -68,14 +69,14 @@ function MobileSpace(props) {
   const convertDateFormat = (date) => {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const year = date.getFullYear();
-    const month = date.getMonth();
+    const month = date.getMonth() + 1;
     const numDay = date.getDate();
     const day = date.getDay();
 
     return `${month}/${numDay}/${year}  ${days[day]}`;
   };
 
-  const allEvents = props.allEvents.map((event) => {
+  const allEvents = events.map((event) => {
     const startDate = convertDateFormat(new Date(event.start_date));
     const endDate = convertDateFormat(new Date(event.end_date));
 
@@ -168,8 +169,8 @@ function MobileSpace(props) {
             Event List
             {allEvents}
           </section>
-          <Event allEvents={allEvents} />
-          <EventDetails />
+          <Event events={events} />
+          {/* <EventDetails /> */}
         </div>
       ) : null}
     </section>
@@ -178,15 +179,8 @@ function MobileSpace(props) {
 
 const mapStateToProps = (state) => {
   return {
-    allEvents: state.allEvents
+    isAuth: state.isAuth
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onDisplayAllEvents: (spaceID) =>
-      dispatch(actionCreators.displayAllEvents(spaceID))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MobileSpace);
+export default connect(mapStateToProps)(MobileSpace);

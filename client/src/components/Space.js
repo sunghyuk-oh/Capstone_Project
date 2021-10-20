@@ -19,6 +19,7 @@ function Space(props) {
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [members, setMembers] = useState([]);
+  const [events, setEvents] = useState([]);
   const [isExpanded, setExpanded] = useState({ expanded: '', close: true });
   const spaceID = useParams().spaceid;
   const userID = localStorage.getItem('userID');
@@ -28,7 +29,7 @@ function Space(props) {
     displaySpaceMembers();
     joinSpace();
     displayAllEvents();
-  }, [spaceID, props.allEvents]);
+  }, [spaceID]);
 
   const authSpaceUsers = () => {
     const authData = { spaceID: spaceID, userID: userID };
@@ -44,9 +45,7 @@ function Space(props) {
   };
 
   const displayAllEvents = () => {
-    console.log(props.allEvents)
-    props.onDisplayAllEvents(spaceID);
-    console.log(props.allEvents)
+    actionCreators.displayAllEvents(spaceID, setEvents)  
   };
 
   const handleUsernameInput = (e) => {
@@ -71,14 +70,14 @@ function Space(props) {
   const convertDateFormat = (date) => {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const year = date.getFullYear();
-    const month = date.getMonth();
+    const month = date.getMonth() + 1;
     const numDay = date.getDate();
     const day = date.getDay();
 
     return `${month}/${numDay}/${year}  ${days[day]}`;
   };
 
-  const allEvents = props.allEvents.map((event) => {
+  const allEvents = events.map((event) => {
     const startDate = convertDateFormat(new Date(event.start_date));
     const endDate = convertDateFormat(new Date(event.end_date));
 
@@ -92,6 +91,7 @@ function Space(props) {
     );
   });
 
+  
   const toggleExpanded = (e) => {
     let componentName = e.target.name;
     setExpanded({ expanded: componentName, close: !isExpanded['close'] });
@@ -167,7 +167,7 @@ function Space(props) {
             [ + ]
           </button>
           <span>Post List</span>
-          <Post spaceID={spaceID} />
+          {/* <Post spaceID={spaceID} /> */}
         </section>
         <section
           id={
@@ -222,7 +222,7 @@ function Space(props) {
           >
             [ + ]
           </button>
-          <Event allEvents={allEvents} />
+          <Event events={events} />
         </div>
         <div
           id={
@@ -239,7 +239,7 @@ function Space(props) {
           >
             [ + ]
           </button>
-          <EventDetails />
+          {/* <EventDetails /> */}
         </div>
       </section>
     </div>
@@ -248,16 +248,8 @@ function Space(props) {
 
 const mapStateToProps = (state) => {
   return {
-    allEvents: state.allEvents,
     isAuth: state.isAuth
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onDisplayAllEvents: (spaceID) =>
-      dispatch(actionCreators.displayAllEvents(spaceID))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Space);
+export default connect(mapStateToProps)(Space);

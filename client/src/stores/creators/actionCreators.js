@@ -124,19 +124,17 @@ export const invite = (data) => {
 
 
 // Event Component Actions
-export const displayAllEvents = (spaceID) => {
-  return (dispatch) => {
+export const displayAllEvents = (spaceID, setAllEvents) => {
     fetch(`http://localhost:8080/events/displayAllEvents/${spaceID}`)
     .then(response => response.json())
     .then(result => {
       if (result.success) {
-        dispatch({ type: actionTypes.DISPLAY_ALL_EVENTS, payload: result.all_events });
+        setAllEvents(result.all_events)
       } else {
         console.log('Displaying all events failed.')
       }
     })
     .catch(err => console.log(err))
-  }
 }
 
 export const addNewEvent = (event) => {
