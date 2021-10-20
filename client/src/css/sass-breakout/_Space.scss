@@ -54,6 +54,14 @@
       grid-row: 2 / 3;
       margin: 0px 0px 10px 10px;
       background-color: white;
+      #chatBox {
+        #chatWindow {
+          @include scroll();
+          border: 2px solid black;
+          height: 150px;
+          width: 150px;
+        }
+      }
     }
     #eventList {
       @include scroll();

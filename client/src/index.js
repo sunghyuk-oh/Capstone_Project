@@ -5,7 +5,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import 'semantic-ui-css/semantic.min.css'
+import 'semantic-ui-css/semantic.min.css';
 import reducer from './stores/reducer';
 import App from './components/App';
 import Landing from './components/Landing';
@@ -16,9 +16,9 @@ import Space from './components/Space';
 import requireAuth from './components/requireAuth';
 import Register from './components/Register';
 import io from 'socket.io-client';
+import Account from './components/Account';
 
 window.socket = io.connect('http://localhost:8080');
-import Account from './components/Account';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

@@ -28,11 +28,11 @@ const Chat = ({ socket, username, spaceID }) => {
   }, [socket]);
 
   return (
-    <div>
+    <section id="chatBox">
       <header>
         <p>Live Chat</p>
       </header>
-      <main>
+      <main id="chatWindow">
         {msgList.map((msgContent, index) => {
           return (
             <div
@@ -67,7 +67,7 @@ const Chat = ({ socket, username, spaceID }) => {
         />
         <button onClick={sendMsg}>Send</button>
       </footer>
-    </div>
+    </section>
   );
 };
 

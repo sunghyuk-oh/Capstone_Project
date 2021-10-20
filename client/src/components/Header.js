@@ -14,11 +14,14 @@ const Header = (props) => {
         <h2>Gather</h2>
         {props.isAuth ? (
           <div className="">
-            <button><NavLink to="/logout">Logout</NavLink></button>
-            <button><NavLink to="/account">User Account</NavLink></button>
+            <button>
+              <NavLink to="/logout">Logout</NavLink>
+            </button>
+            <button>
+              <NavLink to="/account">User Account</NavLink>
+            </button>
           </div>
         ) : null}
-        {props.isAuth ? <button>User Account</button> : null}
       </nav>
     </header>
   );
