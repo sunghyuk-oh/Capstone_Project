@@ -11,6 +11,7 @@ import { useHistory } from 'react-router';
 import * as actionCreators from '../stores/creators/actionCreators';
 import Post from './Post';
 
+
 function Space(props) {
   const socket = window.socket;
   const location = useLocation();
@@ -105,7 +106,7 @@ function Space(props) {
       />
       <section id="space">
         <section id="spaceTitle">
-          <h1>{spaceName}</h1>
+          <h1></h1>
         </section>
         <section
           id={
