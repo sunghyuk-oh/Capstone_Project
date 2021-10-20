@@ -6,54 +6,68 @@
 
 // portrait tablets
 @media (min-width: 641px) {
+  // regular layout
   #space {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 20% repeat(4, 1fr) 20%;
     grid-template-rows: auto repeat(4, 1fr);
+    column-gap: 10px;
+    row-gap: 10px;
     height: 100vh;
     width: 100%;
-    #showTitle {
-      grid-column: 1 / 2;
+    #spaceTitle {
+      grid-column: 3 / 5;
       grid-row: 1 / 2;
       z-index: 10;
-    }
-    #spaceTitle {
-      @include testBorder(yellow);
+      background-color: white;
+      border-radius: 2px;
     }
     #spacesInfo {
-      overflow-y: scroll;
-      scroll-behavior: smooth;
-      grid-column: 1 / 4;
-      grid-row: 2 / 3;
-      @include testBorder(red);
+      @include scroll();
+      grid-column: 1 / 3;
+      grid-row: 1 / 2;
+      margin-left: 10px;
+      background-color: white;
+      border-radius: 2px;
+      height: 100px;
     }
     #memberInfo {
-      grid-column: 1 / 4;
-      grid-row: 1 / 2;
+      @include scroll();
+      grid-column: 3 / 5;
+      grid-row: 2 / 3;
+      background-color: white;
       @include flex(column, center, center);
-      @include testBorder(black);
       #memberList {
         @include flex(row, center, center);
       }
     }
     #postSection {
-      overflow-y: scroll;
-      scroll-behavior: smooth;
-      grid-column: 1 / 4;
-      grid-row: 3 / 4;
-      @include testBorder(blue);
+      @include scroll();
+      grid-column: 1 / 5;
+      grid-row: 3 / 5;
+      margin: 0px 0px 10px 10px;
+      background-color: white;
     }
     #chatSection {
-      @include testBorder(green);
+      @include scroll();
+      grid-column: 1 / 3;
+      grid-row: 2 / 3;
+      margin: 0px 0px 10px 10px;
+      background-color: white;
     }
     #eventList {
-      overflow-y: scroll;
-      scroll-behavior: smooth;
-      @include testBorder(gray);
+      @include scroll();
+      grid-column: 5 / 7;
+      grid-row: 3 / 4;
+      margin-right: 10px;
+      background-color: white;
     }
     #eventContainer {
-      overflow-y: scroll;
-      scroll-behavior: smooth;
+      @include scroll();
+      grid-column: 5 / 7;
+      grid-row: 1 / 3;
+      margin-right: 10px;
+      background-color: white;
       #event {
         @include flex(column, flex-start, center);
         padding-bottom: 25px;
@@ -64,10 +78,40 @@
         }
       }
     }
-    #eventDetails {
-      overflow-y: scroll;
-      scroll-behavior: smooth;
-      @include testBorder(gold);
+    #eventDetailsContainer {
+      @include scroll();
+      grid-column: 5 / 7;
+      grid-row: 4 / 5;
+      margin: 0px 10px 10px 0px;
+      background-color: white;
+    }
+  }
+
+  // expanded layout
+  #space {
+    #expandedSpacesInfo {
+      @include expandLrgScreens();
+    }
+    #expandedMemberInfo {
+      @include expandLrgScreens();
+      #memberList {
+        @include flex(row, center, center);
+      }
+    }
+    #expandedPostSection {
+      @include expandLrgScreens();
+    }
+    #expandedChatSection {
+      @include expandLrgScreens();
+    }
+    #expandedEventContainer {
+      @include expandLrgScreens();
+    }
+    #expandedEventList {
+      @include expandLrgScreens();
+    }
+    #expandedEventDetailsContainer {
+      @include expandLrgScreens();
     }
   }
 }
@@ -77,51 +121,76 @@
 }
 
 @media (min-width: 1025px) {
+  // regular layout
   #space {
-    grid-template-columns: 25% repeat(5, 1fr) 25%;
+    grid-template-columns: 20% repeat(5, 1fr) 20%;
     grid-template-rows: auto repeat(10, 1fr);
     width: 100%;
     #spaceTitle {
-      @include testBorder(yellow);
       grid-column: 2 / 6;
       grid-row: 1 / 2;
     }
     #spacesInfo {
       grid-column: 1 / 2;
       grid-row: 1 / 6;
-      @include testBorder(red);
+      height: auto;
     }
     #memberInfo {
       grid-column: 2 / 6;
       grid-row: 2 / 3;
+      height: 200px;
       #memberList {
         @include flex(row, center, center);
       }
     }
     #postSection {
       grid-column: 2 / 6;
-      grid-row: 3 / 12;
-      @include testBorder(blue);
+      grid-row: 3 / 11;
+      margin: 0px 0px 10px 0px;
     }
     #chatSection {
-      @include testBorder(green);
       grid-column: 1 / 2;
-      grid-row: 6 / 12;
+      grid-row: 6 / 11;
     }
     #eventContainer {
-      @include testBorder(purple);
       grid-column: 6 / 8;
       grid-row: 1 / 5;
     }
     #eventList {
-      @include testBorder(gray);
       grid-column: 6 / 8;
       grid-row: 5 / 8;
     }
-    #eventDetails {
+    #eventDetailsContainer {
       grid-column: 6 / 8;
-      grid-row: 8 / 12;
-      @include testBorder(gold);
+      grid-row: 8 / 11;
+    }
+  }
+
+  // expanded windows
+  #space {
+    #expandedSpacesInfo {
+      @include expandLrgScreens();
+    }
+    #expandedMemberInfo {
+      @include expandLrgScreens();
+      #memberList {
+        @include flex(row, center, center);
+      }
+    }
+    #expandedPostSection {
+      @include expandLrgScreens();
+    }
+    #expandedChatSection {
+      @include expandLrgScreens();
+    }
+    #expandedEventContainer {
+      @include expandLrgScreens();
+    }
+    #expandedEventList {
+      @include expandLrgScreens();
+    }
+    #expandedEventDetailsContainer {
+      @include expandLrgScreens();
     }
   }
 }

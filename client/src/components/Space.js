@@ -95,7 +95,7 @@ function Space(props) {
   };
 
   return (
-    <div>
+    <div id="spaceContainer">
       <MobileSpace
         socket={socket}
         username={localStorage.username}
@@ -186,7 +186,21 @@ function Space(props) {
             spaceID={spaceID}
           />
         </section>
-        <section id="eventList">
+        <section
+          id={
+            isExpanded['expanded'] === 'eventList' &&
+            isExpanded['close'] === false
+              ? 'expandedEventList'
+              : 'eventList'
+          }
+        >
+          <button
+            name="eventList"
+            className="expandComponent"
+            onClick={toggleExpanded}
+          >
+            [ + ]
+          </button>
           Event List
           {allEvents}
         </section>
@@ -206,7 +220,23 @@ function Space(props) {
           </button>
           <Event />
         </div>
-        <EventDetails />
+        <div
+          id={
+            isExpanded['expanded'] === 'eventDetails' &&
+            isExpanded['close'] === false
+              ? 'expandedEventDetailsContainer'
+              : 'eventDetailsContainer'
+          }
+        >
+          <button
+            name="eventDetails"
+            className="expandComponent"
+            onClick={toggleExpanded}
+          >
+            [ + ]
+          </button>
+          <EventDetails />
+        </div>
       </section>
     </div>
   );

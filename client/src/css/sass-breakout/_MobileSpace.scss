@@ -21,39 +21,33 @@
     }
   }
   #spacesInfo {
-    overflow-y: scroll;
-    scroll-behavior: smooth;
+    @include scroll();
     grid-column: 1 / 4;
     grid-row: 1 / 5;
     @include testBorder(red);
   }
   #postSection {
-    overflow-y: scroll;
-    scroll-behavior: smooth;
+    @include scroll();
     grid-column: 1 / 4;
     grid-row: 1 / 5;
     @include testBorder(blue);
   }
   #chatSection {
     @include testBorder(green);
-    overflow-y: scroll;
-    scroll-behavior: smooth;
+    @include scroll();
     grid-column: 1 / 4;
     grid-row: 1 / 5;
   }
   div {
-    overflow-y: scroll;
-    scroll-behavior: smooth;
+    @include scroll();
     grid-column: 1 / 4;
     grid-row: 1 / 5;
     #eventList {
-      overflow-y: scroll;
-      scroll-behavior: smooth;
+      @include scroll();
       @include testBorder(gray);
     }
     #event {
-      overflow-y: scroll;
-      scroll-behavior: smooth;
+      @include scroll();
       @include testBorder(purple);
       @include flex(column, flex-start, center);
       padding-bottom: 25px;
@@ -67,8 +61,7 @@
       }
     }
     #eventDetails {
-      overflow-y: scroll;
-      scroll-behavior: smooth;
+      @include scroll();
       @include testBorder(gold);
     }
   }
