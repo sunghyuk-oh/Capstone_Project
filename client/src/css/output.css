@@ -111,11 +111,29 @@
     height: 500px;
   }
 }
+#login {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  height: 100vh;
+}
 #login #loginCredentials {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  width: 300px;
+  height: 300px;
+  align-self: center;
+  justify-self: center;
+  background-color: white;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+#login #loginCredentials #loginTitle {
+  margin-bottom: 30px;
+  border-bottom: 5px solid #a2d2ff;
 }
 #login #loginCredentials .loginInputs {
   margin: 3px auto;
@@ -123,6 +141,8 @@
   height: 25px;
   width: 190px;
   border: none;
+  background-color: #ffc8dd;
+  opacity: 0.8;
   border-radius: 3px;
 }
 #login #loginCredentials #loginBtn {
@@ -134,7 +154,8 @@
   width: 190px;
   height: 30px;
   transition: 0.25s;
-  font-weight: 200;
+  font-size: 1.2em;
+  font-weight: 500;
   background-color: #bde0fe;
 }
 #login #loginCredentials #loginBtn:hover {
@@ -142,11 +163,68 @@
   background-color: #ffafcc;
 }
 
+@media (min-width: 641px) {
+  #login #loginCredentials {
+    width: 400px;
+    height: 400px;
+  }
+  #login #loginCredentials #loginTitle {
+    font-size: 1.7em;
+  }
+  #login #loginCredentials .loginInputs {
+    height: 35px;
+    width: 250px;
+    font-size: 1.2em;
+  }
+  #login #loginCredentials #loginBtn {
+    width: 250px;
+    height: 40px;
+    font-size: 1.5em;
+    font-weight: 500;
+    background-color: #bde0fe;
+  }
+}
+@media (min-width: 1025px) {
+  #login #loginCredentials {
+    width: 500px;
+    height: 500px;
+  }
+  #login #loginCredentials #loginTitle {
+    font-size: 2.2em;
+  }
+  #login #loginCredentials .loginInputs {
+    height: 40px;
+    width: 300px;
+    font-size: 1.2em;
+  }
+  #login #loginCredentials #loginBtn {
+    width: 300px;
+    height: 50px;
+  }
+}
+#register {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  height: 100vh;
+}
 #register #registerCredentials {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  width: 400px;
+  height: 400px;
+  align-self: center;
+  justify-self: center;
+  background-color: white;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+#register #registerCredentials #registerTitle {
+  margin-bottom: 30px;
+  border-bottom: 5px solid #ffafcc;
 }
 #register #registerCredentials .registerInputs {
   margin: 3px auto;
@@ -154,6 +232,8 @@
   height: 25px;
   width: 190px;
   border: none;
+  background-color: #bde0fe;
+  opacity: 0.8;
   border-radius: 3px;
 }
 #register #registerCredentials #registerBtn {
@@ -165,7 +245,8 @@
   width: 190px;
   height: 30px;
   transition: 0.25s;
-  font-weight: 200;
+  font-size: 1.2em;
+  font-weight: 500;
   background-color: #ffafcc;
 }
 #register #registerCredentials #registerBtn:hover {
@@ -173,6 +254,45 @@
   background-color: #bde0fe;
 }
 
+@media (min-width: 641px) {
+  #register #registerCredentials {
+    width: 500px;
+    height: 500px;
+  }
+  #register #registerCredentials #registerTitle {
+    font-size: 1.7em;
+  }
+  #register #registerCredentials .registerInputs {
+    margin: 5px 0px;
+    height: 35px;
+    width: 250px;
+    font-size: 1.2em;
+  }
+  #register #registerCredentials #registerBtn {
+    width: 250px;
+    height: 40px;
+    font-size: 1.5em;
+    font-weight: 500;
+  }
+}
+@media (min-width: 1025px) {
+  #register #registerCredentials {
+    width: 550px;
+    height: 550px;
+  }
+  #register #registerCredentials #registerTitle {
+    font-size: 2.2em;
+  }
+  #register #registerCredentials .registerInputs {
+    height: 40px;
+    width: 300px;
+    font-size: 1.2em;
+  }
+  #register #registerCredentials #registerBtn {
+    width: 300px;
+    height: 50px;
+  }
+}
 #home {
   display: grid;
   grid-template-columns: repeat(1, 1fr);

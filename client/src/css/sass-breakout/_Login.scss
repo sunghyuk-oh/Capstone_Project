@@ -1,14 +1,32 @@
 @import './mixins';
 
 #login {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  height: 100vh;
   #loginCredentials {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    width: 300px;
+    height: 300px;
+    align-self: center;
+    justify-self: center;
+    background-color: white;
+    border-radius: 10px;
     @include flex(column, center, center);
+    #loginTitle {
+      margin-bottom: 30px;
+      border-bottom: 5px solid $lightPalette5;
+    }
     .loginInputs {
       margin: 3px auto;
       padding: 3px 0px 3px 5px;
       height: 25px;
       width: 190px;
       border: none;
+      background-color: $lightPalette2;
+      opacity: 0.8;
       border-radius: 3px;
     }
     #loginBtn {
@@ -24,8 +42,54 @@
       width: 190px;
       height: 30px;
       transition: 0.25s;
-      font-weight: 200;
+      font-size: 1.2em;
+      font-weight: 500;
       background-color: $lightPalette4;
+    }
+  }
+}
+
+@media (min-width: 641px) {
+  #login {
+    #loginCredentials {
+      width: 400px;
+      height: 400px;
+      #loginTitle {
+        font-size: 1.7em;
+      }
+      .loginInputs {
+        height: 35px;
+        width: 250px;
+        font-size: 1.2em;
+      }
+      #loginBtn {
+        width: 250px;
+        height: 40px;
+        font-size: 1.5em;
+        font-weight: 500;
+        background-color: $lightPalette4;
+      }
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  #login {
+    #loginCredentials {
+      width: 500px;
+      height: 500px;
+      #loginTitle {
+        font-size: 2.2em;
+      }
+      .loginInputs {
+        height: 40px;
+        width: 300px;
+        font-size: 1.2em;
+      }
+      #loginBtn {
+        width: 300px;
+        height: 50px;
+      }
     }
   }
 }
