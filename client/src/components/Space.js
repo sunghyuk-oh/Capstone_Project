@@ -28,7 +28,7 @@ function Space(props) {
     displaySpaceMembers();
     joinSpace();
     displayAllEvents();
-  }, [spaceID]);
+  }, [spaceID, props.allEvents]);
 
   const authSpaceUsers = () => {
     const authData = { spaceID: spaceID, userID: userID };
@@ -106,7 +106,7 @@ function Space(props) {
       />
       <section id="space">
         <section id="spaceTitle">
-          <h1></h1>
+          <h1>{spaceName}</h1>
         </section>
         <section
           id={
