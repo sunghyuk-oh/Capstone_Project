@@ -177,7 +177,7 @@ function MobileSpace(props) {
 
       {isActive['active'] === 'posts' ? (
         <section id="postSection">
-          <span>Posts</span>
+          <span id="postSectionTitle">Post Feed</span>
           <Post spaceID={spaceID} />
         </section>
       ) : null}

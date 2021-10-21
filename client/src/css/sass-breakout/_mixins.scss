@@ -22,6 +22,7 @@
 }
 
 @mixin scroll() {
-  overflow: auto;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
   scroll-behavior: smooth;
 }

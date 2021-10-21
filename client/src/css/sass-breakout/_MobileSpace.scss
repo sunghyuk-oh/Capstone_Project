@@ -195,18 +195,22 @@
     height: 450px;
     width: 95%;
     @include flex(column, center, center);
+    #postSectionTitle {
+      font-weight: 800;
+      font-size: 1.5em;
+      margin-bottom: 5px;
+    }
     #postComponent {
-      border: 2px solid black;
       height: 400px;
       width: 95%;
       @include flex(column, center, center);
       #posts {
         @include scroll();
-        // &::-webkit-scrollbar-track {
-        // }
         &::-webkit-scrollbar {
           display: none;
         }
+        // &::-webkit-scrollbar-track {
+        // }
         // &::-webkit-scrollbar-thumb {
         // }
         .post {
@@ -252,6 +256,50 @@
                 border-radius: 4px;
                 height: 30px;
                 width: 70px;
+              }
+            }
+          }
+          .commentSection {
+            padding: 10px;
+            width: 300px;
+            height: 300px;
+            border-radius: 5px;
+            background-color: $lightPalette4;
+            @include scroll();
+            &::-webkit-scrollbar {
+              display: none;
+            }
+            #commentWrapper {
+              margin: 5px;
+              scroll-snap-align: end;
+              .comment {
+                margin: 15px 0px;
+                .commentAuthor {
+                  font-weight: 800;
+                }
+              }
+              #commentSubmit {
+                @include flex(row, space-between, center);
+                margin: 10px 0px 10px 0px;
+
+                #commentInput {
+                  border: 1px solid $lightPalette1;
+                  width: 250px;
+                  height: 40px;
+                  border-radius: 8px;
+                }
+                #commentBtn {
+                  border: none;
+                  outline: none;
+                  background-color: $lightPalette1;
+                  border-radius: 4px;
+                  height: 40px;
+                  margin-left: 4px;
+                  &:hover {
+                    background-color: $lightPalette2;
+                    cursor: pointer;
+                  }
+                }
               }
             }
           }

@@ -46,20 +46,22 @@ function Post(props) {
 
   const handleSaveComment = () => {
     actionCreators.saveAndDisplayComments(comment, setAllComments);
-    setComment({});
+    setComment({
+      userID: '',
+      postID: '',
+      bodyText: ''
+    });
 
     console.log(allComments);
   };
 
   const comments = allComments.map((comment) => {
     return (
-      <div id="commentBox">
-        <p>
-          <b>
-            {comment.first_name} {comment.last_name[0]} :{' '}
-          </b>{' '}
-          {comment.body_text}
-        </p>
+      <div className="comment">
+        <span className="commentAuthor">
+          {comment.first_name} {comment.last_name[0]} :{' '}
+        </span>
+        <p className="commentText">{comment.body_text}</p>
       </div>
     );
   });
@@ -89,15 +91,27 @@ function Post(props) {
           </div>
         </div>
         {isToggle && commentBtnToggle === post.post_id.toString() ? (
-          <div className="">
-            {comments}
-            <input
-              type="text"
-              name={post.post_id}
-              placeholder="Comment Here"
-              onChange={handleCommentInput}
-            />
-            <button onClick={handleSaveComment}>Comment</button>
+          <div className="commentSection">
+            <div id="commentWrapper">
+              {comments}
+              <div id="commentSubmit">
+                <textarea
+                  wrap="soft"
+                  id="commentInput"
+                  type="text"
+                  name={post.post_id}
+                  placeholder="Comment Here"
+                  value={comment.bodyText}
+                  onChange={handleCommentInput}
+                  onKeyPress={(event) => {
+                    event.key === 'Enter' && handleSaveComment();
+                  }}
+                ></textarea>
+                <button id="commentBtn" onClick={handleSaveComment}>
+                  Comment
+                </button>
+              </div>
+            </div>
           </div>
         ) : null}
       </div>
