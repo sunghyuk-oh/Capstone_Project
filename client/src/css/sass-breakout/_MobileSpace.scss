@@ -46,6 +46,7 @@
       color: white;
       background-color: $lightPalette5;
       border-radius: 4px;
+      box-shadow: 2px 2px 5px 0.5px gray;
       h1 {
         font-size: 3em;
       }
@@ -184,14 +185,77 @@
   #postSection {
     @include scroll();
     grid-column: 1 / 4;
-    grid-row: 1 / 4;
-    @include testBorder(blue);
+    grid-row: 1 / 5;
+    align-self: center;
+    justify-self: center;
+    background-color: white;
+    border-radius: 4px;
+    height: 450px;
+    width: 95%;
+    @include flex(column, center, center);
   }
   #chatSection {
-    @include testBorder(green);
-    @include scroll();
     grid-column: 1 / 4;
-    grid-row: 1 / 4;
+    grid-row: 1 / 5;
+    align-self: center;
+    justify-self: center;
+    background-color: white;
+    border-radius: 4px;
+    height: 450px;
+    width: 95%;
+    @include flex(column, center, center);
+    #chatBox {
+      #chatWindow {
+        @include scroll();
+        border: 2px solid $lightPalette5;
+        border-radius: 4px;
+        height: 300px;
+        width: 350px;
+        box-shadow: 2px 2px 5px 0.5px gray;
+        display: grid;
+        grid-template-columns: 1fr;
+        .myMsg {
+          @include flex(column, center, flex-start);
+          .msgContent {
+            margin-top: 10px;
+            background-color: $lightPalette5;
+            width: 80%;
+            margin-top: 10px;
+            padding: 10px;
+            font-weight: 400;
+            font-size: 1.25em;
+          }
+          .msgInfo {
+            @include flex(row, flex-start, center);
+            margin-top: 5px;
+
+            span {
+              margin-left: 5px;
+            }
+          }
+        }
+        .otherUserMsg {
+          @include flex(column, center, flex-end);
+          .msgContent {
+            margin-top: 10px;
+            background-color: $lightPalette3;
+            width: 80%;
+            margin-top: 10px;
+            padding: 10px;
+            font-weight: 400;
+            font-size: 1.25em;
+          }
+          .msgInfo {
+            @include flex(row, flex-end, center);
+            margin-top: 5px;
+
+            span {
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+    }
   }
   #eventAdmin {
     @include scroll();

@@ -15,7 +15,12 @@ import * as actionCreators from '../stores/creators/actionCreators';
 function Space(props) {
   const socket = window.socket;
   const location = useLocation();
-  const spaceName = props.isAuth ? location.state.spaceName : 'Error';
+  // const spaceName =
+  //   props.isAuth && location.state.spaceName !== undefined
+  //     ? location.state.spaceName
+  //     : 'Error';
+  const spaceName = useParams().spaceid;
+
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [members, setMembers] = useState([]);

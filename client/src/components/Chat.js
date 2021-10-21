@@ -18,6 +18,7 @@ const Chat = ({ socket, username, spaceID }) => {
 
       await socket.emit('send_msg', msgData);
       setMsgList((list) => [...list, msgData]);
+      setCurrentMsg('');
     }
   };
 
@@ -29,26 +30,21 @@ const Chat = ({ socket, username, spaceID }) => {
 
   return (
     <section id="chatBox">
-      <header>
-        <p>Live Chat</p>
-      </header>
       <main id="chatWindow">
         {msgList.map((msgContent, index) => {
           return (
             <div
               key={index}
-              className="msg"
-              id={username === msgContent.username ? 'self' : 'otherUser'}
+              className={
+                username === msgContent.author ? 'myMsg' : 'otherUserMsg'
+              }
             >
-              {/* you can edit message colors and shapes based on above */}
-              <div>
-                <div className="msgContent">
-                  <p>{msgContent.message}</p>
-                </div>
-                <div className="msgInfo">
-                  <p>{msgContent.time}</p>
-                  <p>{msgContent.author}</p>
-                </div>
+              <div className="msgContent">
+                <p>{msgContent.message}</p>
+              </div>
+              <div className="msgInfo">
+                <span className="author">{msgContent.author}</span>
+                <span className="time">{msgContent.time}</span>
               </div>
             </div>
           );
@@ -58,6 +54,7 @@ const Chat = ({ socket, username, spaceID }) => {
         <input
           type="text"
           placeholder="Enter Your Message"
+          value={currentMsg}
           onChange={(change) => {
             setCurrentMsg(change.target.value);
           }}
