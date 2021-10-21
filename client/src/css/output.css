@@ -29,14 +29,20 @@
 #headerNav .authBtns {
   grid-column: 2/3;
   align-self: center;
+  justify-self: flex-end;
   margin-right: 20px;
+  font-size: 0.8em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 #headerNav .authBtns #logout {
   outline: none;
   border: none;
   border-radius: 3px;
   height: 25px;
-  width: 80px;
+  width: 50px;
   background-color: #ffafcc;
   margin-right: 5px;
   box-shadow: 2px 2px 5px 0.5px gray;
@@ -50,7 +56,7 @@
   border: none;
   border-radius: 3px;
   height: 25px;
-  width: 100px;
+  width: 70px;
   background-color: #cdb4db;
   margin-right: 5px;
   box-shadow: 2px 2px 5px 0.5px gray;
@@ -60,6 +66,22 @@
   background-color: #ffc8dd;
 }
 
+@media (min-width: 641px) {
+  #headerNav .authBtns {
+    grid-column: 2/3;
+    align-self: center;
+    justify-self: flex-end;
+    font-size: 1em;
+  }
+  #headerNav .authBtns #logout {
+    height: 25px;
+    width: 80px;
+  }
+  #headerNav .authBtns #userAccount {
+    height: 25px;
+    width: 100px;
+  }
+}
 #landing {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -330,11 +352,91 @@
 #home {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: auto repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
 }
 #home #spaceNav {
-  grid-column: 1/1;
-  grid-row: 2/4;
+  grid-column: 1/2;
+  grid-row: 1/span 4;
+  justify-self: center;
+}
+
+#userAcct {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto repeat(2, 1fr);
+}
+#userAcct h2 {
+  grid-row: 1/2;
+  justify-self: center;
+}
+#userAcct #userInfo {
+  grid-row: 2/3;
+  justify-self: center;
+  width: 300px;
+  height: 250px;
+  border: 3px solid #cdb4db;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#userAcct #userInfo .userData {
+  margin-bottom: 3px;
+  font-size: 1.04em;
+}
+#userAcct #userInfo #userUpdateBtn {
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  margin: 10px auto;
+  padding: 3px 0px 3px 5px;
+  width: 190px;
+  height: 30px;
+  transition: 0.25s;
+  font-size: 1.04em;
+  font-weight: 500;
+  background-color: #cdb4db;
+}
+#userAcct #userInfo #userUpdateBtn:hover {
+  cursor: pointer;
+  background-color: #bde0fe;
+}
+#userAcct #userUpdates {
+  grid-row: 3/4;
+  margin-top: 20px;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#userAcct #userUpdates .updateInput {
+  margin: 3px auto;
+  padding: 3px 0px 3px 5px;
+  height: 25px;
+  width: 190px;
+  border: 2px solid #cdb4db;
+  background-color: #bde0fe;
+  opacity: 0.8;
+  border-radius: 3px;
+}
+#userAcct #userUpdates #updateSubmit {
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  margin: 10px auto;
+  padding: 3px 0px 3px 5px;
+  width: 190px;
+  height: 30px;
+  transition: 0.25s;
+  font-size: 1.04em;
+  font-weight: 500;
+  background-color: #a2d2ff;
+}
+#userAcct #userUpdates #updateSubmit:hover {
+  cursor: pointer;
+  background-color: #ffafcc;
 }
 
 #space {
@@ -999,6 +1101,19 @@
     display: none;
   }
 }
+#spaceNav {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  background-color: white;
+  border-radius: 4px;
+  height: 400px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 #spaceNav #spaceCredentials {
   display: flex;
   flex-direction: column;
@@ -1053,32 +1168,52 @@
   background-color: #ffc8dd;
 }
 #spaceNav #createSpaceSection {
+  grid-column: 1/2;
+  grid-row: 1/2;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 }
+#spaceNav #createSpaceSection h1 {
+  margin-bottom: 0px;
+}
 #spaceNav #createSpaceSection #createSpaceBtn {
+  outline: none;
   border: none;
-  margin-left: 15px;
+  border-radius: 3px;
+  margin: 10px 10px 10px 15px;
+  height: 30px;
+  width: 40px;
+  background-color: #ffafcc;
 }
-#spaceNav #createSpaceSection #createSpaceBtn:hover #createHoverText {
-  visibility: visible;
-}
-#spaceNav #createSpaceSection #createSpaceBtn #createHoverText {
-  visibility: hidden;
-  position: absolute;
-  top: 50px;
-  left: 40px;
-  margin-left: 15px;
-  padding: 10px;
-  font-size: 13px;
-  background-color: #0d1b2a;
-  color: white;
+#spaceNav #createSpaceSection #createSpaceBtn:hover {
+  cursor: pointer;
+  background-color: #cdb4db;
 }
 #spaceNav #mySpacesList {
-  grid-column: 1/1;
+  grid-column: 1/2;
   grid-row: 2/4;
+  justify-self: center;
+}
+#spaceNav #mySpacesList .spaceBlock {
+  margin: 10px 0px;
+}
+#spaceNav #mySpacesList .spaceBlock .spaceTitle .toSpaceBtn {
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  margin: 3px auto;
+  width: 190px;
+  height: 40px;
+  transition: 0.25s;
+  font-size: 1.1em;
+  font-weight: 500;
+  background-color: #bde0fe;
+}
+#spaceNav #mySpacesList .spaceBlock .spaceTitle .toSpaceBtn:hover {
+  cursor: pointer;
+  background-color: #ffafcc;
 }
 
 /*# sourceMappingURL=output.css.map */

@@ -3,9 +3,10 @@
 #home {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: auto repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
   #spaceNav {
-    grid-column: 1 / 1;
-    grid-row: 2 / 4;
+    grid-column: 1 / 2;
+    grid-row: 1 / span 4;
+    justify-self: center;
   }
 }
