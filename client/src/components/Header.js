@@ -17,11 +17,11 @@ const Header = (props) => {
           </NavLink>
         )}
         {props.isAuth ? (
-          <div className="">
-            <button>
+          <div className="authBtns">
+            <button id="logout">
               <NavLink to="/logout">Logout</NavLink>
             </button>
-            <button>
+            <button id="userAccount">
               <NavLink to="/account">User Account</NavLink>
             </button>
           </div>

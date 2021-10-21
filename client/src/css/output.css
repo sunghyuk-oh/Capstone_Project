@@ -16,14 +16,48 @@
 }
 
 #headerNav {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
 }
 #headerNav #logo2 {
+  grid-column: 1/2;
+  align-self: center;
   height: 50px;
   margin: 10px;
+}
+#headerNav .authBtns {
+  grid-column: 2/3;
+  align-self: center;
+  margin-right: 20px;
+}
+#headerNav .authBtns #logout {
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  height: 25px;
+  width: 80px;
+  background-color: #ffafcc;
+  margin-right: 5px;
+  box-shadow: 2px 2px 5px 0.5px gray;
+}
+#headerNav .authBtns #logout:hover {
+  cursor: pointer;
+  background-color: #cdb4db;
+}
+#headerNav .authBtns #userAccount {
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  height: 25px;
+  width: 100px;
+  background-color: #cdb4db;
+  margin-right: 5px;
+  box-shadow: 2px 2px 5px 0.5px gray;
+}
+#headerNav .authBtns #userAccount:hover {
+  cursor: pointer;
+  background-color: #ffc8dd;
 }
 
 #landing {
@@ -663,9 +697,9 @@
   align-self: center;
   justify-self: center;
   background-color: white;
-  border-radius: 2px;
+  border-radius: 4px;
   height: 450px;
-  width: 90%;
+  width: 95%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -756,11 +790,84 @@
   background-color: #ffafcc;
 }
 #mobileSpace #spacesInfo {
-  overflow-y: scroll;
-  scroll-behavior: smooth;
   grid-column: 1/4;
+  grid-row: 1/5;
+  align-self: center;
+  justify-self: center;
+  background-color: white;
+  border-radius: 4px;
+  height: 450px;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#mobileSpace #spacesInfo #spaceNav {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+}
+#mobileSpace #spacesInfo #spaceNav #spaceCredentials {
+  grid-column: 1/2;
   grid-row: 1/4;
-  border: 2px solid red;
+  align-self: center;
+  justify-self: center;
+  z-index: 10;
+  height: 450px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+#mobileSpace #spacesInfo #spaceNav #createSpaceSection {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#mobileSpace #spacesInfo #spaceNav #createSpaceSection h1 {
+  margin-bottom: 0px;
+}
+#mobileSpace #spacesInfo #spaceNav #createSpaceSection #createSpaceBtn {
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  margin: 10px 10px 10px 15px;
+  height: 30px;
+  width: 40px;
+  background-color: #ffafcc;
+}
+#mobileSpace #spacesInfo #spaceNav #createSpaceSection #createSpaceBtn:hover {
+  cursor: pointer;
+  background-color: #cdb4db;
+}
+#mobileSpace #spacesInfo #spaceNav #mySpacesList {
+  grid-column: 1/2;
+  grid-row: 2/4;
+  justify-self: center;
+}
+#mobileSpace #spacesInfo #spaceNav #mySpacesList .spaceBlock {
+  margin: 10px 0px;
+}
+#mobileSpace #spacesInfo #spaceNav #mySpacesList .spaceBlock .spaceTitle .toSpaceBtn {
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  margin: 3px auto;
+  width: 190px;
+  height: 40px;
+  transition: 0.25s;
+  font-size: 1.1em;
+  font-weight: 500;
+  background-color: #bde0fe;
+}
+#mobileSpace #spacesInfo #spaceNav #mySpacesList .spaceBlock .spaceTitle .toSpaceBtn:hover {
+  cursor: pointer;
+  background-color: #ffafcc;
 }
 #mobileSpace #postSection {
   overflow-y: scroll;
@@ -826,8 +933,19 @@
   z-index: 10;
   height: 200px;
 }
-#spaceNav #spaceCredentials h5 {
-  margin: 0px;
+#spaceNav #spaceCredentials #minSpaceBtn {
+  align-self: flex-end;
+  margin: 10px 30px 0px 0px;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  height: 30px;
+  width: 40px;
+  background-color: #ffafcc;
+}
+#spaceNav #spaceCredentials #minSpaceBtn:hover {
+  cursor: pointer;
+  background-color: #cdb4db;
 }
 #spaceNav #spaceCredentials p {
   width: 70%;
@@ -862,14 +980,14 @@
   justify-content: flex-start;
   align-items: center;
 }
-#spaceNav #createSpaceSection #createSpace #createSpaceBtn {
+#spaceNav #createSpaceSection #createSpaceBtn {
   border: none;
   margin-left: 15px;
 }
-#spaceNav #createSpaceSection #createSpace #createSpaceBtn:hover #createHoverText {
+#spaceNav #createSpaceSection #createSpaceBtn:hover #createHoverText {
   visibility: visible;
 }
-#spaceNav #createSpaceSection #createSpace #createSpaceBtn #createHoverText {
+#spaceNav #createSpaceSection #createSpaceBtn #createHoverText {
   visibility: hidden;
   position: absolute;
   top: 50px;

@@ -41,18 +41,19 @@ function SpaceNav(props) {
   const allMySpace = props.mySpaceList.map((space) => {
     return (
       <div key={space.space_id} className="spaceBlock">
-        <h3 className="spaceTitle">{space.space_name}</h3>
-        <button className="toSpaceBtn">
-          <NavLink
-            className="spaceLink"
-            to={{
-              pathname: `/space/${space.space_id}`,
-              state: { spaceID: space.space_id, spaceName: space.space_name }
-            }}
-          >
-            Go To Space
-          </NavLink>
-        </button>
+        <h3 className="spaceTitle">
+          <button className="toSpaceBtn">
+            <NavLink
+              className="spaceLink"
+              to={{
+                pathname: `/space/${space.space_id}`,
+                state: { spaceID: space.space_id, spaceName: space.space_name }
+              }}
+            >
+              {space.space_name}
+            </NavLink>
+          </button>
+        </h3>
       </div>
     );
   });
@@ -61,7 +62,10 @@ function SpaceNav(props) {
     <section id="spaceNav">
       {props.isAuth && isNewSpace ? (
         <div id="spaceCredentials">
-          <h5>Create New Space</h5>
+          <button id="minSpaceBtn" onClick={handleNewSpaceInputPopUp}>
+            x
+          </button>
+          <h2>Create New Space</h2>
           <p>
             By creating a space you can invite friends, chat, and plan new
             events!
@@ -77,12 +81,10 @@ function SpaceNav(props) {
         </div>
       ) : null}
       <section id="createSpaceSection">
-        <h3>My Spaces</h3>
-        <div id="createSpace">
-          <button id="createSpaceBtn" onClick={handleNewSpaceInputPopUp}>
-            +<span id="createHoverText">Add New Space</span>
-          </button>
-        </div>
+        <h1>My Spaces</h1>
+        <button id="createSpaceBtn" onClick={handleNewSpaceInputPopUp}>
+          +{/* +<span id="createHoverText">Add New Space</span> */}
+        </button>
       </section>
       <section id="mySpacesList">{allMySpace}</section>
     </section>
