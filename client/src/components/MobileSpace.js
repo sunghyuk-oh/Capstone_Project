@@ -61,6 +61,7 @@ function MobileSpace(props) {
 
   const handleSingleEventToggle = (eventID) => {
     setSingleEventToggle(eventID)
+    actionCreators.displayAllAttendees(eventID, spaceID, setEventAttendees)
     !isEventSlideDown ? setIsEventSlideDown(true) : setIsEventSlideDown(false)
   }
 
