@@ -20,6 +20,7 @@ function Space(props) {
   const [userName, setUserName] = useState('');
   const [members, setMembers] = useState([]);
   const [events, setEvents] = useState([]);
+  const [posts, setPosts] = useState([])
   const [isExpanded, setExpanded] = useState({ expanded: '', close: true });
   const spaceID = useParams().spaceid;
   const userID = localStorage.getItem('userID');
@@ -29,6 +30,7 @@ function Space(props) {
     displaySpaceMembers();
     joinSpace();
     displayAllEvents();
+    renderAllPosts()
   }, [spaceID]);
 
   const authSpaceUsers = () => {
@@ -47,6 +49,10 @@ function Space(props) {
   const displayAllEvents = () => {
     actionCreators.displayAllEvents(spaceID, setEvents)  
   };
+
+  const renderAllPosts = () => {
+    actionCreators.displayAllPosts(spaceID, setPosts)
+  }
 
   const handleUsernameInput = (e) => {
     setUserName(e.target.value);
@@ -68,19 +74,24 @@ function Space(props) {
   });
 
   const convertDateFormat = (date) => {
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const numDay = date.getDate();
-    const day = date.getDay();
+    if (date.toString() === "Invalid Date") {
+      return " "
+    } else {
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const numDay = date.getDate();
+      const day = date.getDay();
 
-    return `${month}/${numDay}/${year}  ${days[day]}`;
+      
+      return `${month}/${numDay}/${year}  (${days[day]})`;
+    }
   };
 
   const allEvents = events.map((event) => {
     const startDate = convertDateFormat(new Date(event.start_date));
     const endDate = convertDateFormat(new Date(event.end_date));
-
+    
     return (
       <div key={event.event_id}>
         <h4>{event.title}</h4>
@@ -167,7 +178,7 @@ function Space(props) {
             [ + ]
           </button>
           <span>Post List</span>
-          {/* <Post spaceID={spaceID} /> */}
+          <Post posts={posts} setPosts={setPosts} spaceID={spaceID} />
         </section>
         <section
           id={
@@ -222,7 +233,7 @@ function Space(props) {
           >
             [ + ]
           </button>
-          <Event events={events} />
+          <Event events={events} setEvents={setEvents} />
         </div>
         <div
           id={

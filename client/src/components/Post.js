@@ -1,5 +1,4 @@
-import { React, useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { React, useState, useEffect} from 'react'
 import { Icon } from 'semantic-ui-react'
 import * as actionCreators from '../stores/creators/actionCreators'
 
@@ -8,19 +7,20 @@ function Post(props) {
     const [singlePost, setSinglePost] = useState([])
     const [commentBtnToggle, setCommentBtnToggle] = useState(0)
     const [isToggle, setIsToggle] = useState(false)
+    
     const [comment, setComment] = useState({})
     const [allComments, setAllComments] = useState([])
 
-    useEffect(() => {
-        props.onDisplayAllPosts(props.spaceID)
-    }, [props.allPosts])
+    // useEffect(() => {
+    //     renderAllPosts()    
+    // }, [])
 
     const handlePostInput = (e) => {
         setSinglePost({userID: userID, spaceID: props.spaceID, bodyText: e.target.value})
     }
 
     const handleSaveSinglePost = () => {
-        actionCreators.onPost(singlePost)
+        actionCreators.onPost(singlePost, props.setPosts)
         setSinglePost([])
     }
 
@@ -31,15 +31,12 @@ function Post(props) {
     }
 
     const handleCommentInput = (e) => {
-        setComment({userID: userID, postID: e.target.name, bodyText: e.target.value})
+        setComment({userID: userID, postID: e.target.name, bodyText: e.target.value, spaceID: props.spaceID})
     }
 
     const handleSaveComment = () => {
-        
-        actionCreators.saveAndDisplayComments(comment, setAllComments)
+        actionCreators.saveAndDisplayComments(comment, setAllComments, props.setPosts)
         setComment({})
-        
-        console.log(allComments)
     }
 
     const comments = allComments.map(comment => {
@@ -49,13 +46,13 @@ function Post(props) {
             </div>
         )
     })
-
-    const posts = props.allPosts.map(post => {
+    
+    const posts = props.posts.map((post, index) => {
         return (
-            <div className="">
+            <div className="" key={index}>
                 <h4>{post.first_name} {post.last_name[0]}. ({post.username})</h4>
                 <span>{post.body_text}</span>
-                <button onClick={() => actionCreators.incrementLike(post.post_id)}><Icon name='heart' color="red" />Like ({post.like})</button>
+                <button onClick={() => actionCreators.incrementLike(post.post_id, props.spaceID, props.setPosts)}><Icon name='heart' color="red" />Like ({post.like})</button>
                 <button name={post.post_id} onClick={handleCommentToggle}><Icon name='comment outline' color="blue" />Comment ({post.comment})</button> 
                 {
                     isToggle && commentBtnToggle === post.post_id.toString() ? 
@@ -83,16 +80,4 @@ function Post(props) {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        allPosts: state.posts
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onDisplayAllPosts: (spaceID) => dispatch(actionCreators.displayAllPosts(spaceID))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Post)
+export default Post

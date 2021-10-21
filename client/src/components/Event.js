@@ -36,7 +36,15 @@ function Event(props) {
   });
 
   const handleAddEvent = (newEvent) => {
-    props.onAddNewEvent(newEvent);
+    actionCreators.addNewEvent(newEvent, props.setEvents);
+    setNewEvent({
+      title: '',
+      start_date: '',
+      end_date: '',
+      location: '',
+      user_id: userID,
+      space_id: spaceID
+    })
   };
 
   const allEvents = props.events.map((event) => {

@@ -137,8 +137,7 @@ export const displayAllEvents = (spaceID, setAllEvents) => {
     .catch(err => console.log(err))
 }
 
-export const addNewEvent = (event) => {
-  return (dispatch) => {
+export const addNewEvent = (event, setEvents) => {
     fetch("http://localhost:8080/events/createEvent", {
             method: "POST",
             headers: { "Content-Type": "application/json"},
@@ -147,13 +146,14 @@ export const addNewEvent = (event) => {
         .then(response => response.json())
         .then(result => {
             if (result.success) {
-                console.log(result.message)  
+                console.log(result.all_events)
+                setEvents(result.all_events)  
             } else {
                 console.log('Adding a new event failed')
             }
         })
         .catch(err => console.log(err))
-  }
+
 }
 
 export const inviteMember = (invitee, attendee, setAttendee) => {
@@ -204,20 +204,18 @@ export const updateUserInfo = (userInfo) => {
 }
 
 // Post component
-export const displayAllPosts = (spaceID) => {
-  return (dispatch) => {
+export const displayAllPosts = (spaceID, setPosts) => {
     fetch(`http://localhost:8080/posts/displayAllPosts/${spaceID}`)
     .then(response => response.json())
     .then(result => {
       if (result.success) {
-        dispatch({ type: actionTypes.DISPLAY_POSTS, payload: result.allPosts})
+        setPosts(result.allPosts)
       }
     })
     .catch(err => console.log(err))
-  }
 }
 
-export const onPost = (post) => {
+export const onPost = (post, setPost) => {
     fetch('http://localhost:8080/posts/savePost', {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -226,7 +224,7 @@ export const onPost = (post) => {
     .then(response => response.json())
     .then(result => {
       if (result.success) {
-        console.log(result.message)
+        setPost(result.allPosts)
       }
     })
     .catch(err => console.log(err))
@@ -242,7 +240,7 @@ export const displayAllComments = (postID, setAllComments) => {
   })
 }
 
-export const saveAndDisplayComments = (comment, setAllComments) => {
+export const saveAndDisplayComments = (comment, setAllComments, setPosts) => {
     fetch('http://localhost:8080/posts/saveAndDisplayComments', {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -252,21 +250,22 @@ export const saveAndDisplayComments = (comment, setAllComments) => {
     .then(result => {
       if (result.success) {
         setAllComments(result.comments)
+        setPosts(result.allPosts)
       }
     })
     .catch(err => console.log(err))
 }
 
-export const incrementLike = (postID) => {
+export const incrementLike = (postID, spaceID, setPosts) => {
   fetch('http://localhost:8080/posts/incrementLike', {
     method: "POST",
     headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ postID: postID })
+    body: JSON.stringify({ postID: postID, spaceID: spaceID })
   })
   .then(response => response.json())
   .then(result => {
     if (result.success) {
-      console.log(result.message)
+      setPosts(result.allPosts)
     }
   })
   .catch(err => console.log(err))

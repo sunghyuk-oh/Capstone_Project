@@ -14,7 +14,12 @@ router.post('/createEvent', (req, res) => {
     const { title, start_date, end_date, location, space_id, user_id } = req.body
 
     db.none('INSERT INTO events (title, start_date, end_date, location, space_id, user_id) VALUES ($1, $2, $3, $4, $5, $6)', [title, start_date, end_date, location, space_id, user_id])
-    .then(res.json({ success: true, message: "A new event has been created." }))
+    .then(() => {
+        db.any('SELECT * FROM events WHERE space_id = $1', [space_id])
+        .then((allEvents) => {
+            res.json({ success: true, all_events: allEvents })
+        })
+    })
     .catch(err => console.log(err))
 })
 
