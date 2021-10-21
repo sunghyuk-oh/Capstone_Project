@@ -8,6 +8,7 @@ import SpaceNav from './SpaceNav';
 import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
+import Post from './Post';
 import * as actionCreators from '../stores/creators/actionCreators';
 
 function MobileSpace(props) {
@@ -27,7 +28,7 @@ function MobileSpace(props) {
     authSpaceUsers();
     joinSpace();
     displaySpaceMembers();
-  }, [spaceID]);
+  }, []);
 
   useEffect(() => {
     displayAllEvents();
@@ -62,12 +63,16 @@ function MobileSpace(props) {
   const allMembers = members.map((member, index) => {
     return (
       <div key={index} className="spaceMember">
-        <h5>
-          {member.first_name} {member.last_name}
-        </h5>
+        <span className="memberInitials">
+          {member.first_name[0]}
+          {member.last_name[0]}
+        </span>
+        <span>({member.username})</span>
       </div>
     );
   });
+
+  console.log(members);
 
   const convertDateFormat = (date) => {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -104,44 +109,59 @@ function MobileSpace(props) {
     <section id="mobileSpace">
       <nav id="componentSelect">
         <button
-          name="titleAndMembers"
-          class="toggleComponents"
+          name="spaces"
+          className="toggleComponents"
           onClick={handleActive}
         >
-          Space Title + Members
+          Spaces
         </button>
-        <button name="spaces" class="toggleComponents" onClick={handleActive}>
-          View Spaces
+        <button
+          name="titleAndMembers"
+          className="toggleComponents"
+          onClick={handleActive}
+        >
+          Info
         </button>
-        <button name="posts" class="toggleComponents" onClick={handleActive}>
-          View Posts
+        <button
+          name="posts"
+          className="toggleComponents"
+          onClick={handleActive}
+        >
+          Posts
         </button>
-        <button name="chat" class="toggleComponents" onClick={handleActive}>
-          View Chat
+        <button name="chat" className="toggleComponents" onClick={handleActive}>
+          Chat
         </button>
-        <button name="events" class="toggleComponents" onClick={handleActive}>
-          View Events
+        <button
+          name="events"
+          className="toggleComponents"
+          onClick={handleActive}
+        >
+          Events
         </button>
       </nav>
 
       {isActive['active'] === 'titleAndMembers' ? (
-        <div>
+        <div id="spaceAdmin">
           <section id="spaceTitle">
             <h1>{spaceName}</h1>
           </section>
           <section id="memberInfo">
-            <span>Members</span>
+            <span className="sectionHeader">Members</span>
             <div id="memberList">{allMembers}</div>
-            <div>
-              <span>User Invite</span>
-              <input
-                type="text"
-                placeholder="Enter Invitee's Username"
-                name="usernameInput"
-                onChange={handleUsernameInput}
-              />
-              <button onClick={handleInviteSubmit}>Invite</button>
-            </div>
+          </section>
+          <section id="userInvite">
+            <span className="sectionHeader">User Invite</span>
+            <input
+              id="inviteInput"
+              type="text"
+              placeholder="Enter Invitee's Username"
+              name="usernameInput"
+              onChange={handleUsernameInput}
+            />
+            <button id="inviteBtn" onClick={handleInviteSubmit}>
+              Invite
+            </button>
           </section>
         </div>
       ) : null}
@@ -153,7 +173,10 @@ function MobileSpace(props) {
       ) : null}
 
       {isActive['active'] === 'posts' ? (
-        <section id="postSection">Post List</section>
+        <section id="postSection">
+          <span>Posts</span>
+          <Post spaceID={spaceID} />
+        </section>
       ) : null}
 
       {isActive['active'] === 'chat' ? (
@@ -167,7 +190,7 @@ function MobileSpace(props) {
         </section>
       ) : null}
       {isActive['active'] === 'events' ? (
-        <div>
+        <div id="eventAdmin">
           <section id="eventList">
             Event List
             {allEvents}
@@ -182,7 +205,8 @@ function MobileSpace(props) {
 
 const mapStateToProps = (state) => {
   return {
-    allEvents: state.allEvents
+    allEvents: state.allEvents,
+    isAuth: state.isAuth
   };
 };
 

@@ -631,42 +631,142 @@
 #mobileSpace {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr) 0.5fr;
   height: 100vh;
   width: 100%;
 }
-#mobileSpace div {
+#mobileSpace #componentSelect {
+  grid-column: 1/5;
+  grid-row: 5/6;
+  align-self: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr;
+}
+#mobileSpace #componentSelect .toggleComponents {
+  height: 50px;
+  outline: none;
+  border: none;
+  font-weight: 800;
+  background-color: #bde0fe;
+}
+#mobileSpace #componentSelect .toggleComponents:hover {
+  cursor: pointer;
+  background-color: #ffafcc;
+}
+#mobileSpace #componentSelect .toggleComponents:focus {
+  background-color: #cdb4db;
+}
+#mobileSpace #spaceAdmin {
   grid-column: 1/4;
   grid-row: 1/5;
-}
-#mobileSpace div #spaceTitle {
-  border: 2px solid yellow;
-}
-#mobileSpace div #memberInfo {
+  align-self: center;
+  justify-self: center;
+  background-color: white;
+  border-radius: 2px;
+  height: 450px;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
 }
-#mobileSpace div #memberInfo #memberList {
+#mobileSpace #spaceAdmin #spaceTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75px;
+  width: 250px;
+  margin-bottom: 30px;
+  color: white;
+  background-color: #a2d2ff;
+  border-radius: 4px;
+}
+#mobileSpace #spaceAdmin #spaceTitle h1 {
+  font-size: 3em;
+}
+#mobileSpace #spaceAdmin #memberInfo {
+  height: 150px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#mobileSpace #spaceAdmin #memberInfo .sectionHeader {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+#mobileSpace #spaceAdmin #memberInfo #memberList {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
+#mobileSpace #spaceAdmin #memberInfo #memberList .spaceMember {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#mobileSpace #spaceAdmin #memberInfo #memberList .spaceMember .memberInitials {
+  padding: 4px;
+  color: white;
+  background-color: #bde0fe;
+  border-radius: 8px;
+  font-size: 1.2em;
+  font-weight: 800;
+}
+#mobileSpace #spaceAdmin #userInvite {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#mobileSpace #spaceAdmin #userInvite .sectionHeader {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+#mobileSpace #spaceAdmin #userInvite #inviteInput {
+  margin: 3px auto;
+  padding: 3px 0px 3px 5px;
+  height: 30px;
+  width: 190px;
+  border: 1px solid #ffc8dd;
+  background-color: white;
+  opacity: 0.8;
+  border-radius: 3px;
+}
+#mobileSpace #spaceAdmin #userInvite #inviteBtn {
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  margin: 3px auto;
+  padding: 3px 0px 3px 5px;
+  width: 190px;
+  height: 30px;
+  transition: 0.25s;
+  font-size: 1.2em;
+  font-weight: 500;
+  background-color: #bde0fe;
+}
+#mobileSpace #spaceAdmin #userInvite #inviteBtn:hover {
+  cursor: pointer;
+  background-color: #ffafcc;
+}
 #mobileSpace #spacesInfo {
   overflow-y: scroll;
   scroll-behavior: smooth;
   grid-column: 1/4;
-  grid-row: 1/5;
+  grid-row: 1/4;
   border: 2px solid red;
 }
 #mobileSpace #postSection {
   overflow-y: scroll;
   scroll-behavior: smooth;
   grid-column: 1/4;
-  grid-row: 1/5;
+  grid-row: 1/4;
   border: 2px solid blue;
 }
 #mobileSpace #chatSection {
@@ -674,20 +774,20 @@
   overflow-y: scroll;
   scroll-behavior: smooth;
   grid-column: 1/4;
-  grid-row: 1/5;
+  grid-row: 1/4;
 }
-#mobileSpace div {
+#mobileSpace #eventAdmin {
   overflow-y: scroll;
   scroll-behavior: smooth;
   grid-column: 1/4;
-  grid-row: 1/5;
+  grid-row: 1/4;
 }
-#mobileSpace div #eventList {
+#mobileSpace #eventAdmin #eventList {
   overflow-y: scroll;
   scroll-behavior: smooth;
   border: 2px solid gray;
 }
-#mobileSpace div #event {
+#mobileSpace #eventAdmin #event {
   overflow-y: scroll;
   scroll-behavior: smooth;
   border: 2px solid purple;
@@ -697,28 +797,16 @@
   align-items: center;
   padding-bottom: 25px;
 }
-#mobileSpace div #event #newEvent #eventDataInput {
+#mobileSpace #eventAdmin #event #newEvent #eventDataInput {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-#mobileSpace div #eventDetails {
+#mobileSpace #eventAdmin #eventDetails {
   overflow-y: scroll;
   scroll-behavior: smooth;
   border: 2px solid gold;
-}
-#mobileSpace #componentSelect {
-  grid-column: 1/5;
-  grid-row: 5/6;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 40px;
-}
-#mobileSpace #componentSelect .toggleComponents {
-  margin: 0px 10px;
 }
 
 @media (min-width: 641px) {

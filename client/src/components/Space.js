@@ -9,8 +9,8 @@ import MobileSpace from './MobileSpace';
 import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
-import * as actionCreators from '../stores/creators/actionCreators';
 import Post from './Post';
+import * as actionCreators from '../stores/creators/actionCreators';
 
 function Space(props) {
   const socket = window.socket;
@@ -141,16 +141,16 @@ function Space(props) {
           </button>
           <span>Members</span>
           <div id="memberList">{allMembers}</div>
-          <div>
-            <span>User Invite</span>
-            <input
-              type="text"
-              placeholder="Enter Invitee's Username"
-              name="usernameInput"
-              onChange={handleUsernameInput}
-            />
-            <button onClick={handleInviteSubmit}>Invite</button>
-          </div>
+        </section>
+        <section id="userInvite">
+          <span>User Invite</span>
+          <input
+            type="text"
+            placeholder="Enter Invitee's Username"
+            name="usernameInput"
+            onChange={handleUsernameInput}
+          />
+          <button onClick={handleInviteSubmit}>Invite</button>
         </section>
         <section
           id={
