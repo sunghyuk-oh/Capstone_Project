@@ -9,6 +9,10 @@ function EventDetails(props) {
   });
   
   const convertTimeFormat = (date) => {
+    if (date.toString() === "Invalid Date") {
+      return " "
+    }
+    
     let hour = date.getHours();
     let minute = date.getMinutes();
 
