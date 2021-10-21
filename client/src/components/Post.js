@@ -7,7 +7,7 @@ import * as actionCreators from '../stores/creators/actionCreators';
 function Post(props) {
   const userID = localStorage.getItem('userID');
   const spaceID = useParams().spaceid;
-  const [singlePost, setSinglePost] = useState([]);
+  const [singlePost, setSinglePost] = useState({});
   const [commentBtnToggle, setCommentBtnToggle] = useState(0);
   const [isToggle, setIsToggle] = useState(false);
   const [comment, setComment] = useState({});
@@ -27,7 +27,11 @@ function Post(props) {
 
   const handleSaveSinglePost = () => {
     actionCreators.onPost(singlePost);
-    setSinglePost([]);
+    setSinglePost({
+      userID: '',
+      spaceID: '',
+      bodyText: ''
+    });
   };
 
   const handleCommentToggle = (e) => {
@@ -122,12 +126,17 @@ function Post(props) {
     <section id="postComponent">
       <div id="posts">{posts}</div>
       <div id="createPostSection">
-        <input
+        <textarea
+          wrap="soft"
           id="postInput"
+          value={singlePost.bodyText}
           type="text"
           placeholder="Type post here"
           onChange={handlePostInput}
-        />
+          onKeyPress={(event) => {
+            event.key === 'Enter' && handleSaveSinglePost();
+          }}
+        ></textarea>
         <button id="submitPostBtn" onClick={handleSaveSinglePost}>
           Post
         </button>

@@ -1058,6 +1058,10 @@
   height: 30px;
   width: 70px;
 }
+#mobileSpace #postSection #postComponent #posts .post .postContent .socialBtns .likeBtn:hover {
+  cursor: pointer;
+  background-color: #ffafcc;
+}
 #mobileSpace #postSection #postComponent #posts .post .postContent .socialBtns .commentBtn {
   border: none;
   outline: none;
@@ -1065,6 +1069,10 @@
   border-radius: 4px;
   height: 30px;
   width: 70px;
+}
+#mobileSpace #postSection #postComponent #posts .post .postContent .socialBtns .commentBtn:hover {
+  cursor: pointer;
+  background-color: #a2d2ff;
 }
 #mobileSpace #postSection #postComponent #posts .post .commentSection {
   padding: 10px;
@@ -1081,7 +1089,8 @@
 }
 #mobileSpace #postSection #postComponent #posts .post .commentSection #commentWrapper {
   margin: 5px;
-  scroll-snap-align: end;
+  display: flex;
+  flex-direction: column-reverse;
 }
 #mobileSpace #postSection #postComponent #posts .post .commentSection #commentWrapper .comment {
   margin: 15px 0px;
@@ -1111,6 +1120,32 @@
   margin-left: 4px;
 }
 #mobileSpace #postSection #postComponent #posts .post .commentSection #commentWrapper #commentSubmit #commentBtn:hover {
+  background-color: #ffc8dd;
+  cursor: pointer;
+}
+#mobileSpace #postSection #postComponent #createPostSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0px 10px 0px;
+}
+#mobileSpace #postSection #postComponent #createPostSection #postInput {
+  border: 1px solid #cdb4db;
+  width: 250px;
+  height: 40px;
+  border-radius: 8px;
+}
+#mobileSpace #postSection #postComponent #createPostSection #submitPostBtn {
+  border: none;
+  outline: none;
+  background-color: #cdb4db;
+  border-radius: 4px;
+  height: 40px;
+  width: 80px;
+  margin-left: 4px;
+}
+#mobileSpace #postSection #postComponent #createPostSection #submitPostBtn:hover {
   background-color: #ffc8dd;
   cursor: pointer;
 }

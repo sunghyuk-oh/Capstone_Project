@@ -209,10 +209,6 @@
         &::-webkit-scrollbar {
           display: none;
         }
-        // &::-webkit-scrollbar-track {
-        // }
-        // &::-webkit-scrollbar-thumb {
-        // }
         .post {
           @include flex(column, center, center);
           .postContent {
@@ -248,6 +244,10 @@
                 border-radius: 4px;
                 height: 30px;
                 width: 70px;
+                &:hover {
+                  cursor: pointer;
+                  background-color: $lightPalette3;
+                }
               }
               .commentBtn {
                 border: none;
@@ -256,6 +256,10 @@
                 border-radius: 4px;
                 height: 30px;
                 width: 70px;
+                &:hover {
+                  cursor: pointer;
+                  background-color: $lightPalette5;
+                }
               }
             }
           }
@@ -271,7 +275,8 @@
             }
             #commentWrapper {
               margin: 5px;
-              scroll-snap-align: end;
+              display: flex;
+              flex-direction: column-reverse;
               .comment {
                 margin: 15px 0px;
                 .commentAuthor {
@@ -302,6 +307,29 @@
                 }
               }
             }
+          }
+        }
+      }
+      #createPostSection {
+        @include flex(row, space-between, center);
+        margin: 10px 0px 10px 0px;
+        #postInput {
+          border: 1px solid $lightPalette1;
+          width: 250px;
+          height: 40px;
+          border-radius: 8px;
+        }
+        #submitPostBtn {
+          border: none;
+          outline: none;
+          background-color: $lightPalette1;
+          border-radius: 4px;
+          height: 40px;
+          width: 80px;
+          margin-left: 4px;
+          &:hover {
+            background-color: $lightPalette2;
+            cursor: pointer;
           }
         }
       }
