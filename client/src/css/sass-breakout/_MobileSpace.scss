@@ -166,6 +166,9 @@
                 cursor: pointer;
                 background-color: $lightPalette3;
               }
+              &:focus {
+                background-color: $lightPalette1;
+              }
               outline: none;
               border: none;
               border-radius: 3px;
@@ -183,7 +186,6 @@
     }
   }
   #postSection {
-    @include scroll();
     grid-column: 1 / 4;
     grid-row: 1 / 5;
     align-self: center;
@@ -193,33 +195,95 @@
     height: 450px;
     width: 95%;
     @include flex(column, center, center);
+
+    #postComponent {
+      border: 2px solid black;
+      height: 400px;
+      width: 95%;
+      @include flex(column, center, center);
+      #posts {
+        @include scroll();
+        .post {
+          @include flex(column, center, center);
+          @include scroll();
+          .postContent {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(3, 1fr);
+            height: 200px;
+            width: 350px;
+            margin: 10px 0px;
+            border-top: 1px solid $lightPalette4;
+            border-bottom: 1px solid $lightPalette4;
+
+            .postAuthor {
+              grid-row: 1 / 2;
+              justify-self: flex-start;
+              margin: 10px 0px 5px 10px;
+              font-weight: 800;
+              text-decoration: underline;
+            }
+            .postText {
+              grid-row: 2 / 3;
+              justify-self: flex-start;
+              margin: 10px 0px 5px 10px;
+            }
+            .socialBtns {
+              grid-row: 3 / 4;
+              justify-self: flex-end;
+              margin: 10px 10px 5px 0px;
+              .likeBtn {
+                border: none;
+                outline: none;
+                margin-right: 3px;
+                background-color: $lightPalette2;
+                border-radius: 4px;
+                height: 30px;
+                width: 70px;
+              }
+              .commentBtn {
+                border: none;
+                outline: none;
+                background-color: $lightPalette4;
+                border-radius: 4px;
+                height: 30px;
+                width: 70px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
   #chatSection {
     grid-column: 1 / 4;
     grid-row: 1 / 5;
     align-self: center;
     justify-self: center;
-    background-color: white;
     border-radius: 4px;
     height: 450px;
     width: 95%;
     @include flex(column, center, center);
+    #chatTitle {
+      font-size: 1.5em;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
     #chatBox {
       #chatWindow {
         @include scroll();
-        border: 2px solid $lightPalette5;
         border-radius: 4px;
         height: 300px;
-        width: 350px;
-        box-shadow: 2px 2px 5px 0.5px gray;
+        width: 380px;
+        box-shadow: 2px 2px 5px 0.8px gray;
         display: grid;
         grid-template-columns: 1fr;
         .myMsg {
           @include flex(column, center, flex-start);
           .msgContent {
             margin-top: 10px;
-            background-color: $lightPalette5;
-            width: 80%;
+            background-color: $lightPalette1;
+            width: 60%;
             margin-top: 10px;
             padding: 10px;
             font-weight: 400;
@@ -239,7 +303,7 @@
           .msgContent {
             margin-top: 10px;
             background-color: $lightPalette3;
-            width: 80%;
+            width: 60%;
             margin-top: 10px;
             padding: 10px;
             font-weight: 400;
@@ -252,6 +316,29 @@
             span {
               margin-right: 5px;
             }
+          }
+        }
+      }
+      #enterChatMsg {
+        margin-top: 5px;
+        @include flex(row, flex-end, center);
+        textarea {
+          width: 300px;
+          height: 50px;
+          border: none;
+          border-radius: 4px;
+          font-size: 1.25em;
+        }
+        button {
+          margin-left: 5px;
+          height: 50px;
+          width: 50px;
+          font-weight: 800;
+          border: none;
+          background-color: $lightPalette4;
+          &:hover {
+            cursor: pointer;
+            background-color: $lightPalette3;
           }
         }
       }

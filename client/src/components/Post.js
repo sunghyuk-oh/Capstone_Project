@@ -53,10 +53,10 @@ function Post(props) {
 
   const comments = allComments.map((comment) => {
     return (
-      <div>
+      <div id="commentBox">
         <p>
           <b>
-            {comment.first_name} {comment.last_name[0]}. ({comment.username}):{' '}
+            {comment.first_name} {comment.last_name[0]} :{' '}
           </b>{' '}
           {comment.body_text}
         </p>
@@ -66,19 +66,28 @@ function Post(props) {
 
   const posts = props.allPosts.map((post) => {
     return (
-      <div className="">
-        <h4>
-          {post.first_name} {post.last_name[0]}. ({post.username})
-        </h4>
-        <span>{post.body_text}</span>
-        <button onClick={() => actionCreators.incrementLike(post.post_id)}>
-          <Icon name="heart" color="red" />
-          Like ({post.like})
-        </button>
-        <button name={post.post_id} onClick={handleCommentToggle}>
-          <Icon name="comment outline" color="blue" />
-          Comment ({post.comment})
-        </button>
+      <div className="post">
+        <div className="postContent">
+          <span className="postAuthor">
+            {post.first_name} {post.last_name[0]}.
+          </span>
+          <span className="postText">{post.body_text}</span>
+          <div className="socialBtns">
+            <button
+              className="likeBtn"
+              onClick={() => actionCreators.incrementLike(post.post_id)}
+            >
+              <Icon name="heart" color="red" />({post.like})
+            </button>
+            <button
+              className="commentBtn"
+              name={post.post_id}
+              onClick={handleCommentToggle}
+            >
+              <Icon name="comment outline" color="blue" />({post.comment})
+            </button>
+          </div>
+        </div>
         {isToggle && commentBtnToggle === post.post_id.toString() ? (
           <div className="">
             {comments}
@@ -96,15 +105,18 @@ function Post(props) {
   });
 
   return (
-    <section className="">
-      <div className="">{posts}</div>
-      <div className="">
+    <section id="postComponent">
+      <div id="posts">{posts}</div>
+      <div id="createPostSection">
         <input
+          id="postInput"
           type="text"
           placeholder="Type post here"
           onChange={handlePostInput}
         />
-        <button onClick={handleSaveSinglePost}>Post</button>
+        <button id="submitPostBtn" onClick={handleSaveSinglePost}>
+          Post
+        </button>
       </div>
     </section>
   );

@@ -50,8 +50,9 @@ const Chat = ({ socket, username, spaceID }) => {
           );
         })}
       </main>
-      <footer>
-        <input
+      <footer id="enterChatMsg">
+        <textarea
+          wrap="soft"
           type="text"
           placeholder="Enter Your Message"
           value={currentMsg}
@@ -61,7 +62,7 @@ const Chat = ({ socket, username, spaceID }) => {
           onKeyPress={(event) => {
             event.key === 'Enter' && sendMsg();
           }}
-        />
+        ></textarea>
         <button onClick={sendMsg}>Send</button>
       </footer>
     </section>

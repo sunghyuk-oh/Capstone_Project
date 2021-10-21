@@ -972,9 +972,10 @@
   cursor: pointer;
   background-color: #ffafcc;
 }
+#mobileSpace #spacesInfo #spaceNav #mySpacesList .spaceBlock .spaceTitle .toSpaceBtn:focus {
+  background-color: #cdb4db;
+}
 #mobileSpace #postSection {
-  overflow-y: scroll;
-  scroll-behavior: smooth;
   grid-column: 1/4;
   grid-row: 1/5;
   align-self: center;
@@ -987,13 +988,77 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+#mobileSpace #postSection #postComponent {
+  border: 2px solid black;
+  height: 400px;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#mobileSpace #postSection #postComponent #posts {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+#mobileSpace #postSection #postComponent #posts .post {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+#mobileSpace #postSection #postComponent #posts .post .postContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  height: 200px;
+  width: 350px;
+  margin: 10px 0px;
+  border-top: 1px solid #bde0fe;
+  border-bottom: 1px solid #bde0fe;
+}
+#mobileSpace #postSection #postComponent #posts .post .postContent .postAuthor {
+  grid-row: 1/2;
+  justify-self: flex-start;
+  margin: 10px 0px 5px 10px;
+  font-weight: 800;
+  text-decoration: underline;
+}
+#mobileSpace #postSection #postComponent #posts .post .postContent .postText {
+  grid-row: 2/3;
+  justify-self: flex-start;
+  margin: 10px 0px 5px 10px;
+}
+#mobileSpace #postSection #postComponent #posts .post .postContent .socialBtns {
+  grid-row: 3/4;
+  justify-self: flex-end;
+  margin: 10px 10px 5px 0px;
+}
+#mobileSpace #postSection #postComponent #posts .post .postContent .socialBtns .likeBtn {
+  border: none;
+  outline: none;
+  margin-right: 3px;
+  background-color: #ffc8dd;
+  border-radius: 4px;
+  height: 30px;
+  width: 70px;
+}
+#mobileSpace #postSection #postComponent #posts .post .postContent .socialBtns .commentBtn {
+  border: none;
+  outline: none;
+  background-color: #bde0fe;
+  border-radius: 4px;
+  height: 30px;
+  width: 70px;
 }
 #mobileSpace #chatSection {
   grid-column: 1/4;
   grid-row: 1/5;
   align-self: center;
   justify-self: center;
-  background-color: white;
   border-radius: 4px;
   height: 450px;
   width: 95%;
@@ -1002,14 +1067,18 @@
   justify-content: center;
   align-items: center;
 }
+#mobileSpace #chatSection #chatTitle {
+  font-size: 1.5em;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
 #mobileSpace #chatSection #chatBox #chatWindow {
   overflow-y: scroll;
   scroll-behavior: smooth;
-  border: 2px solid #a2d2ff;
   border-radius: 4px;
   height: 300px;
-  width: 350px;
-  box-shadow: 2px 2px 5px 0.5px gray;
+  width: 380px;
+  box-shadow: 2px 2px 5px 0.8px gray;
   display: grid;
   grid-template-columns: 1fr;
 }
@@ -1021,8 +1090,8 @@
 }
 #mobileSpace #chatSection #chatBox #chatWindow .myMsg .msgContent {
   margin-top: 10px;
-  background-color: #a2d2ff;
-  width: 80%;
+  background-color: #cdb4db;
+  width: 60%;
   margin-top: 10px;
   padding: 10px;
   font-weight: 400;
@@ -1047,7 +1116,7 @@
 #mobileSpace #chatSection #chatBox #chatWindow .otherUserMsg .msgContent {
   margin-top: 10px;
   background-color: #ffafcc;
-  width: 80%;
+  width: 60%;
   margin-top: 10px;
   padding: 10px;
   font-weight: 400;
@@ -1062,6 +1131,32 @@
 }
 #mobileSpace #chatSection #chatBox #chatWindow .otherUserMsg .msgInfo span {
   margin-right: 5px;
+}
+#mobileSpace #chatSection #chatBox #enterChatMsg {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+#mobileSpace #chatSection #chatBox #enterChatMsg textarea {
+  width: 300px;
+  height: 50px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.25em;
+}
+#mobileSpace #chatSection #chatBox #enterChatMsg button {
+  margin-left: 5px;
+  height: 50px;
+  width: 50px;
+  font-weight: 800;
+  border: none;
+  background-color: #bde0fe;
+}
+#mobileSpace #chatSection #chatBox #enterChatMsg button:hover {
+  cursor: pointer;
+  background-color: #ffafcc;
 }
 #mobileSpace #eventAdmin {
   overflow-y: scroll;

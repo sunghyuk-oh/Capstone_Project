@@ -38,11 +38,21 @@ function SpaceNav(props) {
     props.onViewMySpace(viewData);
   };
 
+  const handleActive = () => {
+    if (props.active) {
+      props.active({
+        active: 'titleAndMembers'
+      });
+    } else {
+      console.log('Props Active is Not Loaded');
+    }
+  };
+
   const allMySpace = props.mySpaceList.map((space) => {
     return (
       <div key={space.space_id} className="spaceBlock">
         <h3 className="spaceTitle">
-          <button className="toSpaceBtn">
+          <button className="toSpaceBtn" onClick={handleActive}>
             <NavLink
               className="spaceLink"
               to={{

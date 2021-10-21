@@ -76,8 +76,6 @@ function MobileSpace(props) {
     );
   });
 
-  console.log(members);
-
   const convertDateFormat = (date) => {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const year = date.getFullYear();
@@ -172,7 +170,7 @@ function MobileSpace(props) {
 
       {isActive['active'] === 'spaces' ? (
         <section id="spacesInfo">
-          <SpaceNav />
+          <SpaceNav active={setActive} />
         </section>
       ) : null}
 
@@ -185,7 +183,7 @@ function MobileSpace(props) {
 
       {isActive['active'] === 'chat' ? (
         <section id="chatSection">
-          <span>Chat</span>
+          <span id="chatTitle">Let's Chat</span>
           <Chat
             socket={socket}
             username={localStorage.username}
