@@ -27,6 +27,7 @@ function Space(props) {
   const [isExpanded, setExpanded] = useState({ expanded: '', close: true });
   const spaceID = useParams().spaceid;
   const userID = localStorage.getItem('userID');
+  const calendarStyle = { height: 300, width: 300, margin: '50px' };
 
   useEffect(() => {
     authSpaceUsers();
@@ -227,7 +228,7 @@ function Space(props) {
           >
             [ + ]
           </button>
-          <Event />
+          <Event style={calendarStyle} />
         </div>
         <div
           id={

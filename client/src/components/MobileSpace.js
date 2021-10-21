@@ -27,6 +27,7 @@ function MobileSpace(props) {
   });
   const spaceID = useParams().spaceid;
   const userID = localStorage.getItem('userID');
+  const calendarStyle = { height: 500, width: 380, margin: '50px' };
 
   useEffect(() => {
     authSpaceUsers();
@@ -197,7 +198,7 @@ function MobileSpace(props) {
             Event List
             {allEvents}
           </section>
-          <Event />
+          <Event style={calendarStyle} />
           <EventDetails />
         </div>
       ) : null}

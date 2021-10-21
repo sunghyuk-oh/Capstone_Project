@@ -64,7 +64,7 @@ function Event(props) {
           startAccessor="start_date"
           endAccessor="end_date"
           defaultDate={new Date()}
-          style={{ height: 300, width: 300, margin: '50px' }}
+          style={props.style}
         />
       </div>
       <div id="newEvent">
