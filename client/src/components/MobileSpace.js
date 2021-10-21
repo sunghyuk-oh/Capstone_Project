@@ -20,6 +20,9 @@ function MobileSpace(props) {
   const [isActive, setActive] = useState({
     active: 'titleAndMembers'
   });
+  const [singleEventToggle, setSingleEventToggle] = useState(0)
+  const [isEventSlideDown, setIsEventSlideDown] = useState(false)
+  const [eventAttendees, setEventAttendees] = useState([])
   const spaceID = useParams().spaceid;
   const userID = localStorage.getItem('userID');
 
@@ -56,6 +59,11 @@ function MobileSpace(props) {
     actionCreators.invite(inviteData);
   };
 
+  const handleSingleEventToggle = (eventID) => {
+    setSingleEventToggle(eventID)
+    !isEventSlideDown ? setIsEventSlideDown(true) : setIsEventSlideDown(false)
+  }
+
   const allMembers = members.map((member, index) => {
     return (
       <div key={index} className="spaceMember">
@@ -67,25 +75,37 @@ function MobileSpace(props) {
   });
 
   const convertDateFormat = (date) => {
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const numDay = date.getDate();
-    const day = date.getDay();
+    if (date.toString() === "Invalid Date") {
+      return " "
+    } else {
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const numDay = date.getDate();
+      const day = date.getDay();
 
-    return `${month}/${numDay}/${year}  ${days[day]}`;
+      return `${month}/${numDay}/${year}  (${days[day]})`;
+    }
   };
-
+  
   const allEvents = events.map((event) => {
     const startDate = convertDateFormat(new Date(event.start_date));
     const endDate = convertDateFormat(new Date(event.end_date));
-
+    
     return (
-      <div key={event.event_id}>
-        <h4>{event.title}</h4>
-        <p>
-          {startDate} - {endDate}
-        </p>
+      <div>
+        <div key={event.event_id} onClick={()=> handleSingleEventToggle(event.event_id)}>
+          <h4>{event.title}</h4>
+          <p>
+            {startDate} - {endDate}
+          </p>
+        </div>
+        { isEventSlideDown && singleEventToggle === event.event_id ? 
+            <div>
+              <EventDetails event={event} attendees={eventAttendees} setAttendees ={setEventAttendees} />
+            </div>
+          : null
+        }
       </div>
     );
   });
@@ -169,8 +189,7 @@ function MobileSpace(props) {
             Event List
             {allEvents}
           </section>
-          <Event events={events} />
-          {/* <EventDetails /> */}
+          <Event events={events} setEvents={setEvents} />
         </div>
       ) : null}
     </section>

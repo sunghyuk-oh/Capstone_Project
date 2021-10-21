@@ -22,6 +22,9 @@ function Space(props) {
   const [events, setEvents] = useState([]);
   const [posts, setPosts] = useState([])
   const [isExpanded, setExpanded] = useState({ expanded: '', close: true });
+  const [singleEventToggle, setSingleEventToggle] = useState(0)
+  const [isEventSlideDown, setIsEventSlideDown] = useState(false)
+  const [eventAttendees, setEventAttendees] = useState([])
   const spaceID = useParams().spaceid;
   const userID = localStorage.getItem('userID');
 
@@ -63,6 +66,12 @@ function Space(props) {
     actionCreators.invite(inviteData);
   };
 
+  const handleSingleEventToggle = (eventID) => {
+    setSingleEventToggle(eventID)
+    actionCreators.displayAllAttendees(eventID, spaceID, setEventAttendees)
+    !isEventSlideDown ? setIsEventSlideDown(true) : setIsEventSlideDown(false)
+  }
+
   const allMembers = members.map((member, index) => {
     return (
       <div key={index} className="spaceMember">
@@ -83,21 +92,28 @@ function Space(props) {
       const numDay = date.getDate();
       const day = date.getDay();
 
-      
       return `${month}/${numDay}/${year}  (${days[day]})`;
     }
   };
-
+  
   const allEvents = events.map((event) => {
     const startDate = convertDateFormat(new Date(event.start_date));
     const endDate = convertDateFormat(new Date(event.end_date));
     
     return (
-      <div key={event.event_id}>
-        <h4>{event.title}</h4>
-        <p>
-          {startDate} - {endDate}
-        </p>
+      <div>
+        <div key={event.event_id} onClick={()=> handleSingleEventToggle(event.event_id)}>
+          <h4>{event.title}</h4>
+          <p>
+            {startDate} - {endDate}
+          </p>
+        </div>
+        { isEventSlideDown && singleEventToggle === event.event_id ? 
+            <div>
+              <EventDetails event={event} attendees={eventAttendees} setAttendees ={setEventAttendees} />
+            </div>
+          : null
+        }
       </div>
     );
   });
@@ -250,7 +266,6 @@ function Space(props) {
           >
             [ + ]
           </button>
-          {/* <EventDetails /> */}
         </div>
       </section>
     </div>

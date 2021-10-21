@@ -1,4 +1,4 @@
-import { React, useState, useEffect} from 'react'
+import { React, useState } from 'react'
 import { Icon } from 'semantic-ui-react'
 import * as actionCreators from '../stores/creators/actionCreators'
 
@@ -10,10 +10,6 @@ function Post(props) {
     
     const [comment, setComment] = useState({})
     const [allComments, setAllComments] = useState([])
-
-    // useEffect(() => {
-    //     renderAllPosts()    
-    // }, [])
 
     const handlePostInput = (e) => {
         setSinglePost({userID: userID, spaceID: props.spaceID, bodyText: e.target.value})

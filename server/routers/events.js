@@ -10,6 +10,16 @@ router.get('/displayAllEvents/:space_id', (req, res) => {
     .catch(err => console.log(err))
 })
 
+router.get('/displayAllEventAttendees/:eventID/:spaceID', (req, res) => {
+    const { eventID, spaceID } = req.params
+
+    db.any('SELECT event_invites.event_invite_id, users.user_id, users.username, users.first_name, users.last_name FROM event_invites INNER JOIN users ON users.user_id = event_invites.user_id WHERE event_invites.space_id = $1 AND event_invites.event_id = $2 ORDER BY event_invites.event_invite_id ASC', [spaceID, eventID])
+    .then((attendees) => {
+        res.json({ allAttendees: attendees})
+    })
+    .catch(err => console.log(err))
+})
+
 router.post('/createEvent', (req, res) => {
     const { title, start_date, end_date, location, space_id, user_id } = req.body
 
@@ -29,13 +39,14 @@ router.post('/inviteMember', (req, res) => {
     db.any("SELECT user_id, first_name, last_name FROM users WHERE username = $1", [username])
     .then((foundUser) => {
         const userID = foundUser[0].user_id
-        const firstName = foundUser[0].first_name
-        const lastName = foundUser[0].last_name
         
         db.none("INSERT INTO event_invites (status, event_id, space_id, user_id) VALUES ('Maybe', $1, $2, $3)", [eventID, spaceID, userID])
-        .then(
-            res.json({ success: true, message: "An attendee has been added to the event.", member: {username: username, firstName: firstName, lastName: lastName}})
-        )
+        .then(() => {
+            db.any('SELECT event_invites.event_invite_id, users.user_id, users.username, users.first_name, users.last_name FROM event_invites INNER JOIN users ON users.user_id = event_invites.user_id WHERE event_invites.space_id = $1 AND event_invites.event_id = $2 ORDER BY event_invites.event_invite_id ASC', [spaceID, eventID])
+            .then((attendees) => {
+                res.json({ success: true, allAttendees: attendees})
+            })
+        })
     })
     .catch(err => console.log(err))
 })

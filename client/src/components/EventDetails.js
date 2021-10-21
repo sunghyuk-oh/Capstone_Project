@@ -1,76 +1,41 @@
 import { useState } from 'react';
-import { connect } from 'react-redux';
 import * as actionCreators from '../stores/creators/actionCreators';
 
 function EventDetails(props) {
   const [invitee, setInvitee] = useState({
-    eventID: 35,
-    spaceID: 15,
+    eventID: props.event.event_id,
+    spaceID: props.event.space_id,
     username: ''
   });
-  const [attendee, setAttendee] = useState([]);
-
-  const dateCreated = '2021-10-15T03:36:54.084Z';
-
-  const filteredEvents = props.allEvents.filter((event) => {
-    return event.date_created === dateCreated;
-  });
-
-  const convertDateFormat = (date) => {
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const numDay = date.getDate();
-    const day = date.getDay();
-
-    return `${month}/${numDay}/${year}  ${days[day]}`;
-  };
-
+  
   const convertTimeFormat = (date) => {
-    const hour = date.getHours();
-    const minute = date.getMinutes();
+    let hour = date.getHours();
+    let minute = date.getMinutes();
 
     if (hour === 0) {
-      return '00:00';
-    } else {
-      return `${hour}:${minute}`;
+      hour = '00';
     }
+    if (minute === 0) {
+      minute = '00';
+    } 
+
+    return `${hour}:${minute}`;
   };
 
-  const events = filteredEvents.map((event) => {
-    const startDate = convertDateFormat(new Date(event.start_date));
-    const endDate = convertDateFormat(new Date(event.end_date));
-    const startTime = convertTimeFormat(new Date(event.start_date));
-    const endTime = convertTimeFormat(new Date(event.end_date));
+  const startTime = convertTimeFormat(new Date(props.event.start_date));
+  const endTime = convertTimeFormat(new Date(props.event.end_date));
 
-    return (
-      <div key={event.event_id}>
-        <h3>{event.title}</h3>
-        <p>
-          <strong>Date: </strong>
-          {startDate} - {endDate}
-        </p>
-        <p>
-          <strong>Time: </strong>
-          {startTime} - {endTime}
-        </p>
-        <p>
-          <strong>Location: </strong>
-          {event.location}
-        </p>
-      </div>
-    );
-  });
 
   const inviteUsers = () => {
-    actionCreators.inviteMember(invitee, attendee, setAttendee);
+    actionCreators.inviteMember(invitee, props.setAttendees);
+    setInvitee({...invitee, username: ''})
   };
 
-  const allAttendees = attendee.map((each) => {
+  const allAttendees = props.attendees.map((each) => {
     return (
       <div>
         <p>
-          {each.username} ({each.firstName} {each.lastName})
+          {each.first_name} {each.last_name[0]}.
         </p>
       </div>
     );
@@ -79,11 +44,21 @@ function EventDetails(props) {
   return (
     <section id="eventDetails">
       <div>
-        {events}
-        {allAttendees}
+        <p>
+          <b>Time: </b>
+          {startTime} - {endTime}
+        </p>
+        <p>
+          <b>Location: </b>
+          {props.event.location}
+        </p>
+        <p>
+          <b>Attendees: </b>
+          {allAttendees}
+        </p>
       </div>
       <div>
-        <h3>Invite Friends</h3>
+        <h4>Invite Friends</h4>
         <input
           type="text"
           placeholder="Username"
@@ -96,10 +71,4 @@ function EventDetails(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    allEvents: state.allEvents
-  };
-};
-
-export default connect(mapStateToProps)(EventDetails);
+export default EventDetails;

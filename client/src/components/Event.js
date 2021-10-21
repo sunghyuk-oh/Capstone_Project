@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import format from 'date-fns/format';
 import getDay from 'date-fns/getDay';
@@ -112,10 +111,4 @@ function Event(props) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onAddNewEvent: (event) => dispatch(actionCreators.addNewEvent(event))
-  };
-};
-
-export default connect(null, mapDispatchToProps)(Event);
+export default Event;
