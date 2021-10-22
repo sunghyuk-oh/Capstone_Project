@@ -101,10 +101,10 @@ router.get('/viewInvites/:userID', authenticate, (req, res) => {
   const { userID } = req.params;
 
   db.any(
-    'SELECT space_members.space_id, space_members.user_id, spaces.space_name FROM space_members INNER JOIN spaces ON space_members.space_id = spaces.space_id WHERE space_members.user_id = $1',
+    'SELECT space_invites.space_id, spaces.space_name, space_invites.sender_user_id, users.first_name as sender_first_name,users.last_name as sender_last_name,space_invites.recipient_user_id FROM space_invites INNER JOIN spaces ON space_invites.space_id = spaces.space_id INNER JOIN users ON space_invites.sender_user_id = users.user_id WHERE recipient_user_id = $1',
     [userID]
-  ).then((foundSpaces) => {
-    res.json(foundSpaces);
+  ).then((invites) => {
+    res.json(invites);
   });
 });
 

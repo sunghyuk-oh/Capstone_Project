@@ -31,6 +31,19 @@ export const loadSpaces = (data) => {
   };
 };
 
+export const loadInvites = (data) => {
+  return (dispatch) => {
+    fetch(`http://localhost:8080/spaces/viewInvites/${data.userID}`, {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${data.token}` }
+    })
+      .then((response) => response.json())
+      .then((myInvites) => {
+        dispatch({ type: actionTypes.VIEW_MY_INVITES, payload: myInvites });
+      });
+  };
+};
+
 // Login Component Actions
 
 export const login = (data, history) => {

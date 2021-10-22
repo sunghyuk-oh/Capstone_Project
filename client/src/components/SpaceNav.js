@@ -14,6 +14,7 @@ function SpaceNav(props) {
   useEffect(() => {
     if (props.isAuth) {
       viewAllSpaces();
+      viewAllInvites();
     }
   }, [spaceID]);
 
@@ -36,6 +37,13 @@ function SpaceNav(props) {
     const userID = localStorage.getItem('userID');
     const viewData = { userID: userID, token: token };
     props.onViewMySpace(viewData);
+  };
+
+  const viewAllInvites = () => {
+    const token = localStorage.getItem('userToken');
+    const userID = localStorage.getItem('userID');
+    const viewData = { userID: userID, token: token };
+    props.onViewMyInvites(viewData);
   };
 
   const handleActive = () => {
@@ -63,6 +71,22 @@ function SpaceNav(props) {
             </NavLink>
           </button>
         </h3>
+      </div>
+    );
+  });
+
+  const allMyInvites = props.myInvites.map((invite) => {
+    return (
+      <div key={invite.space_id} className="inviteBlock">
+        <h3>Invitation to {invite.space_name}</h3>
+        <p>
+          You've been invited to join {invite.space_name} by{' '}
+          {invite.sender_first_name}, {invite.sender_last_name}
+        </p>
+        <div className="inviteBtns">
+          <button>Accept</button>
+          <button>Decline</button>
+        </div>
       </div>
     );
   });
@@ -96,6 +120,10 @@ function SpaceNav(props) {
         </button>
       </section>
       <section id="mySpacesList">{allMySpace}</section>
+      <section>
+        <h1>Pending Invites</h1>
+        {allMyInvites}
+      </section>
     </section>
   );
 }
@@ -103,13 +131,15 @@ function SpaceNav(props) {
 const mapStateToProps = (state) => {
   return {
     isAuth: state.isAuth,
-    mySpaceList: state.mySpaceList
+    mySpaceList: state.mySpaceList,
+    myInvites: state.myInvites
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onViewMySpace: (data) => dispatch(actionCreators.loadSpaces(data))
+    onViewMySpace: (data) => dispatch(actionCreators.loadSpaces(data)),
+    onViewMyInvites: (data) => dispatch(actionCreators.loadInvites(data))
   };
 };
 
