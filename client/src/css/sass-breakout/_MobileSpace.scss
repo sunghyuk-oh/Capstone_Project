@@ -36,7 +36,7 @@
     background-color: white;
     border-radius: 4px;
     height: 450px;
-    width: 95%;
+    width: 90%;
     @include flex(column, center, center);
     #spaceTitle {
       @include flex(column, center, center);
@@ -44,11 +44,11 @@
       width: 250px;
       margin-bottom: 30px;
       color: white;
-      background-color: $lightPalette5;
+      background-color: $lightPalette1;
       border-radius: 4px;
       box-shadow: 2px 2px 5px 0.5px gray;
       h1 {
-        font-size: 3em;
+        font-size: 1.4em;
       }
     }
     #memberInfo {
@@ -66,7 +66,7 @@
           .memberInitials {
             padding: 4px;
             color: white;
-            background-color: $lightPalette4;
+            background-color: $lightPalette1;
             border-radius: 8px;
             font-size: 1.2em;
             font-weight: 800;
@@ -105,7 +105,8 @@
         transition: 0.25s;
         font-size: 1.2em;
         font-weight: 500;
-        background-color: $lightPalette4;
+        color: white;
+        background-color: $lightPalette1;
       }
     }
   }
@@ -117,12 +118,13 @@
     background-color: white;
     border-radius: 4px;
     height: 450px;
-    width: 95%;
+    width: 90%;
     @include flex(column, center, center);
     #spaceNav {
       display: grid;
       grid-template-columns: 1fr;
-      grid-template-rows: repeat(3, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      width: 100%;
       #spaceCredentials {
         grid-column: 1 / 2;
         grid-row: 1 / 4;
@@ -139,6 +141,8 @@
         @include flex(row, center, center);
         h1 {
           margin-bottom: 0px;
+          margin-left: 70px;
+          border-bottom: 2px solid $lightPalette5;
         }
         #createSpaceBtn {
           &:hover {
@@ -156,8 +160,12 @@
       }
       #mySpacesList {
         grid-column: 1 / 2;
-        grid-row: 2 / 4;
+        grid-row: 2 / 3;
         justify-self: center;
+        @include scroll();
+        &::-webkit-scrollbar {
+          display: none;
+        }
         .spaceBlock {
           margin: 10px 0px;
           .spaceTitle {
@@ -182,6 +190,20 @@
             }
           }
         }
+      }
+      #inviteHeader {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+        justify-self: center;
+        h1 {
+          font-size: 1.5em;
+        }
+        border-bottom: 2px solid $lightPalette5;
+      }
+      #myInviteList {
+        grid-column: 1 / 2;
+        grid-row: 4 / 5;
+        justify-self: center;
       }
     }
   }

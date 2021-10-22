@@ -120,10 +120,10 @@ function SpaceNav(props) {
         </button>
       </section>
       <section id="mySpacesList">{allMySpace}</section>
-      <section>
+      <section id="inviteHeader">
         <h1>Pending Invites</h1>
-        {allMyInvites}
       </section>
+      <section id="myInviteList">{allMyInvites}</section>
     </section>
   );
 }

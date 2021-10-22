@@ -65,6 +65,7 @@
     @include flex(row, center, center);
     h1 {
       margin-bottom: 0px;
+      font-size: 1.5em;
     }
     #createSpaceBtn {
       &:hover {
@@ -73,10 +74,10 @@
       }
       outline: none;
       border: none;
-      border-radius: 3px;
-      margin: 10px 10px 10px 15px;
-      height: 30px;
-      width: 40px;
+      border-radius: 8px;
+      margin-left: 10px;
+      height: 25px;
+      width: 30px;
       background-color: $lightPalette3;
     }
   }
@@ -87,6 +88,7 @@
     .spaceBlock {
       margin: 10px 0px;
       .spaceTitle {
+        font-size: 1.1em;
         .toSpaceBtn {
           &:hover {
             cursor: pointer;
@@ -97,7 +99,7 @@
           border-radius: 3px;
           margin: 3px auto;
           width: 190px;
-          height: 40px;
+          height: 60px;
           transition: 0.25s;
           font-size: 1.1em;
           font-weight: 500;

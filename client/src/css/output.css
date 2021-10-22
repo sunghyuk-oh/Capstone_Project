@@ -809,7 +809,7 @@
   background-color: white;
   border-radius: 4px;
   height: 450px;
-  width: 95%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -824,12 +824,12 @@
   width: 250px;
   margin-bottom: 30px;
   color: white;
-  background-color: #a2d2ff;
+  background-color: #cdb4db;
   border-radius: 4px;
   box-shadow: 2px 2px 5px 0.5px gray;
 }
 #mobileSpace #spaceAdmin #spaceTitle h1 {
-  font-size: 3em;
+  font-size: 1.4em;
 }
 #mobileSpace #spaceAdmin #memberInfo {
   height: 150px;
@@ -858,7 +858,7 @@
 #mobileSpace #spaceAdmin #memberInfo #memberList .spaceMember .memberInitials {
   padding: 4px;
   color: white;
-  background-color: #bde0fe;
+  background-color: #cdb4db;
   border-radius: 8px;
   font-size: 1.2em;
   font-weight: 800;
@@ -894,7 +894,8 @@
   transition: 0.25s;
   font-size: 1.2em;
   font-weight: 500;
-  background-color: #bde0fe;
+  color: white;
+  background-color: #cdb4db;
 }
 #mobileSpace #spaceAdmin #userInvite #inviteBtn:hover {
   cursor: pointer;
@@ -908,7 +909,7 @@
   background-color: white;
   border-radius: 4px;
   height: 450px;
-  width: 95%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -917,7 +918,8 @@
 #mobileSpace #spacesInfo #spaceNav {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 100%;
 }
 #mobileSpace #spacesInfo #spaceNav #spaceCredentials {
   grid-column: 1/2;
@@ -942,6 +944,8 @@
 }
 #mobileSpace #spacesInfo #spaceNav #createSpaceSection h1 {
   margin-bottom: 0px;
+  margin-left: 70px;
+  border-bottom: 2px solid #a2d2ff;
 }
 #mobileSpace #spacesInfo #spaceNav #createSpaceSection #createSpaceBtn {
   outline: none;
@@ -958,8 +962,14 @@
 }
 #mobileSpace #spacesInfo #spaceNav #mySpacesList {
   grid-column: 1/2;
-  grid-row: 2/4;
+  grid-row: 2/3;
   justify-self: center;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+#mobileSpace #spacesInfo #spaceNav #mySpacesList::-webkit-scrollbar {
+  display: none;
 }
 #mobileSpace #spacesInfo #spaceNav #mySpacesList .spaceBlock {
   margin: 10px 0px;
@@ -982,6 +992,20 @@
 }
 #mobileSpace #spacesInfo #spaceNav #mySpacesList .spaceBlock .spaceTitle .toSpaceBtn:focus {
   background-color: #cdb4db;
+}
+#mobileSpace #spacesInfo #spaceNav #inviteHeader {
+  grid-column: 1/2;
+  grid-row: 3/4;
+  justify-self: center;
+  border-bottom: 2px solid #a2d2ff;
+}
+#mobileSpace #spacesInfo #spaceNav #inviteHeader h1 {
+  font-size: 1.5em;
+}
+#mobileSpace #spacesInfo #spaceNav #myInviteList {
+  grid-column: 1/2;
+  grid-row: 4/5;
+  justify-self: center;
 }
 #mobileSpace #postSection {
   grid-column: 1/4;
@@ -1390,14 +1414,15 @@
 }
 #spaceNav #createSpaceSection h1 {
   margin-bottom: 0px;
+  font-size: 1.5em;
 }
 #spaceNav #createSpaceSection #createSpaceBtn {
   outline: none;
   border: none;
-  border-radius: 3px;
-  margin: 10px 10px 10px 15px;
-  height: 30px;
-  width: 40px;
+  border-radius: 8px;
+  margin-left: 10px;
+  height: 25px;
+  width: 30px;
   background-color: #ffafcc;
 }
 #spaceNav #createSpaceSection #createSpaceBtn:hover {
@@ -1412,13 +1437,16 @@
 #spaceNav #mySpacesList .spaceBlock {
   margin: 10px 0px;
 }
+#spaceNav #mySpacesList .spaceBlock .spaceTitle {
+  font-size: 1.1em;
+}
 #spaceNav #mySpacesList .spaceBlock .spaceTitle .toSpaceBtn {
   outline: none;
   border: none;
   border-radius: 3px;
   margin: 3px auto;
   width: 190px;
-  height: 40px;
+  height: 60px;
   transition: 0.25s;
   font-size: 1.1em;
   font-weight: 500;
