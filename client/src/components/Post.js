@@ -19,7 +19,7 @@ function Post(props) {
   };
 
   const handleSaveSinglePost = () => {
-    actionCreators.onPost(singlePost);
+    actionCreators.onPost(singlePost, props.setPosts);
     setSinglePost({
       userID: '',
       spaceID: '',

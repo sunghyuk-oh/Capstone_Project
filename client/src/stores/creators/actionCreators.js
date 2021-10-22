@@ -18,34 +18,57 @@ export const addSpace = (data, history) => {
     .catch((err) => console.log(err));
 };
 
-export const loadSpaces = (data) => {
-  return (dispatch) => {
-    fetch(`http://localhost:8080/spaces/viewSpace/${data.userID}`, {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${data.token}` }
-    })
-      .then((response) => response.json())
-      .then((mySpaces) => {
-        dispatch({ type: actionTypes.VIEW_MY_SPACE, payload: mySpaces });
-      });
-  };
+export const loadSpaces = (data, setAllSpaces) => {
+  fetch(`http://localhost:8080/spaces/viewSpace/${data.userID}`, {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${data.token}` }
+  })
+    .then((response) => response.json())
+    .then((mySpaces) => {
+      setAllSpaces(mySpaces);
+    });
 };
 
-export const loadInvites = (data) => {
-  return (dispatch) => {
-    fetch(`http://localhost:8080/spaces/viewInvites/${data.userID}`, {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${data.token}` }
-    })
-      .then((response) => response.json())
-      .then((myInvites) => {
-        dispatch({ type: actionTypes.VIEW_MY_INVITES, payload: myInvites });
-      });
-  };
+export const loadInvites = (data, setPendingSpace) => {
+  fetch(`http://localhost:8080/spaces/viewInvites/${data.userID}`, {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${data.token}` }
+  })
+    .then((response) => response.json())
+    .then((myInvites) => {
+      setPendingSpace(myInvites);
+    });
 };
+
+export const acceptSpaceInvite = (IDs, setPendingMsg, setPendingSpace, setAllSpaces) => {
+  fetch(`http://localhost:8080/spaces/acceptSpaceInvite`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(IDs)
+  })
+  .then(response => response.json())
+  .then(result => {
+    setAllSpaces(result.allSpaces)
+    setPendingSpace(result.pendingSpaces)
+    setPendingMsg({ isDisplay: true, message: result.message })
+  })
+}
+
+export const declineSpaceInvite = (IDs, setDeclineMsg, setPendingSpace) => {
+  fetch(`http://localhost:8080/spaces/declineSpaceInvite`, {
+    method: "DELETE",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(IDs)
+  })
+  .then(response => response.json())
+  .then(result => {
+    setPendingSpace(result.pendingSpaces)
+    setDeclineMsg({ isDisplay: true, message: result.message })
+  })
+}
+
 
 // Login Component Actions
-
 export const login = (data, history) => {
   return (dispatch) => {
     fetch('http://localhost:8080/users/login', {
@@ -119,7 +142,7 @@ export const listMembers = (data, updateState) => {
     .catch((err) => console.log(err));
 };
 
-export const invite = (data) => {
+export const invite = (data, setInviteMsg) => {
   fetch('http://localhost:8080/spaces/invite', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -127,7 +150,11 @@ export const invite = (data) => {
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
+      if (result.success) {
+        setInviteMsg({isDisplay: true, message: result.message})
+      } else {
+        setInviteMsg({isDisplay: true, message: result.message})
+      }
     })
     .catch((error) => {
       console.log(error);

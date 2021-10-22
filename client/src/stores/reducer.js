@@ -2,10 +2,7 @@ import * as actionTypes from '../stores/actions/actionTypes';
 
 const initialState = {
   isAuth: false,
-  mySpaceList: [],
-  allEvents: [],
-  posts: [],
-  myInvites: []
+  mySpaceList: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -34,25 +31,6 @@ const reducer = (state = initialState, action) => {
       return {
         mySpaceList: []
       };
-    case actionTypes.VIEW_MY_INVITES:
-      return {
-        ...state,
-        myInvites: action.payload
-      };
-    case actionTypes.DISPLAY_ALL_EVENTS:
-      return {
-        ...state,
-        allEvents: action.payload
-      };
-    case actionTypes.DISPLAY_POSTS:
-      return {
-        ...state,
-        posts: action.payload
-      };
-    // case actionTypes.ON_POST:
-    //   return {
-    // state.posts.concat(action.payload)
-    // }
     default:
       return state;
   }

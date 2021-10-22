@@ -21,10 +21,12 @@ function MobileSpace(props) {
   const [singleEventToggle, setSingleEventToggle] = useState(0);
   const [isEventSlideDown, setIsEventSlideDown] = useState(false);
   const [eventAttendees, setEventAttendees] = useState([]);
+  const [inviteMsg, setInviteMsg] = useState({ isDisplay: false, message: "" })
   const spaceID = useParams().spaceid;
   const spaceName = useParams().spacename;
   const userID = localStorage.getItem('userID');
   const username = localStorage.getItem('username');
+  const messageStyle = { color: '#5487b3'}
   const calendarStyle = { height: 500, width: 380, margin: '50px' };
 
   useEffect(() => {
@@ -63,10 +65,14 @@ function MobileSpace(props) {
       recipientUserName: recipientUserName,
       spaceID: spaceID,
       userID: userID,
-      senderUserName: username
+      spaceName: spaceName
     };
-    actionCreators.invite(inviteData);
+    actionCreators.invite(inviteData, setInviteMsg);
     setRecipientUserName('');
+
+    setTimeout(() => { 
+      setInviteMsg({ isDisplay: false, message: "" }); 
+    }, 5000);
   };
 
   const handleSingleEventToggle = (eventID) => {
@@ -194,6 +200,7 @@ function MobileSpace(props) {
             <button id="inviteBtn" onClick={handleInviteSubmit}>
               Invite
             </button>
+            { inviteMsg.isDisplay ? <span style={messageStyle}>{inviteMsg.message}</span> : null }
           </section>
         </div>
       ) : null}

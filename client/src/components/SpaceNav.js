@@ -7,9 +7,16 @@ import * as actionCreators from '../stores/creators/actionCreators';
 
 function SpaceNav(props) {
   const history = useHistory();
+  const [allSpaces, setAllSpaces] = useState([])
   const [spaceName, setSpaceName] = useState('');
   const [isNewSpace, setIsNewSpace] = useState(false);
+  const [pendingSpace, setPendingSpace] = useState([])
+  const [acceptMsg, setAcceptMsg] = useState({ isDisplay: false, message: '' })
+  const [declineMsg, setDeclineMsg] = useState({ isDisplay: false, message: '' })
   const spaceID = useParams().spaceid;
+  const token = localStorage.getItem('userToken');
+  const userID = localStorage.getItem('userID');
+  const messageStyle = { color: '#fdafcc'}
 
   useEffect(() => {
     if (props.isAuth) {
@@ -27,23 +34,18 @@ function SpaceNav(props) {
   };
 
   const handleCreateSpace = () => {
-    const userID = localStorage.getItem('userID');
     const createData = { spaceName: spaceName, userID: userID };
     actionCreators.addSpace(createData, history);
   };
 
   const viewAllSpaces = () => {
-    const token = localStorage.getItem('userToken');
-    const userID = localStorage.getItem('userID');
     const viewData = { userID: userID, token: token };
-    props.onViewMySpace(viewData);
+    actionCreators.loadSpaces(viewData, setAllSpaces)
   };
 
   const viewAllInvites = () => {
-    const token = localStorage.getItem('userToken');
-    const userID = localStorage.getItem('userID');
     const viewData = { userID: userID, token: token };
-    props.onViewMyInvites(viewData);
+    actionCreators.loadInvites(viewData, setPendingSpace);
   };
 
   const handleActive = () => {
@@ -56,7 +58,26 @@ function SpaceNav(props) {
     }
   };
 
-  const allMySpace = props.mySpaceList.map((space) => {
+  const handleInviteAccept = (spaceInviteID, spaceID) => {
+    const IDs = { userID: userID, spaceInviteID: spaceInviteID, spaceID: spaceID}
+    actionCreators.acceptSpaceInvite(IDs, setAcceptMsg, setPendingSpace, setAllSpaces)
+    viewAllSpaces();
+
+    setTimeout(() => { 
+      setAcceptMsg({ isDisplay: false, message: "" }); 
+    }, 5000);
+  }
+
+  const handleInviteDecline = (spaceID) => {
+    const IDs = { userID: userID, spaceID: spaceID }
+    actionCreators.declineSpaceInvite(IDs, setDeclineMsg, setPendingSpace)
+
+    setTimeout(() => { 
+      setDeclineMsg({ isDisplay: false, message: "" }); 
+    }, 5000);
+  }
+  
+  const allMySpace = allSpaces.map((space) => {
     return (
       <div key={space.space_id} className="spaceBlock">
         <h3 className="spaceTitle">
@@ -74,18 +95,17 @@ function SpaceNav(props) {
       </div>
     );
   });
-
-  const allMyInvites = props.myInvites.map((invite) => {
+  
+  const allMyInvites = pendingSpace.map((invite) => {
     return (
-      <div key={invite.space_id} className="inviteBlock">
+      <div key={invite.space_invite_id} className="inviteBlock">
         <h3>Invitation to {invite.space_name}</h3>
         <p>
-          You've been invited to join {invite.space_name} by{' '}
-          {invite.sender_first_name}, {invite.sender_last_name}
+          You've been invited to join {invite.space_name} by {invite.sender_first_name}, {invite.sender_last_name}
         </p>
         <div className="inviteBtns">
-          <button>Accept</button>
-          <button>Decline</button>
+          <button onClick={() => handleInviteAccept(invite.space_invite_id, invite.space_id)}>Accept</button>
+          <button onClick={() => handleInviteDecline(invite.space_id)}>Decline</button>
         </div>
       </div>
     );
@@ -119,9 +139,13 @@ function SpaceNav(props) {
           +{/* +<span id="createHoverText">Add New Space</span> */}
         </button>
       </section>
-      <section id="mySpacesList">{allMySpace}</section>
+      <section id="mySpacesList">
+        {acceptMsg.isDisplay ? <div><p style={messageStyle}>{acceptMsg.message}</p></div> : null}
+        {allMySpace}
+      </section>
       <section>
         <h1>Pending Invites</h1>
+        {declineMsg.isDisplay ? <div><p style={messageStyle}>{declineMsg.message}</p></div> : null}
         {allMyInvites}
       </section>
     </section>
@@ -131,15 +155,13 @@ function SpaceNav(props) {
 const mapStateToProps = (state) => {
   return {
     isAuth: state.isAuth,
-    mySpaceList: state.mySpaceList,
-    myInvites: state.myInvites
+    mySpaceList: state.mySpaceList
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onViewMySpace: (data) => dispatch(actionCreators.loadSpaces(data)),
-    onViewMyInvites: (data) => dispatch(actionCreators.loadInvites(data))
+    onViewMySpace: (data) => dispatch(actionCreators.loadSpaces(data))
   };
 };
 
