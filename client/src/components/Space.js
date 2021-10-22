@@ -106,8 +106,9 @@ function Space(props) {
     const endDate = convertDateFormat(new Date(event.end_date));
 
     return (
-      <div>
+      <div className="eventBlock">
         <div
+          className="eventInfo"
           key={event.event_id}
           onClick={() => handleSingleEventToggle(event.event_id)}
         >
@@ -117,7 +118,7 @@ function Space(props) {
           </p>
         </div>
         {isEventSlideDown && singleEventToggle === event.event_id ? (
-          <div>
+          <div className="eventDetailsBlock">
             <EventDetails
               event={event}
               attendees={eventAttendees}
@@ -200,7 +201,7 @@ function Space(props) {
           >
             [ + ]
           </button>
-          <span>Post List</span>
+          <span id="postSectionTitle">Post Feed</span>
           <Post posts={posts} setPosts={setPosts} spaceID={spaceID} />
         </section>
         <section
@@ -235,7 +236,7 @@ function Space(props) {
           >
             [ + ]
           </button>
-          Event List
+          <h3>Upcoming Events</h3>
           {allEvents}
         </section>
         <div

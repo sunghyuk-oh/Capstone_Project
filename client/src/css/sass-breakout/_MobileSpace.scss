@@ -182,9 +182,9 @@
               border-radius: 3px;
               margin: 3px auto;
               width: 190px;
-              height: 40px;
+              height: 50px;
               transition: 0.25s;
-              font-size: 1.1em;
+              font-size: 1em;
               font-weight: 500;
               background-color: $lightPalette4;
             }
@@ -458,10 +458,14 @@
     grid-row: 1 / 5;
     justify-self: center;
     width: 95%;
+    @include flex(column, center, center);
     #eventList {
       @include scroll();
+      @include flex(column, center, center);
       background-color: white;
       padding: 15px;
+      width: 95%;
+      margin-bottom: 20px;
       &::-webkit-scrollbar {
         display: none;
       }
@@ -471,15 +475,45 @@
       &::-webkit-scrollbar {
         display: none;
       }
-      @include testBorder(purple);
+      width: 95%;
+      border-radius: 4px;
+      box-shadow: 0px 1px 5px 0.3px gray;
       @include flex(column, flex-start, center);
       padding-bottom: 25px;
-      // #calendar {
-      //   padding-top: 260px;
-      // }
+      #calendar {
+        padding-top: 20px;
+        @include flex(column, center, center);
+        h3 {
+          margin-bottom: none;
+        }
+      }
       #newEvent {
         #eventDataInput {
           @include flex(column, center, center);
+          .newEventInputs {
+            border: none;
+            margin-bottom: 10px;
+            height: 30px;
+            width: 250px;
+          }
+          #addEventBtn {
+            &:hover {
+              cursor: pointer;
+              background-color: $lightPalette3;
+            }
+            outline: none;
+            border: none;
+            border-radius: 3px;
+            margin: 3px auto;
+            padding: 3px 0px 3px 5px;
+            width: 250px;
+            height: 30px;
+            transition: 0.25s;
+            font-size: 1.2em;
+            font-weight: 500;
+            color: black;
+            background-color: $lightPalette5;
+          }
         }
       }
     }
@@ -488,7 +522,6 @@
       &::-webkit-scrollbar {
         display: none;
       }
-      @include testBorder(gold);
     }
   }
 }

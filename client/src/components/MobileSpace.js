@@ -26,7 +26,11 @@ function MobileSpace(props) {
   const spaceName = useParams().spacename;
   const userID = localStorage.getItem('userID');
   const username = localStorage.getItem('username');
-  const calendarStyle = { height: 500, width: 380, margin: '50px' };
+  const calendarStyle = {
+    height: 500,
+    width: 350,
+    margin: '10px 10px 20px 10px'
+  };
 
   useEffect(() => {
     authSpaceUsers();
@@ -108,8 +112,9 @@ function MobileSpace(props) {
     const endDate = convertDateFormat(new Date(event.end_date));
 
     return (
-      <div>
+      <div className="eventBlock">
         <div
+          className="eventInfo"
           key={event.event_id}
           onClick={() => handleSingleEventToggle(event.event_id)}
         >
@@ -119,7 +124,7 @@ function MobileSpace(props) {
           </p>
         </div>
         {isEventSlideDown && singleEventToggle === event.event_id ? (
-          <div>
+          <div className="eventDetailsBlock">
             <EventDetails
               event={event}
               attendees={eventAttendees}
@@ -226,7 +231,7 @@ function MobileSpace(props) {
       {isActive['active'] === 'events' ? (
         <div id="eventAdmin">
           <section id="eventList">
-            Event List
+            <h3>Upcoming Events</h3>
             {allEvents}
           </section>
           <Event events={events} setEvents={setEvents} style={calendarStyle} />
