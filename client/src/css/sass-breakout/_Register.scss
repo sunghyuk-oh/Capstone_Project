@@ -1,14 +1,62 @@
 @import './mixins';
 
+// #register {
+//   #registerCredentials {
+//     @include flex(column, center, center);
+//     .registerInputs {
+//       margin: 3px auto;
+//       padding: 3px 0px 3px 5px;
+//       height: 25px;
+//       width: 190px;
+//       border: none;
+//       border-radius: 3px;
+//     }
+//     #registerBtn {
+//       &:hover {
+//         cursor: pointer;
+//         background-color: $lightPalette4;
+//       }
+//       outline: none;
+//       border: none;
+//       border-radius: 3px;
+//       margin: 3px auto;
+//       padding: 3px 0px 3px 5px;
+//       width: 190px;
+//       height: 30px;
+//       transition: 0.25s;
+//       font-weight: 200;
+//       background-color: $lightPalette3;
+//     }
+//   }
+// }
+
 #register {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  height: 100vh;
   #registerCredentials {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    width: 400px;
+    height: 400px;
+    align-self: center;
+    justify-self: center;
+    background-color: white;
+    border-radius: 10px;
     @include flex(column, center, center);
+    #registerTitle {
+      margin-bottom: 30px;
+      border-bottom: 5px solid $lightPalette3;
+    }
     .registerInputs {
       margin: 3px auto;
       padding: 3px 0px 3px 5px;
       height: 25px;
       width: 190px;
       border: none;
+      background-color: $lightPalette4;
+      opacity: 0.8;
       border-radius: 3px;
     }
     #registerBtn {
@@ -24,8 +72,54 @@
       width: 190px;
       height: 30px;
       transition: 0.25s;
-      font-weight: 200;
+      font-size: 1.2em;
+      font-weight: 500;
       background-color: $lightPalette3;
+    }
+  }
+}
+
+@media (min-width: 641px) {
+  #register {
+    #registerCredentials {
+      width: 500px;
+      height: 500px;
+      #registerTitle {
+        font-size: 1.7em;
+      }
+      .registerInputs {
+        margin: 5px 0px;
+        height: 35px;
+        width: 250px;
+        font-size: 1.2em;
+      }
+      #registerBtn {
+        width: 250px;
+        height: 40px;
+        font-size: 1.5em;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  #register {
+    #registerCredentials {
+      width: 550px;
+      height: 550px;
+      #registerTitle {
+        font-size: 2.2em;
+      }
+      .registerInputs {
+        height: 40px;
+        width: 300px;
+        font-size: 1.2em;
+      }
+      #registerBtn {
+        width: 300px;
+        height: 50px;
+      }
     }
   }
 }

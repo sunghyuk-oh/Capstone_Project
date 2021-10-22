@@ -22,7 +22,7 @@ function Register(props) {
   return (
     <section id="register">
       <div id="registerCredentials">
-        <h3>Register</h3>
+        <h3 id="registerTitle">Register</h3>
         <input
           type="text"
           onChange={handleRegisterInput}

@@ -1,10 +1,15 @@
 @import './mixins';
 
 #landing {
-  grid-column: 1 / 1;
-  grid-row: 2 / 4;
-  align-self: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto repeat(3, 1fr);
+  column-gap: 10px;
+  height: 100vh;
   #landingNav {
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+    margin-left: 10px;
     @include flex(column, center, center);
     #loginLink {
       margin-bottom: 10px;
@@ -17,7 +22,7 @@
       color: black;
       font-weight: bolder;
       height: 50px;
-      width: 200px;
+      width: 130px;
       border-width: 4px;
       border-style: solid;
       border-radius: 15px;
@@ -26,4 +31,75 @@
       box-shadow: 2px 2px 5px 0.5px gray;
     }
   }
+  #bodyLogo {
+    grid-column: 2/3;
+    grid-row: 2 / 4;
+    margin-right: 10px;
+    @include flex(column, center, center);
+    #logo1 {
+      height: 200px;
+    }
+  }
+}
+
+// small tablets
+@media (min-width: 481px) {
+}
+
+// portrait tablets
+@media (min-width: 641px) {
+  #landing {
+    #landingNav {
+      #loginLink {
+        margin-bottom: 20px;
+      }
+      .landingLink {
+        &:hover {
+          background-color: $lightPalette3;
+        }
+        color: black;
+        font-size: 1.2em;
+        height: 80px;
+        width: 200px;
+      }
+    }
+    #bodyLogo {
+      #logo1 {
+        height: 400px;
+      }
+    }
+  }
+}
+
+// landscape tablets
+@media (min-width: 961px) {
+  #landing {
+    #landingNav {
+      #loginLink {
+        margin-bottom: 30px;
+      }
+      .landingLink {
+        &:hover {
+          background-color: $lightPalette3;
+        }
+        color: black;
+        font-size: 1.4em;
+        height: 80px;
+        width: 300px;
+      }
+    }
+    #bodyLogo {
+      #logo1 {
+        height: 500px;
+      }
+    }
+  }
+}
+
+// laptops
+@media (min-width: 1025px) {
+}
+
+// high res laptops and desktops
+@media (min-width: 1281px) {
 }

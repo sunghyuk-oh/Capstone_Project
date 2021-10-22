@@ -8,13 +8,19 @@ router.post('/createSpace', (req, res) => {
     userID
   ])
     .then(() => {
-      db.any('SELECT space_id FROM spaces where space_name = $1', [
-        spaceName
-      ]).then((space) => {
+      db.any(
+        'SELECT space_id FROM spaces WHERE space_name = $1 AND user_id = $2',
+        [spaceName, userID]
+      ).then((space) => {
+        db.none(
+          'INSERT INTO space_members (space_id, user_id, created_space) VALUES ($1, $2, $3)',
+          [space[0].space_id, userID, true]
+        );
         res.json({
           success: true,
           message: 'The new space has been created!',
-          spaceID: space[0].space_id
+          spaceID: space[0].space_id,
+          spaceName: spaceName
         });
       });
     })
@@ -23,28 +29,61 @@ router.post('/createSpace', (req, res) => {
 
 // Invite logic - server route works good
 router.post('/invite', (req, res) => {
-  const userName = req.body.userName;
+  const recipientUserName = req.body.recipientUserName;
+  const senderUserID = req.body.userID;
+  const senderUserName = req.body.senderUserName;
   const spaceID = req.body.spaceID;
-
-  db.any('SELECT space_name from spaces where space_id = $1', [spaceID]).then(
-    (space) => {
-      const spaceName = space[0].space_name;
-      db.any('SELECT user_id from users where username = $1', [userName]).then(
-        (user) => {
-          const userID = user[0].user_id;
-          db.none(
-            'INSERT INTO spaces_invitees (space_id, user_id) VALUES($1, $2)',
-            [spaceID, userID]
-          ).then(
-            res.json({
-              success: true,
-              message: `User ID: ${userID} has been invited to Space: ${spaceName}`
-            })
-          );
-        }
-      );
+  let transport = nodemailer.createTransport({
+    host: 'smtp.mailtrap.io',
+    port: 2525,
+    auth: {
+      user: '3442ef7accc2bb',
+      pass: 'cdbb4398ec1243'
     }
-  );
+  });
+
+  db.one(
+    'SELECT DISTINCT users.first_name, users.last_name, users.email FROM space_invites INNER JOIN users ON space_invites.sender_user_id = users.user_id WHERE sender_user_id = $1 AND space_id = $2',
+    [senderUserID, spaceID]
+  )
+    .then((sender) => {
+      const senderFirstName = sender.first_name;
+      const senderLastName = sender.last_name;
+      const senderEmail = sender.email;
+
+      db.one('SELECT user_id, email from users where username = $1', [
+        recipientUserName
+      ]).then((user) => {
+        const recipientUserID = user.user_id;
+        const recipientEmail = user.email;
+        const message = {
+          from: 'gatheround@email.com',
+          to: `${recipientEmail}`,
+          subject: `You've been invited!`,
+          html: `<p>Hi ${recipientUserName}! You've been invited to ${spaceID} by ${senderFirstName} ${senderLastName}!</p>`
+        };
+
+        transport.sendMail(message, function (err, info) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(info);
+          }
+        });
+
+        db.none(
+          'INSERT INTO space_invites (space_id, sender_user_id, recipient_user_id) VALUES($1, $2, $3)',
+          [spaceID, senderUserID, recipientUserID]
+        ).then(
+          res.json({
+            success: true,
+            message: `User ID: ${recipientUserID} has been invited to Space: ${spaceID}`
+          })
+        );
+      });
+    })
+
+    .catch((err) => console.log(err));
 });
 
 // authenticate space
@@ -52,31 +91,21 @@ router.get('/auth/:spaceID/:userID', (req, res) => {
   const spaceID = req.params.spaceID;
   const userID = req.params.userID;
 
-  db.any('SELECT space_id from spaces where user_id=$1 group by space_id', [
-    userID
-  ]).then((userSpacesCreated) => {
-    const createdSpaces = userSpacesCreated.map((space) => {
+  db.any(
+    'SELECT space_id FROM space_members WHERE user_id=$1 GROUP BY space_id',
+    [userID]
+  ).then((userSpaces) => {
+    const allSpaces = userSpaces.map((space) => {
       return space.space_id;
     });
-    db.any(
-      'SELECT space_id from spaces_invitees where user_id=$1 group by space_id',
-      [userID]
-    ).then((userSpacesInvited) => {
-      const invitedSpaces = userSpacesInvited.map((space) => {
-        return space.space_id;
+    if (allSpaces.includes(parseInt(spaceID))) {
+      res.json({ success: true, message: 'User is authenticated in Space' });
+    } else {
+      res.json({
+        success: false,
+        message: 'User is not authenticated in Space'
       });
-
-      const allSpaces = createdSpaces.concat(invitedSpaces);
-
-      if (allSpaces.includes(parseInt(spaceID))) {
-        res.json({ success: true, message: 'User is authenticated in Space' });
-      } else {
-        res.json({
-          success: false,
-          message: 'User is not authenticated in Space'
-        });
-      }
-    });
+    }
   });
 });
 
@@ -84,17 +113,12 @@ router.get('/displayMembers/:spaceID', (req, res) => {
   const spaceID = req.params.spaceID;
 
   db.any(
-    'SELECT username, first_name, last_name from users inner join spaces on users.user_id = spaces.user_id where spaces.space_id = $1',
+    'SELECT username, first_name, last_name FROM users INNER JOIN space_members ON users.user_id = space_members.user_id WHERE space_members.space_id = $1',
     [spaceID]
-  ).then((spaceCreator) => {
-    db.any(
-      'SELECT distinct username, first_name, last_name from users inner join spaces_invitees on users.user_id = spaces_invitees.user_id where spaces_invitees.space_id = $1',
-      [spaceID]
-    ).then((spaceInvitee) => {
-      const allMembers = spaceCreator.concat(spaceInvitee);
+  ).then((spaceMembers) => {
+    const allMembers = spaceMembers;
 
-      res.json({ success: true, members: allMembers });
-    });
+    res.json({ success: true, members: allMembers });
   });
 });
 
@@ -102,10 +126,21 @@ router.get('/viewSpace/:userID', authenticate, (req, res) => {
   const { userID } = req.params;
 
   db.any(
-    'SELECT space_id, space_name, user_id from spaces where user_id = $1 group by space_id',
+    'SELECT space_members.space_id, space_members.user_id, spaces.space_name FROM space_members INNER JOIN spaces ON space_members.space_id = spaces.space_id WHERE space_members.user_id = $1',
     [userID]
   ).then((foundSpaces) => {
     res.json(foundSpaces);
+  });
+});
+
+router.get('/viewInvites/:userID', authenticate, (req, res) => {
+  const { userID } = req.params;
+
+  db.any(
+    'SELECT DISTINCT space_invites.space_invite_id, space_invites.space_id, spaces.space_name, space_invites.sender_user_id, users.first_name as sender_first_name,users.last_name as sender_last_name,space_invites.recipient_user_id FROM space_invites INNER JOIN spaces ON space_invites.space_id = spaces.space_id INNER JOIN users ON space_invites.sender_user_id = users.user_id WHERE recipient_user_id = $1',
+    [userID]
+  ).then((invites) => {
+    res.json(invites);
   });
 });
 

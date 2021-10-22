@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import logo1 from '../images/Gather-logo1.png';
 
 const Landing = () => {
   return (
@@ -11,6 +12,9 @@ const Landing = () => {
           Register
         </NavLink>
       </nav>
+      <div id="bodyLogo">
+        <img id="logo1" src={logo1} alt="Gather Main Logo"></img>
+      </div>
     </section>
   );
 };

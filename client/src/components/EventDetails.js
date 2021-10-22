@@ -7,12 +7,12 @@ function EventDetails(props) {
     spaceID: props.event.space_id,
     username: ''
   });
-  
+
   const convertTimeFormat = (date) => {
-    if (date.toString() === "Invalid Date") {
-      return " "
+    if (date.toString() === 'Invalid Date') {
+      return ' ';
     }
-    
+
     let hour = date.getHours();
     let minute = date.getMinutes();
 
@@ -21,7 +21,7 @@ function EventDetails(props) {
     }
     if (minute === 0) {
       minute = '00';
-    } 
+    }
 
     return `${hour}:${minute}`;
   };
@@ -29,10 +29,9 @@ function EventDetails(props) {
   const startTime = convertTimeFormat(new Date(props.event.start_date));
   const endTime = convertTimeFormat(new Date(props.event.end_date));
 
-
   const inviteUsers = () => {
     actionCreators.inviteMember(invitee, props.setAttendees);
-    setInvitee({...invitee, username: ''})
+    setInvitee({ ...invitee, username: '' });
   };
 
   const allAttendees = props.attendees.map((each) => {
@@ -46,7 +45,7 @@ function EventDetails(props) {
   });
 
   return (
-    <section id="eventDetails">
+    <section>
       <div>
         <p>
           <b>Time: </b>

@@ -3,51 +3,452 @@
 #mobileSpace {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr) 0.5fr;
   height: 100vh;
   width: 100%;
-  div {
+  #componentSelect {
+    grid-column: 1 / 5;
+    grid-row: 5 / 6;
+    align-self: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+    .toggleComponents {
+      height: 50px;
+      outline: none;
+      border: none;
+      font-weight: 800;
+      background-color: $lightPalette4;
+      &:hover {
+        cursor: pointer;
+        background-color: $lightPalette3;
+      }
+      &:focus {
+        background-color: $lightPalette1;
+      }
+    }
+  }
+  #spaceAdmin {
     grid-column: 1 / 4;
     grid-row: 1 / 5;
+    align-self: center;
+    justify-self: center;
+    background-color: white;
+    border-radius: 4px;
+    height: 450px;
+    width: 95%;
+    @include flex(column, center, center);
     #spaceTitle {
-      @include testBorder(yellow);
+      @include flex(column, center, center);
+      height: 75px;
+      width: 250px;
+      margin-bottom: 30px;
+      color: white;
+      background-color: $lightPalette5;
+      border-radius: 4px;
+      box-shadow: 2px 2px 5px 0.5px gray;
+      h1 {
+        font-size: 3em;
+      }
     }
     #memberInfo {
+      height: 150px;
+      width: 250px;
       @include flex(column, center, center);
-      @include testBorder(black);
+      .sectionHeader {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+      }
       #memberList {
         @include flex(row, center, center);
+        .spaceMember {
+          @include flex(column, center, center);
+          .memberInitials {
+            padding: 4px;
+            color: white;
+            background-color: $lightPalette4;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 800;
+          }
+        }
+      }
+    }
+    #userInvite {
+      @include flex(column, center, center);
+      .sectionHeader {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+      }
+      #inviteInput {
+        margin: 3px auto;
+        padding: 3px 0px 3px 5px;
+        height: 30px;
+        width: 190px;
+        border: 1px solid $lightPalette2;
+        background-color: white;
+        opacity: 0.8;
+        border-radius: 3px;
+      }
+      #inviteBtn {
+        &:hover {
+          cursor: pointer;
+          background-color: $lightPalette3;
+        }
+        outline: none;
+        border: none;
+        border-radius: 3px;
+        margin: 3px auto;
+        padding: 3px 0px 3px 5px;
+        width: 190px;
+        height: 30px;
+        transition: 0.25s;
+        font-size: 1.2em;
+        font-weight: 500;
+        background-color: $lightPalette4;
       }
     }
   }
   #spacesInfo {
-    @include scroll();
     grid-column: 1 / 4;
     grid-row: 1 / 5;
-    @include testBorder(red);
+    align-self: center;
+    justify-self: center;
+    background-color: white;
+    border-radius: 4px;
+    height: 450px;
+    width: 95%;
+    @include flex(column, center, center);
+    #spaceNav {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(3, 1fr);
+      #spaceCredentials {
+        grid-column: 1 / 2;
+        grid-row: 1 / 4;
+        align-self: center;
+        justify-self: center;
+        z-index: 10;
+        height: 450px;
+        width: 100%;
+        @include flex(column, flex-start, center);
+      }
+      #createSpaceSection {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+        @include flex(row, center, center);
+        h1 {
+          margin-bottom: 0px;
+        }
+        #createSpaceBtn {
+          &:hover {
+            cursor: pointer;
+            background-color: $lightPalette1;
+          }
+          outline: none;
+          border: none;
+          border-radius: 3px;
+          margin: 10px 10px 10px 15px;
+          height: 30px;
+          width: 40px;
+          background-color: $lightPalette3;
+        }
+      }
+      #mySpacesList {
+        grid-column: 1 / 2;
+        grid-row: 2 / 4;
+        justify-self: center;
+        .spaceBlock {
+          margin: 10px 0px;
+          .spaceTitle {
+            .toSpaceBtn {
+              &:hover {
+                cursor: pointer;
+                background-color: $lightPalette3;
+              }
+              &:focus {
+                background-color: $lightPalette1;
+              }
+              outline: none;
+              border: none;
+              border-radius: 3px;
+              margin: 3px auto;
+              width: 190px;
+              height: 40px;
+              transition: 0.25s;
+              font-size: 1.1em;
+              font-weight: 500;
+              background-color: $lightPalette4;
+            }
+          }
+        }
+      }
+    }
   }
   #postSection {
-    @include scroll();
     grid-column: 1 / 4;
     grid-row: 1 / 5;
-    @include testBorder(blue);
+    align-self: center;
+    justify-self: center;
+    background-color: white;
+    border-radius: 4px;
+    height: 450px;
+    width: 95%;
+    @include flex(column, center, center);
+    #postSectionTitle {
+      font-weight: 800;
+      font-size: 1.5em;
+      margin-bottom: 5px;
+    }
+    #postComponent {
+      height: 400px;
+      width: 95%;
+      @include flex(column, center, center);
+      #posts {
+        @include scroll();
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        .post {
+          @include flex(column, center, center);
+          .postContent {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr auto;
+            // height: 200px;
+            width: 350px;
+            margin: 10px 0px;
+            border-top: 1px solid $lightPalette4;
+            // border-bottom: 1px solid $lightPalette4;
+            .postAuthor {
+              grid-row: 1 / 2;
+              justify-self: flex-start;
+              margin: 10px 0px 5px 10px;
+              font-weight: 800;
+              text-decoration: underline;
+            }
+            .postText {
+              grid-row: 2 / 3;
+              justify-self: flex-start;
+              margin: 10px 0px 5px 10px;
+            }
+            .socialBtns {
+              grid-row: 3 / 4;
+              justify-self: flex-end;
+              margin: 10px 10px 5px 0px;
+              .likeBtn {
+                border: none;
+                outline: none;
+                margin-right: 3px;
+                background-color: $lightPalette2;
+                border-radius: 4px;
+                height: 30px;
+                width: 70px;
+                &:hover {
+                  cursor: pointer;
+                  background-color: $lightPalette3;
+                }
+              }
+              .commentBtn {
+                border: none;
+                outline: none;
+                background-color: $lightPalette4;
+                border-radius: 4px;
+                height: 30px;
+                width: 70px;
+                &:hover {
+                  cursor: pointer;
+                  background-color: $lightPalette5;
+                }
+              }
+            }
+          }
+          .commentSection {
+            padding: 10px;
+            width: 300px;
+            height: 300px;
+            border-radius: 5px;
+            background-color: $lightPalette4;
+            @include scroll();
+            &::-webkit-scrollbar {
+              display: none;
+            }
+            #commentWrapper {
+              margin: 5px;
+              display: flex;
+              flex-direction: column-reverse;
+              .comment {
+                margin: 15px 0px;
+                .commentAuthor {
+                  font-weight: 800;
+                }
+              }
+              #commentSubmit {
+                @include flex(row, space-between, center);
+                margin: 10px 0px 10px 0px;
+
+                #commentInput {
+                  border: 1px solid $lightPalette1;
+                  width: 250px;
+                  height: 40px;
+                  border-radius: 8px;
+                }
+                #commentBtn {
+                  border: none;
+                  outline: none;
+                  background-color: $lightPalette1;
+                  border-radius: 4px;
+                  height: 40px;
+                  margin-left: 4px;
+                  &:hover {
+                    background-color: $lightPalette2;
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      #createPostSection {
+        @include flex(row, space-between, center);
+        margin: 10px 0px 10px 0px;
+        #postInput {
+          border: 1px solid $lightPalette1;
+          width: 250px;
+          height: 40px;
+          border-radius: 8px;
+        }
+        #submitPostBtn {
+          border: none;
+          outline: none;
+          background-color: $lightPalette1;
+          border-radius: 4px;
+          height: 40px;
+          width: 80px;
+          margin-left: 4px;
+          &:hover {
+            background-color: $lightPalette2;
+            cursor: pointer;
+          }
+        }
+      }
+    }
   }
   #chatSection {
-    @include testBorder(green);
-    @include scroll();
     grid-column: 1 / 4;
     grid-row: 1 / 5;
+    align-self: center;
+    justify-self: center;
+    border-radius: 4px;
+    height: 450px;
+    width: 95%;
+    @include flex(column, center, center);
+    #chatTitle {
+      font-size: 1.5em;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+    #chatBox {
+      #chatWindow {
+        @include scroll();
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        border-radius: 4px;
+        height: 300px;
+        width: 380px;
+        box-shadow: 2px 2px 5px 0.8px gray;
+        display: grid;
+        grid-template-columns: 1fr;
+        .myMsg {
+          @include flex(column, center, flex-start);
+          .msgContent {
+            margin-top: 10px;
+            background-color: $lightPalette1;
+            width: 60%;
+            margin-top: 10px;
+            padding: 10px;
+            font-weight: 400;
+            font-size: 1.25em;
+          }
+          .msgInfo {
+            @include flex(row, flex-start, center);
+            margin-top: 5px;
+
+            span {
+              margin-left: 5px;
+            }
+          }
+        }
+        .otherUserMsg {
+          @include flex(column, center, flex-end);
+          .msgContent {
+            margin-top: 10px;
+            background-color: $lightPalette3;
+            width: 60%;
+            margin-top: 10px;
+            padding: 10px;
+            font-weight: 400;
+            font-size: 1.25em;
+          }
+          .msgInfo {
+            @include flex(row, flex-end, center);
+            margin-top: 5px;
+
+            span {
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+      #enterChatMsg {
+        margin-top: 5px;
+        @include flex(row, flex-end, center);
+        textarea {
+          width: 300px;
+          height: 50px;
+          border: none;
+          border-radius: 4px;
+          font-size: 1.25em;
+        }
+        button {
+          margin-left: 5px;
+          height: 50px;
+          width: 50px;
+          font-weight: 800;
+          border: none;
+          background-color: $lightPalette4;
+          &:hover {
+            cursor: pointer;
+            background-color: $lightPalette3;
+          }
+        }
+      }
+    }
   }
-  div {
+  #eventAdmin {
     @include scroll();
+    &::-webkit-scrollbar {
+      display: none;
+    }
     grid-column: 1 / 4;
     grid-row: 1 / 5;
+    justify-self: center;
+    width: 95%;
     #eventList {
       @include scroll();
-      @include testBorder(gray);
+      background-color: white;
+      padding: 15px;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
     #event {
       @include scroll();
+      &::-webkit-scrollbar {
+        display: none;
+      }
       @include testBorder(purple);
       @include flex(column, flex-start, center);
       padding-bottom: 25px;
@@ -62,16 +463,10 @@
     }
     #eventDetails {
       @include scroll();
+      &::-webkit-scrollbar {
+        display: none;
+      }
       @include testBorder(gold);
-    }
-  }
-  #componentSelect {
-    grid-column: 1 / 5;
-    grid-row: 5 / 6;
-    @include flex(row, center, flex-start);
-    padding-top: 40px;
-    .toggleComponents {
-      margin: 0px 10px;
     }
   }
 }

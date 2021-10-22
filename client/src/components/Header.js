@@ -1,22 +1,26 @@
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import logo2 from '../images/Gather-logo2.png';
 
 const Header = (props) => {
   return (
     <header id="header">
       <nav id="headerNav">
         {props.isAuth ? (
-          <NavLink to="/home">Logo</NavLink>
+          <NavLink to="/home">
+            <img id="logo2" src={logo2} alt="Gather Header Logo" />
+          </NavLink>
         ) : (
-          <NavLink to="/">Logo</NavLink>
+          <NavLink to="/">
+            <img id="logo2" src={logo2} alt="Gather Header Logo" />
+          </NavLink>
         )}
-        <h2>Gather</h2>
         {props.isAuth ? (
-          <div className="">
-            <button>
+          <div className="authBtns">
+            <button id="logout">
               <NavLink to="/logout">Logout</NavLink>
             </button>
-            <button>
+            <button id="userAccount">
               <NavLink to="/account">User Account</NavLink>
             </button>
           </div>

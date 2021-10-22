@@ -43,7 +43,7 @@ function Event(props) {
       location: '',
       user_id: userID,
       space_id: spaceID
-    })
+    });
   };
 
   const allEvents = props.events.map((event) => {
@@ -53,17 +53,17 @@ function Event(props) {
       end_date: new Date(event.end_date)
     };
   });
-  
+
   return (
     <section id="event">
       <div id="calendar">
         <Calendar
           localizer={localizer}
-          events={allEvents}
+          events={props.allEvents}
           startAccessor="start_date"
           endAccessor="end_date"
           defaultDate={new Date()}
-          style={{ height: 300, width: 300, margin: '50px' }}
+          style={props.style}
         />
       </div>
       <div id="newEvent">

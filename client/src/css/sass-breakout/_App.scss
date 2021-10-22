@@ -6,12 +6,14 @@
 #baseLayout {
   margin: 0px;
   height: 100vh;
-  background: linear-gradient($lightPalette1, $lightPalette5);
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: auto repeat(4, 1fr);
+  background: linear-gradient($lightPalette5, $lightPalette2);
   font-family: 'Roboto', sans-serif;
   overflow: hidden;
+  #secondLayerContainer {
+    height: 100vh;
+    background: center url('/src/images/Gather-3-min.png') no-repeat;
+    background-size: cover;
+  }
   a {
     text-decoration: none;
     color: inherit;

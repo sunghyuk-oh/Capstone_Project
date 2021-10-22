@@ -5,35 +5,34 @@ import { connect } from 'react-redux';
 import Chat from './Chat';
 import SpaceNav from './SpaceNav';
 import MobileSpace from './MobileSpace';
-import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
-import * as actionCreators from '../stores/creators/actionCreators';
 import Post from './Post';
-
+import * as actionCreators from '../stores/creators/actionCreators';
 
 function Space(props) {
   const socket = window.socket;
-  const location = useLocation();
-  const spaceName = props.isAuth ? location.state.spaceName : "Error"
   const history = useHistory();
-  const [userName, setUserName] = useState('');
+  const [recipientUserName, setRecipientUserName] = useState('');
   const [members, setMembers] = useState([]);
   const [events, setEvents] = useState([]);
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
   const [isExpanded, setExpanded] = useState({ expanded: '', close: true });
-  const [singleEventToggle, setSingleEventToggle] = useState(0)
-  const [isEventSlideDown, setIsEventSlideDown] = useState(false)
-  const [eventAttendees, setEventAttendees] = useState([])
+  const [singleEventToggle, setSingleEventToggle] = useState(0);
+  const [isEventSlideDown, setIsEventSlideDown] = useState(false);
+  const [eventAttendees, setEventAttendees] = useState([]);
   const spaceID = useParams().spaceid;
+  const spaceName = useParams().spacename;
   const userID = localStorage.getItem('userID');
+  const username = localStorage.getItem('username');
+  const calendarStyle = { height: 300, width: 300, margin: '50px' };
 
   useEffect(() => {
     authSpaceUsers();
-    displaySpaceMembers();
     joinSpace();
     displayAllEvents();
-    renderAllPosts()
+    renderAllPosts();
+    displaySpaceMembers();
   }, [spaceID]);
 
   const authSpaceUsers = () => {
@@ -50,27 +49,33 @@ function Space(props) {
   };
 
   const displayAllEvents = () => {
-    actionCreators.displayAllEvents(spaceID, setEvents)  
+    actionCreators.displayAllEvents(spaceID, setEvents);
   };
 
   const renderAllPosts = () => {
-    actionCreators.displayAllPosts(spaceID, setPosts)
-  }
+    actionCreators.displayAllPosts(spaceID, setPosts);
+  };
 
   const handleUsernameInput = (e) => {
-    setUserName(e.target.value);
+    setRecipientUserName(e.target.value);
   };
 
   const handleInviteSubmit = () => {
-    const inviteData = { userName: userName, spaceID: spaceID };
+    const inviteData = {
+      recipientUserName: recipientUserName,
+      spaceID: spaceID,
+      userID: userID,
+      senderUserName: username
+    };
     actionCreators.invite(inviteData);
+    setRecipientUserName('');
   };
 
   const handleSingleEventToggle = (eventID) => {
-    setSingleEventToggle(eventID)
-    actionCreators.displayAllAttendees(eventID, spaceID, setEventAttendees)
-    !isEventSlideDown ? setIsEventSlideDown(true) : setIsEventSlideDown(false)
-  }
+    setSingleEventToggle(eventID);
+    actionCreators.displayAllAttendees(eventID, spaceID, setEventAttendees);
+    !isEventSlideDown ? setIsEventSlideDown(true) : setIsEventSlideDown(false);
+  };
 
   const allMembers = members.map((member, index) => {
     return (
@@ -83,8 +88,8 @@ function Space(props) {
   });
 
   const convertDateFormat = (date) => {
-    if (date.toString() === "Invalid Date") {
-      return " "
+    if (date.toString() === 'Invalid Date') {
+      return ' ';
     } else {
       const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
       const year = date.getFullYear();
@@ -95,30 +100,35 @@ function Space(props) {
       return `${month}/${numDay}/${year}  (${days[day]})`;
     }
   };
-  
+
   const allEvents = events.map((event) => {
     const startDate = convertDateFormat(new Date(event.start_date));
     const endDate = convertDateFormat(new Date(event.end_date));
-    
+
     return (
       <div>
-        <div key={event.event_id} onClick={()=> handleSingleEventToggle(event.event_id)}>
+        <div
+          key={event.event_id}
+          onClick={() => handleSingleEventToggle(event.event_id)}
+        >
           <h4>{event.title}</h4>
           <p>
             {startDate} - {endDate}
           </p>
         </div>
-        { isEventSlideDown && singleEventToggle === event.event_id ? 
-            <div>
-              <EventDetails event={event} attendees={eventAttendees} setAttendees ={setEventAttendees} />
-            </div>
-          : null
-        }
+        {isEventSlideDown && singleEventToggle === event.event_id ? (
+          <div>
+            <EventDetails
+              event={event}
+              attendees={eventAttendees}
+              setAttendees={setEventAttendees}
+            />
+          </div>
+        ) : null}
       </div>
     );
   });
 
-  
   const toggleExpanded = (e) => {
     let componentName = e.target.name;
     setExpanded({ expanded: componentName, close: !isExpanded['close'] });
@@ -126,11 +136,7 @@ function Space(props) {
 
   return (
     <div id="spaceContainer">
-      <MobileSpace
-        socket={socket}
-        username={localStorage.username}
-        spaceID={spaceID}
-      />
+      <MobileSpace socket={socket} username={username} spaceID={spaceID} />
       <section id="space">
         <section id="spaceTitle">
           <h1>{spaceName}</h1>
@@ -168,16 +174,17 @@ function Space(props) {
           </button>
           <span>Members</span>
           <div id="memberList">{allMembers}</div>
-          <div>
-            <span>User Invite</span>
-            <input
-              type="text"
-              placeholder="Enter Invitee's Username"
-              name="usernameInput"
-              onChange={handleUsernameInput}
-            />
-            <button onClick={handleInviteSubmit}>Invite</button>
-          </div>
+        </section>
+        <section id="userInvite">
+          <span>User Invite</span>
+          <input
+            type="text"
+            value={recipientUserName}
+            placeholder="Enter Username for Invite"
+            name="usernameInput"
+            onChange={handleUsernameInput}
+          />
+          <button onClick={handleInviteSubmit}>Invite</button>
         </section>
         <section
           id={
@@ -211,11 +218,7 @@ function Space(props) {
             [ + ]
           </button>
           <span>Chat</span>
-          <Chat
-            socket={socket}
-            username={localStorage.username}
-            spaceID={spaceID}
-          />
+          <Chat socket={socket} username={username} spaceID={spaceID} />
         </section>
         <section
           id={
@@ -249,23 +252,7 @@ function Space(props) {
           >
             [ + ]
           </button>
-          <Event events={events} setEvents={setEvents} />
-        </div>
-        <div
-          id={
-            isExpanded['expanded'] === 'eventDetails' &&
-            isExpanded['close'] === false
-              ? 'expandedEventDetailsContainer'
-              : 'eventDetailsContainer'
-          }
-        >
-          <button
-            name="eventDetails"
-            className="expandComponent"
-            onClick={toggleExpanded}
-          >
-            [ + ]
-          </button>
+          <Event events={events} setEvents={setEvents} style={calendarStyle} />
         </div>
       </section>
     </div>

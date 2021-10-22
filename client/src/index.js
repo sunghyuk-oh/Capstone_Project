@@ -43,7 +43,7 @@ ReactDOM.render(
             <Route path="/logout" component={Logout} />
             <Route
               exact
-              path="/space/:spaceid"
+              path="/space/:spaceid/:spacename"
               component={requireAuth(Space)}
             />
           </Switch>

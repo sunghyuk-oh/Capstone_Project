@@ -2,18 +2,21 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import * as actionCreators from '../stores/creators/actionCreators';
 
 function SpaceNav(props) {
   const history = useHistory();
   const [spaceName, setSpaceName] = useState('');
   const [isNewSpace, setIsNewSpace] = useState(false);
+  const spaceID = useParams().spaceid;
 
   useEffect(() => {
     if (props.isAuth) {
       viewAllSpaces();
+      viewAllInvites();
     }
-  }, []);
+  }, [spaceID]);
 
   const handleNewSpaceInputPopUp = () => {
     isNewSpace ? setIsNewSpace(false) : setIsNewSpace(true);
@@ -36,21 +39,54 @@ function SpaceNav(props) {
     props.onViewMySpace(viewData);
   };
 
+  const viewAllInvites = () => {
+    const token = localStorage.getItem('userToken');
+    const userID = localStorage.getItem('userID');
+    const viewData = { userID: userID, token: token };
+    props.onViewMyInvites(viewData);
+  };
+
+  const handleActive = () => {
+    if (props.active) {
+      props.active({
+        active: 'titleAndMembers'
+      });
+    } else {
+      console.log('Props Active is Not Loaded');
+    }
+  };
+
   const allMySpace = props.mySpaceList.map((space) => {
     return (
       <div key={space.space_id} className="spaceBlock">
-        <h3 className="spaceTitle">{space.space_name}</h3>
-        <button className="toSpaceBtn">
-          <NavLink
-            className="spaceLink"
-            to={{
-              pathname: `/space/${space.space_id}`,
-              state: { spaceID: space.space_id, spaceName: space.space_name }
-            }}
-          >
-            Go To Space
-          </NavLink>
-        </button>
+        <h3 className="spaceTitle">
+          <button className="toSpaceBtn" onClick={handleActive}>
+            <NavLink
+              className="spaceLink"
+              to={{
+                pathname: `/space/${space.space_id}/${space.space_name}`
+              }}
+            >
+              {space.space_name}
+            </NavLink>
+          </button>
+        </h3>
+      </div>
+    );
+  });
+
+  const allMyInvites = props.myInvites.map((invite) => {
+    return (
+      <div key={invite.space_id} className="inviteBlock">
+        <h3>Invitation to {invite.space_name}</h3>
+        <p>
+          You've been invited to join {invite.space_name} by{' '}
+          {invite.sender_first_name}, {invite.sender_last_name}
+        </p>
+        <div className="inviteBtns">
+          <button>Accept</button>
+          <button>Decline</button>
+        </div>
       </div>
     );
   });
@@ -59,7 +95,10 @@ function SpaceNav(props) {
     <section id="spaceNav">
       {props.isAuth && isNewSpace ? (
         <div id="spaceCredentials">
-          <h5>Create New Space</h5>
+          <button id="minSpaceBtn" onClick={handleNewSpaceInputPopUp}>
+            x
+          </button>
+          <h2>Create New Space</h2>
           <p>
             By creating a space you can invite friends, chat, and plan new
             events!
@@ -75,14 +114,16 @@ function SpaceNav(props) {
         </div>
       ) : null}
       <section id="createSpaceSection">
-        <h3>My Spaces</h3>
-        <div id="createSpace">
-          <button id="createSpaceBtn" onClick={handleNewSpaceInputPopUp}>
-            +<span id="createHoverText">Add New Space</span>
-          </button>
-        </div>
+        <h1>My Spaces</h1>
+        <button id="createSpaceBtn" onClick={handleNewSpaceInputPopUp}>
+          +{/* +<span id="createHoverText">Add New Space</span> */}
+        </button>
       </section>
       <section id="mySpacesList">{allMySpace}</section>
+      <section>
+        <h1>Pending Invites</h1>
+        {allMyInvites}
+      </section>
     </section>
   );
 }
@@ -90,13 +131,15 @@ function SpaceNav(props) {
 const mapStateToProps = (state) => {
   return {
     isAuth: state.isAuth,
-    mySpaceList: state.mySpaceList
+    mySpaceList: state.mySpaceList,
+    myInvites: state.myInvites
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onViewMySpace: (data) => dispatch(actionCreators.loadSpaces(data))
+    onViewMySpace: (data) => dispatch(actionCreators.loadSpaces(data)),
+    onViewMyInvites: (data) => dispatch(actionCreators.loadInvites(data))
   };
 };
 
