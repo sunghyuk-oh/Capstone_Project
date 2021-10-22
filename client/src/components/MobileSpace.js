@@ -15,6 +15,7 @@ function MobileSpace(props) {
   const [recipientUserName, setRecipientUserName] = useState('');
   const [members, setMembers] = useState([]);
   const [events, setEvents] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [isActive, setActive] = useState({
     active: 'titleAndMembers'
   });
@@ -30,12 +31,10 @@ function MobileSpace(props) {
   useEffect(() => {
     authSpaceUsers();
     joinSpace();
-    displaySpaceMembers();
-  }, []);
-
-  useEffect(() => {
     displayAllEvents();
-  }, []);
+    renderAllPosts();
+    displaySpaceMembers();
+  }, [spaceID]);
 
   const authSpaceUsers = () => {
     const authData = { spaceID: spaceID, userID: userID };
@@ -54,6 +53,9 @@ function MobileSpace(props) {
     actionCreators.displayAllEvents(spaceID, setEvents);
   };
 
+  const renderAllPosts = () => {
+    actionCreators.displayAllPosts(spaceID, setPosts);
+  };
   const handleUsernameInput = (e) => {
     setRecipientUserName(e.target.value);
   };
@@ -207,7 +209,7 @@ function MobileSpace(props) {
       {isActive['active'] === 'posts' ? (
         <section id="postSection">
           <span id="postSectionTitle">Post Feed</span>
-          <Post spaceID={spaceID} />
+          <Post posts={posts} setPosts={setPosts} spaceID={spaceID} />
         </section>
       ) : null}
 
