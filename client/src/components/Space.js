@@ -22,11 +22,12 @@ function Space(props) {
   const spaceName = useParams().spaceid;
 
   const history = useHistory();
-  const [userName, setUserName] = useState('');
+  const [recipientUserName, setRecipientUserName] = useState('');
   const [members, setMembers] = useState([]);
   const [isExpanded, setExpanded] = useState({ expanded: '', close: true });
   const spaceID = useParams().spaceid;
   const userID = localStorage.getItem('userID');
+  const username = localStorage.getItem('username');
   const calendarStyle = { height: 300, width: 300, margin: '50px' };
 
   useEffect(() => {
@@ -56,11 +57,16 @@ function Space(props) {
   };
 
   const handleUsernameInput = (e) => {
-    setUserName(e.target.value);
+    setRecipientUserName(e.target.value);
   };
 
   const handleInviteSubmit = () => {
-    const inviteData = { userName: userName, spaceID: spaceID };
+    const inviteData = {
+      recipientUserName: recipientUserName,
+      spaceID: spaceID,
+      userID: userID,
+      senderUserName: username
+    };
     actionCreators.invite(inviteData);
   };
 
@@ -105,11 +111,7 @@ function Space(props) {
 
   return (
     <div id="spaceContainer">
-      <MobileSpace
-        socket={socket}
-        username={localStorage.username}
-        spaceID={spaceID}
-      />
+      <MobileSpace socket={socket} username={username} spaceID={spaceID} />
       <section id="space">
         <section id="spaceTitle">
           <h1>{spaceName}</h1>
@@ -152,7 +154,7 @@ function Space(props) {
           <span>User Invite</span>
           <input
             type="text"
-            placeholder="Enter Invitee's Username"
+            placeholder="Enter Username for Invite"
             name="usernameInput"
             onChange={handleUsernameInput}
           />
@@ -190,11 +192,7 @@ function Space(props) {
             [ + ]
           </button>
           <span>Chat</span>
-          <Chat
-            socket={socket}
-            username={localStorage.username}
-            spaceID={spaceID}
-          />
+          <Chat socket={socket} username={username} spaceID={spaceID} />
         </section>
         <section
           id={

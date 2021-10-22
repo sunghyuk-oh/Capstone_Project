@@ -433,13 +433,16 @@
       display: none;
     }
     grid-column: 1 / 4;
-    grid-row: 1 / 4;
+    grid-row: 1 / 5;
+    justify-self: center;
+    width: 95%;
     #eventList {
       @include scroll();
+      background-color: white;
+      padding: 15px;
       &::-webkit-scrollbar {
         display: none;
       }
-      @include testBorder(gray);
     }
     #event {
       @include scroll();

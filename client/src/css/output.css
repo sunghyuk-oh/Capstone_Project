@@ -1262,7 +1262,9 @@
   scroll-snap-type: y proximity;
   scroll-behavior: smooth;
   grid-column: 1/4;
-  grid-row: 1/4;
+  grid-row: 1/5;
+  justify-self: center;
+  width: 95%;
 }
 #mobileSpace #eventAdmin::-webkit-scrollbar {
   display: none;
@@ -1271,7 +1273,8 @@
   overflow-y: scroll;
   scroll-snap-type: y proximity;
   scroll-behavior: smooth;
-  border: 2px solid gray;
+  background-color: white;
+  padding: 15px;
 }
 #mobileSpace #eventAdmin #eventList::-webkit-scrollbar {
   display: none;
