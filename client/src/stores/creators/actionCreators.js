@@ -69,7 +69,7 @@ export const declineSpaceInvite = (IDs, setDeclineMsg, setPendingSpace) => {
 
 
 // Login Component Actions
-export const login = (data, history) => {
+export const login = (data, history, setErrorMsg) => {
   return (dispatch) => {
     fetch('http://localhost:8080/users/login', {
       method: 'POST',
@@ -85,14 +85,14 @@ export const login = (data, history) => {
           dispatch({ type: 'ON_LOGIN', payload: result.success });
           history.push('/home');
         } else {
-          console.log('Login Failed');
+          setErrorMsg({ isDisplay: true, message: result.message})
         }
       })
       .catch((err) => console.log(err));
   };
 };
 
-export const register = (data, history) => {
+export const register = (data, history, setErrorMsg) => {
   return (dispatch) => {
     fetch('http://localhost:8080/users/register', {
       method: 'POST',
@@ -108,7 +108,7 @@ export const register = (data, history) => {
           dispatch({ type: actionTypes.ON_REGISTER, payload: result.success });
           history.push('/home');
         } else {
-          console.log('Registration Failed');
+          setErrorMsg({ isDisplay: true, message: result.message})
         }
       })
       .catch((err) => console.log(err));

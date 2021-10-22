@@ -6,6 +6,8 @@ import * as actionCreators from '../stores/creators/actionCreators';
 function Register(props) {
   const history = useHistory();
   const [userRegister, setUserRegister] = useState({});
+  const [errorMsg, setErrorMsg] = useState({ isDisplay: false, message: '' })
+  const messageStyle = { color: '#fdafcc'}
 
   const handleRegisterInput = (e) => {
     setUserRegister({

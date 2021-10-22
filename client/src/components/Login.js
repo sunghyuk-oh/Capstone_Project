@@ -6,6 +6,8 @@ import * as actionCreators from '../stores/creators/actionCreators';
 function Login(props) {
   const history = useHistory();
   const [userLogin, setUserLogin] = useState({});
+  const [errorMsg, setErrorMsg] = useState({ isDisplay: false, message: '' })
+  const messageStyle = { color: '#fed3e4'}
 
   const handleLoginInput = (e) => {
     setUserLogin({
@@ -15,14 +17,20 @@ function Login(props) {
   };
 
   const handleLogin = () => {
-    props.onLogin(userLogin, history);
+    props.onLogin(userLogin, history, setErrorMsg);
     setUserLogin({});
+
+    setTimeout(() => { 
+      setErrorMsg({ isDisplay: false, message: '' }) 
+    }, 8000);
   };
 
+  console.log(errorMsg)
   return (
     <section id="login">
       <div id="loginCredentials">
         <h3 id="loginTitle">Login</h3>
+        {errorMsg.isDisplay ? <div><p style={messageStyle}>{errorMsg.message}</p></div> : null }
         <input
           type="text"
           onChange={handleLoginInput}
@@ -52,7 +60,7 @@ function Login(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLogin: (data, history) => dispatch(actionCreators.login(data, history))
+    onLogin: (data, history, setErrorMsg) => dispatch(actionCreators.login(data, history, setErrorMsg))
   };
 };
 
