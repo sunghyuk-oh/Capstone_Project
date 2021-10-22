@@ -55,7 +55,7 @@ router.get('/auth/:spaceID/:userID', (req, res) => {
   const userID = req.params.userID;
 
   db.any(
-    'SELECT space_id from space_members where user_id=$1 group by space_id',
+    'SELECT space_id FROM space_members WHERE user_id=$1 GROUP BY space_id',
     [userID]
   ).then((userSpaces) => {
     const allSpaces = userSpaces.map((space) => {
@@ -76,17 +76,12 @@ router.get('/displayMembers/:spaceID', (req, res) => {
   const spaceID = req.params.spaceID;
 
   db.any(
-    'SELECT username, first_name, last_name from users inner join spaces on users.user_id = spaces.user_id where spaces.space_id = $1',
+    'SELECT username, first_name, last_name FROM users INNER JOIN space_members ON users.user_id = space_members.user_id WHERE space_members.space_id = $1',
     [spaceID]
-  ).then((spaceCreator) => {
-    db.any(
-      'SELECT distinct username, first_name, last_name from users inner join spaces_invitees on users.user_id = spaces_invitees.user_id where spaces_invitees.space_id = $1',
-      [spaceID]
-    ).then((spaceInvitee) => {
-      const allMembers = spaceCreator.concat(spaceInvitee);
+  ).then((spaceMembers) => {
+    const allMembers = spaceMembers;
 
-      res.json({ success: true, members: allMembers });
-    });
+    res.json({ success: true, members: allMembers });
   });
 });
 
@@ -94,7 +89,7 @@ router.get('/viewSpace/:userID', authenticate, (req, res) => {
   const { userID } = req.params;
 
   db.any(
-    'SELECT space_id, space_name, user_id from spaces where user_id = $1 group by space_id',
+    'SELECT space_members.space_id, space_members.user_id, spaces.space_name FROM space_members INNER JOIN spaces ON space_members.space_id = spaces.space_id WHERE space_members.user_id = $1',
     [userID]
   ).then((foundSpaces) => {
     res.json(foundSpaces);
