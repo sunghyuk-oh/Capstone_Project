@@ -13,7 +13,7 @@ import * as actionCreators from '../stores/creators/actionCreators';
 function MobileSpace(props) {
   const socket = window.socket;
   const history = useHistory();
-  const [userName, setUserName] = useState('');
+  const [recipientUserName, setRecipientUserName] = useState('');
   const [members, setMembers] = useState([]);
   const [isActive, setActive] = useState({
     active: 'titleAndMembers'
@@ -21,6 +21,7 @@ function MobileSpace(props) {
   const spaceID = useParams().spaceid;
   const spaceName = useParams().spacename;
   const userID = localStorage.getItem('userID');
+  const username = localStorage.getItem('username');
   const calendarStyle = { height: 500, width: 380, margin: '50px' };
 
   useEffect(() => {
@@ -51,12 +52,18 @@ function MobileSpace(props) {
   };
 
   const handleUsernameInput = (e) => {
-    setUserName(e.target.value);
+    setRecipientUserName(e.target.value);
   };
 
   const handleInviteSubmit = () => {
-    const inviteData = { userName: userName, spaceID: spaceID };
+    const inviteData = {
+      recipientUserName: recipientUserName,
+      spaceID: spaceID,
+      userID: userID,
+      senderUserName: username
+    };
     actionCreators.invite(inviteData);
+    setRecipientUserName('');
   };
 
   const allMembers = members.map((member, index) => {
@@ -151,8 +158,9 @@ function MobileSpace(props) {
             <span className="sectionHeader">User Invite</span>
             <input
               id="inviteInput"
+              value={recipientUserName}
               type="text"
-              placeholder="Enter Invitee's Username"
+              placeholder="Enter Username for Invite"
               name="usernameInput"
               onChange={handleUsernameInput}
             />

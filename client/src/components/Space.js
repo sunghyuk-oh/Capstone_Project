@@ -61,6 +61,7 @@ function Space(props) {
       senderUserName: username
     };
     actionCreators.invite(inviteData);
+    setRecipientUserName('');
   };
 
   const allMembers = members.map((member, index) => {
@@ -147,6 +148,7 @@ function Space(props) {
           <span>User Invite</span>
           <input
             type="text"
+            value={recipientUserName}
             placeholder="Enter Username for Invite"
             name="usernameInput"
             onChange={handleUsernameInput}

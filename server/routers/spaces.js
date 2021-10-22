@@ -34,20 +34,20 @@ router.post('/invite', (req, res) => {
   const senderUserName = req.body.senderUserName;
   const spaceID = req.body.spaceID;
 
-  db.any('SELECT user_id from users where username = $1', [
-    recipientUserName
-  ]).then((user) => {
-    const recipientUserID = user[0].user_id;
-    db.none(
-      'INSERT INTO space_invites (space_id, sender_user_id, recipient_user_id) VALUES($1, $2)',
-      [spaceID, senderUserID, recipientUserID]
-    ).then(
-      res.json({
-        success: true,
-        message: `User ID: ${recipientUserID} has been invited to Space: ${spaceID}`
-      })
-    );
-  });
+  db.any('SELECT user_id from users where username = $1', [recipientUserName])
+    .then((user) => {
+      const recipientUserID = user[0].user_id;
+      db.none(
+        'INSERT INTO space_invites (space_id, sender_user_id, recipient_user_id) VALUES($1, $2, $3)',
+        [spaceID, senderUserID, recipientUserID]
+      ).then(
+        res.json({
+          success: true,
+          message: `User ID: ${recipientUserID} has been invited to Space: ${spaceID}`
+        })
+      );
+    })
+    .catch((err) => console.log(err));
 });
 
 // authenticate space
@@ -87,6 +87,17 @@ router.get('/displayMembers/:spaceID', (req, res) => {
 });
 
 router.get('/viewSpace/:userID', authenticate, (req, res) => {
+  const { userID } = req.params;
+
+  db.any(
+    'SELECT space_members.space_id, space_members.user_id, spaces.space_name FROM space_members INNER JOIN spaces ON space_members.space_id = spaces.space_id WHERE space_members.user_id = $1',
+    [userID]
+  ).then((foundSpaces) => {
+    res.json(foundSpaces);
+  });
+});
+
+router.get('/viewInvites/:userID', authenticate, (req, res) => {
   const { userID } = req.params;
 
   db.any(
