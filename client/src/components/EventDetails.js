@@ -36,7 +36,7 @@ function EventDetails(props) {
 
   const allAttendees = props.attendees.map((each) => {
     return (
-      <div>
+      <div className="attendees">
         <p>
           {each.first_name} {each.last_name[0]}.
         </p>
@@ -45,8 +45,8 @@ function EventDetails(props) {
   });
 
   return (
-    <section>
-      <div>
+    <section id="eventDetails">
+      <div id="details">
         <p>
           <b>Time: </b>
           {startTime} - {endTime}
@@ -60,7 +60,7 @@ function EventDetails(props) {
           {allAttendees}
         </p>
       </div>
-      <div>
+      <div id="eventInvite">
         <h4>Invite Friends</h4>
         <input
           type="text"

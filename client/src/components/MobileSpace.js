@@ -28,7 +28,7 @@ function MobileSpace(props) {
   const username = localStorage.getItem('username');
   const calendarStyle = {
     height: 500,
-    width: 350,
+    width: 400,
     margin: '10px 10px 20px 10px'
   };
 

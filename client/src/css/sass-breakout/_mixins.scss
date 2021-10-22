@@ -9,6 +9,18 @@
   align-items: $align;
 }
 
+@mixin expandMedScreens() {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  grid-column: 2 / 7;
+  grid-row: 1 / 10;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 2px;
+  box-shadow: 0px 3px 8px 3px black;
+  z-index: 10;
+}
+
 @mixin expandLrgScreens() {
   overflow-y: scroll;
   scroll-behavior: smooth;
@@ -25,4 +37,10 @@
   overflow-y: scroll;
   scroll-snap-type: y proximity;
   scroll-behavior: smooth;
+}
+
+@mixin hideScroll() {
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
