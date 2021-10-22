@@ -30,7 +30,7 @@ function Login(props) {
     <section id="login">
       <div id="loginCredentials">
         <h3 id="loginTitle">Login</h3>
-        {errorMsg.isDisplay ? <div><p style={messageStyle}>{errorMsg.message}</p></div> : null }
+        { errorMsg.isDisplay ? <div><p style={messageStyle}>{errorMsg.message}</p></div> : null }
         <input
           type="text"
           onChange={handleLoginInput}

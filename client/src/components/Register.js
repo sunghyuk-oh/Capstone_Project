@@ -17,14 +17,19 @@ function Register(props) {
   };
 
   const handleRegister = () => {
-    props.onRegister(userRegister, history);
+    props.onRegister(userRegister, history, setErrorMsg);
     setUserRegister({});
+
+    setTimeout(() => { 
+      setErrorMsg({ isDisplay: false, message: '' }) 
+    }, 8000);
   };
 
   return (
     <section id="register">
       <div id="registerCredentials">
         <h3 id="registerTitle">Register</h3>
+        { errorMsg.isDisplay ? <div><p style={messageStyle}>{errorMsg.message}</p></div> : null }
         <input
           type="text"
           onChange={handleRegisterInput}
@@ -86,8 +91,8 @@ function Register(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onRegister: (data, history) =>
-      dispatch(actionCreators.register(data, history))
+    onRegister: (data, history, setErrorMsg) =>
+      dispatch(actionCreators.register(data, history, setErrorMsg))
   };
 };
 
