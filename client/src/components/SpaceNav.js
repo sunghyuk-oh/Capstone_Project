@@ -56,8 +56,7 @@ function SpaceNav(props) {
             <NavLink
               className="spaceLink"
               to={{
-                pathname: `/space/${space.space_id}`,
-                state: { spaceID: space.space_id, spaceName: space.space_name }
+                pathname: `/space/${space.space_id}/${space.space_name}`
               }}
             >
               {space.space_name}

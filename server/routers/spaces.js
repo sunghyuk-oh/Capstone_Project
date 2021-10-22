@@ -19,7 +19,8 @@ router.post('/createSpace', (req, res) => {
         res.json({
           success: true,
           message: 'The new space has been created!',
-          spaceID: space[0].space_id
+          spaceID: space[0].space_id,
+          spaceName: spaceName
         });
       });
     })

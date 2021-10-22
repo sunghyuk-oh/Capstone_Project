@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import Chat from './Chat';
 import SpaceNav from './SpaceNav';
-import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import Post from './Post';
@@ -13,12 +12,6 @@ import * as actionCreators from '../stores/creators/actionCreators';
 
 function MobileSpace(props) {
   const socket = window.socket;
-  const location = useLocation();
-  // const spaceName =
-  //   props.isAuth && location.state.spaceName !== undefined
-  //     ? location.state.spaceName
-  //     : 'Error';
-  const spaceName = useParams().spaceid;
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [members, setMembers] = useState([]);
@@ -26,6 +19,7 @@ function MobileSpace(props) {
     active: 'titleAndMembers'
   });
   const spaceID = useParams().spaceid;
+  const spaceName = useParams().spacename;
   const userID = localStorage.getItem('userID');
   const calendarStyle = { height: 500, width: 380, margin: '50px' };
 

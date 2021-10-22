@@ -6,7 +6,6 @@ import { NavLink } from 'react-router-dom';
 import Chat from './Chat';
 import SpaceNav from './SpaceNav';
 import MobileSpace from './MobileSpace';
-import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import Post from './Post';
@@ -14,18 +13,12 @@ import * as actionCreators from '../stores/creators/actionCreators';
 
 function Space(props) {
   const socket = window.socket;
-  const location = useLocation();
-  // const spaceName =
-  //   props.isAuth && location.state.spaceName !== undefined
-  //     ? location.state.spaceName
-  //     : 'Error';
-  const spaceName = useParams().spaceid;
-
   const history = useHistory();
   const [recipientUserName, setRecipientUserName] = useState('');
   const [members, setMembers] = useState([]);
   const [isExpanded, setExpanded] = useState({ expanded: '', close: true });
   const spaceID = useParams().spaceid;
+  const spaceName = useParams().spacename;
   const userID = localStorage.getItem('userID');
   const username = localStorage.getItem('username');
   const calendarStyle = { height: 300, width: 300, margin: '50px' };

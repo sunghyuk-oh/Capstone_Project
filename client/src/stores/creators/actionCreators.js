@@ -11,8 +11,7 @@ export const addSpace = (data, history) => {
     .then((result) => {
       if (result.success) {
         history.push({
-          pathname: `/space/${result.spaceID}`,
-          state: { spaceName: data.spaceName, spaceID: result.spaceID }
+          pathname: `/space/${result.spaceID}/${result.spaceName}`
         });
       }
     })
