@@ -446,8 +446,21 @@
     grid-column: 3/6;
     grid-row: 1/2;
     z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #spaceTitle h1 {
     background-color: white;
-    border-radius: 2px;
+    font-size: 2em;
+    border-width: 6px;
+    border-style: solid;
+    border-radius: 15px;
+    border-image: linear-gradient(to right, #ffafcc, #cdb4db) 1;
+    padding: 10px;
+    width: 90%;
+    text-align: center;
   }
   #space #spacesInfo {
     overflow-y: scroll;
@@ -472,6 +485,7 @@
     border-radius: 4px;
     outline: none;
     background: transparent;
+    margin: 10px 10px 2px 10px;
   }
   #space #spacesInfo .expandComponent:hover {
     background-color: #bde0fe;
@@ -488,23 +502,26 @@
     grid-template-rows: auto 1fr auto 1fr;
     background-color: white;
     border-radius: 4px;
-    width: 200px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
   #space #spacesInfo #spaceNav #spaceCredentials {
+    grid-column: 1/2;
+    grid-row: 1/4;
+    align-self: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     margin: 10px 25px 0px 25px;
     background: linear-gradient(#ffc8dd, #bde0fe);
     border: 2px solid black;
-    border-radius: 10px;
+    border-radius: 2px;
     z-index: 10;
-    height: 50px;
+    width: 300px;
   }
   #space #spacesInfo #spaceNav #spaceCredentials #minSpaceBtn {
     align-self: flex-end;
@@ -587,6 +604,7 @@
     outline: none;
     border: none;
     border-radius: 3px;
+    border: 1px solid black;
     margin: 3px auto;
     width: 190px;
     height: 60px;
@@ -607,7 +625,7 @@
     align-self: center;
   }
   #space #spacesInfo #spaceNav #inviteHeader h1 {
-    font-size: 1.5em;
+    font-size: 1.1em;
     border-bottom: 2px solid #a2d2ff;
   }
   #space #spacesInfo #spaceNav #myInviteList {
@@ -621,15 +639,37 @@
     scroll-snap-type: y proximity;
     scroll-behavior: smooth;
     grid-column: 1/3;
-    grid-row: 4/5;
+    grid-row: 4/6;
+    margin-left: 10px;
     background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    border-radius: 2px;
+    display: grid;
+    grid-template-rows: auto auto 1fr 1fr;
   }
   #space #memberInfo::-webkit-scrollbar {
     display: none;
+  }
+  #space #memberInfo .expandComponent {
+    width: 40px;
+    height: 40px;
+    margin: 10px 10px 2px 10px;
+    border: 2px solid #bde0fe;
+    border-radius: 4px;
+    outline: none;
+    background: transparent;
+  }
+  #space #memberInfo .expandComponent:hover {
+    background-color: #bde0fe;
+    cursor: pointer;
+  }
+  #space #memberInfo .expandComponent .icon {
+    margin: 0px;
+  }
+  #space #memberInfo .sectionHeader {
+    justify-self: center;
+    align-self: center;
+    font-size: 1.5em;
+    margin-bottom: 15px;
   }
   #space #memberInfo #memberList {
     display: flex;
@@ -637,10 +677,60 @@
     justify-content: center;
     align-items: center;
   }
-  #space #userInvite {
-    grid-column: 1/3;
-    grid-row: 5/6;
-    border: 2px solid black;
+  #space #memberInfo #memberList .spaceMember {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #memberInfo #memberList .spaceMember .memberInitials {
+    padding: 4px;
+    color: white;
+    background-color: #cdb4db;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: 800;
+    border: 1px solid black;
+  }
+  #space #memberInfo #userInvite {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #memberInfo #userInvite .sectionHeader {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+  #space #memberInfo #userInvite #inviteInput {
+    margin: 3px auto;
+    padding: 3px 0px 3px 5px;
+    height: 30px;
+    width: 190px;
+    border: 1px solid #ffc8dd;
+    background-color: white;
+    opacity: 0.8;
+    border-radius: 3px;
+  }
+  #space #memberInfo #userInvite #inviteBtn {
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    border: 1px solid black;
+    margin: 3px auto;
+    padding: 3px 0px 3px 5px;
+    width: 190px;
+    height: 30px;
+    transition: 0.25s;
+    font-size: 1.2em;
+    font-weight: 500;
+    color: black;
+    background-color: #cdb4db;
+  }
+  #space #memberInfo #userInvite #inviteBtn:hover {
+    cursor: pointer;
+    background-color: #ffafcc;
   }
   #space #postSection {
     overflow-y: scroll;
@@ -648,11 +738,187 @@
     scroll-behavior: smooth;
     grid-column: 3/6;
     grid-row: 2/9;
-    margin: 0px 0px 10px 10px;
+    padding: 20px;
     background-color: white;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
   }
   #space #postSection::-webkit-scrollbar {
     display: none;
+  }
+  #space #postSection .expandComponent {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    border: 2px solid #bde0fe;
+    border-radius: 4px;
+    outline: none;
+    background: transparent;
+  }
+  #space #postSection .expandComponent:hover {
+    background-color: #bde0fe;
+    cursor: pointer;
+  }
+  #space #postSection .expandComponent .icon {
+    margin: 0px;
+  }
+  #space #postSection #postSectionTitle {
+    font-weight: 800;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #a2d2ff;
+    justify-self: center;
+    align-self: center;
+  }
+  #space #postSection #postComponent {
+    height: 400px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #postSection #postComponent #posts {
+    overflow-y: scroll;
+    scroll-snap-type: y proximity;
+    scroll-behavior: smooth;
+  }
+  #space #postSection #postComponent #posts::-webkit-scrollbar {
+    display: none;
+  }
+  #space #postSection #postComponent #posts .post {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #postSection #postComponent #posts .post .postContent {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    width: 350px;
+    margin: 10px 0px;
+    border-top: 1px solid #bde0fe;
+  }
+  #space #postSection #postComponent #posts .post .postContent .postAuthor {
+    grid-row: 1/2;
+    justify-self: flex-start;
+    margin: 10px 0px 5px 10px;
+    font-weight: 800;
+    text-decoration: underline;
+  }
+  #space #postSection #postComponent #posts .post .postContent .postText {
+    grid-row: 2/3;
+    justify-self: flex-start;
+    margin: 10px 0px 5px 10px;
+  }
+  #space #postSection #postComponent #posts .post .postContent .socialBtns {
+    grid-row: 3/4;
+    justify-self: flex-end;
+    margin: 10px 10px 5px 0px;
+  }
+  #space #postSection #postComponent #posts .post .postContent .socialBtns .likeBtn {
+    border: none;
+    outline: none;
+    margin-right: 3px;
+    background-color: #ffc8dd;
+    border-radius: 4px;
+    height: 30px;
+    width: 70px;
+  }
+  #space #postSection #postComponent #posts .post .postContent .socialBtns .likeBtn:hover {
+    cursor: pointer;
+    background-color: #ffafcc;
+  }
+  #space #postSection #postComponent #posts .post .postContent .socialBtns .commentBtn {
+    border: none;
+    outline: none;
+    background-color: #bde0fe;
+    border-radius: 4px;
+    height: 30px;
+    width: 70px;
+  }
+  #space #postSection #postComponent #posts .post .postContent .socialBtns .commentBtn:hover {
+    cursor: pointer;
+    background-color: #a2d2ff;
+  }
+  #space #postSection #postComponent #posts .post .commentSection {
+    padding: 10px;
+    width: 300px;
+    height: 300px;
+    border-radius: 5px;
+    background-color: #bde0fe;
+    overflow-y: scroll;
+    scroll-snap-type: y proximity;
+    scroll-behavior: smooth;
+  }
+  #space #postSection #postComponent #posts .post .commentSection::-webkit-scrollbar {
+    display: none;
+  }
+  #space #postSection #postComponent #posts .post .commentSection #commentWrapper {
+    margin: 5px;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  #space #postSection #postComponent #posts .post .commentSection #commentWrapper .comment {
+    margin: 15px 0px;
+  }
+  #space #postSection #postComponent #posts .post .commentSection #commentWrapper .comment .commentAuthor {
+    font-weight: 800;
+  }
+  #space #postSection #postComponent #posts .post .commentSection #commentWrapper #commentSubmit {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px 10px 0px;
+  }
+  #space #postSection #postComponent #posts .post .commentSection #commentWrapper #commentSubmit #commentInput {
+    border: 1px solid #cdb4db;
+    width: 250px;
+    height: 40px;
+    border-radius: 8px;
+  }
+  #space #postSection #postComponent #posts .post .commentSection #commentWrapper #commentSubmit #commentBtn {
+    border: none;
+    outline: none;
+    background-color: #cdb4db;
+    border-radius: 4px;
+    height: 40px;
+    margin-left: 4px;
+  }
+  #space #postSection #postComponent #posts .post .commentSection #commentWrapper #commentSubmit #commentBtn:hover {
+    background-color: #ffc8dd;
+    cursor: pointer;
+  }
+  #space #postSection #postComponent #createPostSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px 10px 0px;
+  }
+  #space #postSection #postComponent #createPostSection #postInput {
+    border: 1px solid #cdb4db;
+    width: 250px;
+    height: 40px;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  #space #postSection #postComponent #createPostSection #submitPostBtn {
+    border: none;
+    outline: none;
+    background-color: #cdb4db;
+    border-radius: 4px;
+    border: 1px solid black;
+    height: 40px;
+    width: 80px;
+    margin-left: 4px;
+  }
+  #space #postSection #postComponent #createPostSection #submitPostBtn:hover {
+    background-color: #ffc8dd;
+    cursor: pointer;
   }
   #space #chatSection {
     overflow-y: scroll;
@@ -752,9 +1018,174 @@
     overflow-y: scroll;
     scroll-snap-type: y proximity;
     scroll-behavior: smooth;
+    display: grid;
+    grid-template-rows: auto 1fr;
   }
   #space #expandedSpacesInfo::-webkit-scrollbar {
     display: none;
+  }
+  #space #expandedSpacesInfo .expandComponent {
+    width: 40px;
+    height: 40px;
+    margin: 10px 10px 10px 20px;
+    border: 2px solid #bde0fe;
+    border-radius: 4px;
+    outline: none;
+    background: transparent;
+  }
+  #space #expandedSpacesInfo .expandComponent:hover {
+    background-color: #bde0fe;
+    cursor: pointer;
+  }
+  #space #expandedSpacesInfo .expandComponent .icon {
+    margin: 0px;
+  }
+  #space #expandedSpacesInfo #spaceNav {
+    justify-self: center;
+    align-self: flex-start;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto 1fr;
+    background-color: white;
+    border-radius: 4px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #expandedSpacesInfo #spaceNav #spaceCredentials {
+    grid-column: 1/2;
+    grid-row: 1/4;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 25px 0px 25px;
+    background: linear-gradient(#ffc8dd, #bde0fe);
+    border: 2px solid black;
+    border-radius: 2px;
+    z-index: 10;
+    height: 350px;
+    width: 400px;
+  }
+  #space #expandedSpacesInfo #spaceNav #spaceCredentials #minSpaceBtn {
+    align-self: flex-end;
+    margin: 10px 30px 0px 0px;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    height: 30px;
+    width: 40px;
+    background-color: #ffafcc;
+  }
+  #space #expandedSpacesInfo #spaceNav #spaceCredentials #minSpaceBtn:hover {
+    cursor: pointer;
+    background-color: #cdb4db;
+  }
+  #space #expandedSpacesInfo #spaceNav #spaceCredentials h2 {
+    margin-bottom: 30px;
+  }
+  #space #expandedSpacesInfo #spaceNav #spaceCredentials p {
+    width: 60%;
+    margin-bottom: 30px;
+  }
+  #space #expandedSpacesInfo #spaceNav #spaceCredentials input {
+    margin: 3px auto;
+    padding: 3px 0px 3px 5px;
+    height: 25px;
+    width: 190px;
+    border: none;
+    border-radius: 3px;
+  }
+  #space #expandedSpacesInfo #spaceNav #spaceCredentials #submitSpaceBtn {
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    margin: 3px auto;
+    padding: 3px 0px 3px 5px;
+    width: 190px;
+    height: 30px;
+    transition: 0.25s;
+    font-weight: 200;
+    background-color: #cdb4db;
+  }
+  #space #expandedSpacesInfo #spaceNav #spaceCredentials #submitSpaceBtn:hover {
+    cursor: pointer;
+    background-color: #ffc8dd;
+  }
+  #space #expandedSpacesInfo #spaceNav #createSpaceSection {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #expandedSpacesInfo #spaceNav #createSpaceSection h1 {
+    margin-bottom: 0px;
+    margin-left: 50px;
+    border-bottom: 2px solid #a2d2ff;
+    font-size: 1.5em;
+  }
+  #space #expandedSpacesInfo #spaceNav #createSpaceSection #createSpaceBtn {
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    margin-left: 10px;
+    height: 25px;
+    width: 30px;
+    background-color: #ffafcc;
+  }
+  #space #expandedSpacesInfo #spaceNav #createSpaceSection #createSpaceBtn:hover {
+    cursor: pointer;
+    background-color: #cdb4db;
+  }
+  #space #expandedSpacesInfo #spaceNav #mySpacesList {
+    grid-column: 1/2;
+    grid-row: 2/4;
+    justify-self: center;
+  }
+  #space #expandedSpacesInfo #spaceNav #mySpacesList .spaceBlock {
+    margin: 10px 0px;
+  }
+  #space #expandedSpacesInfo #spaceNav #mySpacesList .spaceBlock .spaceTitle {
+    font-size: 1em;
+  }
+  #space #expandedSpacesInfo #spaceNav #mySpacesList .spaceBlock .spaceTitle .toSpaceBtn {
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    border: 1px solid black;
+    margin: 3px auto;
+    width: 190px;
+    height: 60px;
+    transition: 0.25s;
+    font-size: 1.1em;
+    font-weight: 500;
+    background-color: #bde0fe;
+  }
+  #space #expandedSpacesInfo #spaceNav #mySpacesList .spaceBlock .spaceTitle .toSpaceBtn:hover {
+    cursor: pointer;
+    background-color: #ffafcc;
+  }
+  #space #expandedSpacesInfo #spaceNav #inviteHeader {
+    margin-top: 20px;
+    grid-column: 1/2;
+    grid-row: 3/4;
+    justify-self: center;
+    align-self: center;
+  }
+  #space #expandedSpacesInfo #spaceNav #inviteHeader h1 {
+    font-size: 1.5em;
+    border-bottom: 2px solid #a2d2ff;
+  }
+  #space #expandedSpacesInfo #spaceNav #myInviteList {
+    grid-column: 1/2;
+    grid-row: 4/5;
+    justify-self: center;
+    align-self: center;
   }
   #space #expandedMemberInfo {
     grid-column: 2/7;
@@ -766,15 +1197,102 @@
     overflow-y: scroll;
     scroll-snap-type: y proximity;
     scroll-behavior: smooth;
+    display: grid;
+    grid-template-rows: auto auto 1fr 1fr;
   }
   #space #expandedMemberInfo::-webkit-scrollbar {
     display: none;
+  }
+  #space #expandedMemberInfo .expandComponent {
+    width: 40px;
+    height: 40px;
+    margin: 10px 10px 2px 10px;
+    border: 2px solid #bde0fe;
+    border-radius: 4px;
+    outline: none;
+    background: transparent;
+  }
+  #space #expandedMemberInfo .expandComponent:hover {
+    background-color: #bde0fe;
+    cursor: pointer;
+  }
+  #space #expandedMemberInfo .expandComponent .icon {
+    margin: 0px;
+  }
+  #space #expandedMemberInfo .sectionHeader {
+    justify-self: center;
+    align-self: center;
+    font-size: 1.75em;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #cdb4db;
   }
   #space #expandedMemberInfo #memberList {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+  }
+  #space #expandedMemberInfo #memberList .spaceMember {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #expandedMemberInfo #memberList .spaceMember .memberInitials {
+    margin: 10px;
+    padding: 10px;
+    color: white;
+    background-color: #cdb4db;
+    border-radius: 8px;
+    font-size: 1.5em;
+    font-weight: 800;
+    border: 1px solid black;
+  }
+  #space #expandedMemberInfo #memberList .spaceMember .memberUsername {
+    font-size: 1.2em;
+  }
+  #space #expandedMemberInfo #userInvite {
+    margin-top: 20px;
+    align-self: flex-start;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #expandedMemberInfo #userInvite .sectionHeader {
+    font-size: 1.75em;
+    margin-bottom: 15px;
+  }
+  #space #expandedMemberInfo #userInvite #inviteInput {
+    margin: 3px auto;
+    padding: 3px 0px 3px 5px;
+    height: 30px;
+    width: 190px;
+    border: 1px solid #ffc8dd;
+    background-color: white;
+    opacity: 0.8;
+    border-radius: 3px;
+  }
+  #space #expandedMemberInfo #userInvite #inviteBtn {
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    border: 1px solid black;
+    margin: 3px auto;
+    padding: 3px 0px 3px 5px;
+    width: 190px;
+    height: 30px;
+    transition: 0.25s;
+    font-size: 1.2em;
+    font-weight: 500;
+    color: black;
+    background-color: #cdb4db;
+  }
+  #space #expandedMemberInfo #userInvite #inviteBtn:hover {
+    cursor: pointer;
+    background-color: #ffafcc;
   }
   #space #expandedPostSection {
     grid-column: 2/7;
@@ -786,9 +1304,187 @@
     overflow-y: scroll;
     scroll-snap-type: y proximity;
     scroll-behavior: smooth;
+    padding: 20px;
+    background-color: white;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
   }
   #space #expandedPostSection::-webkit-scrollbar {
     display: none;
+  }
+  #space #expandedPostSection .expandComponent {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    border: 2px solid #bde0fe;
+    border-radius: 4px;
+    outline: none;
+    background: transparent;
+  }
+  #space #expandedPostSection .expandComponent:hover {
+    background-color: #bde0fe;
+    cursor: pointer;
+  }
+  #space #expandedPostSection .expandComponent .icon {
+    margin: 0px;
+  }
+  #space #expandedPostSection #postSectionTitle {
+    font-weight: 800;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #a2d2ff;
+    justify-self: center;
+    align-self: center;
+  }
+  #space #expandedPostSection #postComponent {
+    height: 400px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #expandedPostSection #postComponent #posts {
+    overflow-y: scroll;
+    scroll-snap-type: y proximity;
+    scroll-behavior: smooth;
+  }
+  #space #expandedPostSection #postComponent #posts::-webkit-scrollbar {
+    display: none;
+  }
+  #space #expandedPostSection #postComponent #posts .post {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #expandedPostSection #postComponent #posts .post .postContent {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    width: 350px;
+    margin: 10px 0px;
+    border-top: 1px solid #bde0fe;
+  }
+  #space #expandedPostSection #postComponent #posts .post .postContent .postAuthor {
+    grid-row: 1/2;
+    justify-self: flex-start;
+    margin: 10px 0px 5px 10px;
+    font-weight: 800;
+    text-decoration: underline;
+  }
+  #space #expandedPostSection #postComponent #posts .post .postContent .postText {
+    grid-row: 2/3;
+    justify-self: flex-start;
+    margin: 10px 0px 5px 10px;
+  }
+  #space #expandedPostSection #postComponent #posts .post .postContent .socialBtns {
+    grid-row: 3/4;
+    justify-self: flex-end;
+    margin: 10px 10px 5px 0px;
+  }
+  #space #expandedPostSection #postComponent #posts .post .postContent .socialBtns .likeBtn {
+    border: none;
+    outline: none;
+    margin-right: 3px;
+    background-color: #ffc8dd;
+    border-radius: 4px;
+    height: 30px;
+    width: 70px;
+  }
+  #space #expandedPostSection #postComponent #posts .post .postContent .socialBtns .likeBtn:hover {
+    cursor: pointer;
+    background-color: #ffafcc;
+  }
+  #space #expandedPostSection #postComponent #posts .post .postContent .socialBtns .commentBtn {
+    border: none;
+    outline: none;
+    background-color: #bde0fe;
+    border-radius: 4px;
+    height: 30px;
+    width: 70px;
+  }
+  #space #expandedPostSection #postComponent #posts .post .postContent .socialBtns .commentBtn:hover {
+    cursor: pointer;
+    background-color: #a2d2ff;
+  }
+  #space #expandedPostSection #postComponent #posts .post .commentSection {
+    padding: 10px;
+    width: 300px;
+    height: 300px;
+    border-radius: 5px;
+    background-color: #bde0fe;
+    overflow-y: scroll;
+    scroll-snap-type: y proximity;
+    scroll-behavior: smooth;
+  }
+  #space #expandedPostSection #postComponent #posts .post .commentSection::-webkit-scrollbar {
+    display: none;
+  }
+  #space #expandedPostSection #postComponent #posts .post .commentSection #commentWrapper {
+    margin: 5px;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  #space #expandedPostSection #postComponent #posts .post .commentSection #commentWrapper .comment {
+    margin: 15px 0px;
+  }
+  #space #expandedPostSection #postComponent #posts .post .commentSection #commentWrapper .comment .commentAuthor {
+    font-weight: 800;
+  }
+  #space #expandedPostSection #postComponent #posts .post .commentSection #commentWrapper #commentSubmit {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px 10px 0px;
+  }
+  #space #expandedPostSection #postComponent #posts .post .commentSection #commentWrapper #commentSubmit #commentInput {
+    border: 1px solid #cdb4db;
+    width: 250px;
+    height: 40px;
+    border-radius: 8px;
+  }
+  #space #expandedPostSection #postComponent #posts .post .commentSection #commentWrapper #commentSubmit #commentBtn {
+    border: none;
+    outline: none;
+    background-color: #cdb4db;
+    border-radius: 4px;
+    height: 40px;
+    margin-left: 4px;
+  }
+  #space #expandedPostSection #postComponent #posts .post .commentSection #commentWrapper #commentSubmit #commentBtn:hover {
+    background-color: #ffc8dd;
+    cursor: pointer;
+  }
+  #space #expandedPostSection #postComponent #createPostSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px 10px 0px;
+  }
+  #space #expandedPostSection #postComponent #createPostSection #postInput {
+    border: 1px solid #cdb4db;
+    width: 250px;
+    height: 40px;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  #space #expandedPostSection #postComponent #createPostSection #submitPostBtn {
+    border: none;
+    outline: none;
+    background-color: #cdb4db;
+    border-radius: 4px;
+    border: 1px solid black;
+    height: 40px;
+    width: 80px;
+    margin-left: 4px;
+  }
+  #space #expandedPostSection #postComponent #createPostSection #submitPostBtn:hover {
+    background-color: #ffc8dd;
+    cursor: pointer;
   }
   #space #expandedChatSection {
     grid-column: 2/7;
@@ -1066,7 +1762,7 @@
 }
 #mobileSpace #mobileSpacesInfo #spaceNav #createSpaceSection h1 {
   margin-bottom: 0px;
-  margin-left: 70px;
+  margin-left: 50px;
   border-bottom: 2px solid #a2d2ff;
   font-size: 1.5em;
 }

@@ -88,7 +88,7 @@ function MobileSpace(props) {
           {member.first_name[0]}
           {member.last_name[0]}
         </span>
-        <span>({member.username})</span>
+        <span className="memberUsername">({member.username})</span>
       </div>
     );
   });

@@ -81,9 +81,11 @@ function Space(props) {
   const allMembers = members.map((member, index) => {
     return (
       <div key={index} className="spaceMember">
-        <h5>
-          {member.first_name} {member.last_name}
-        </h5>
+        <span className="memberInitials">
+          {member.first_name[0]}
+          {member.last_name[0]}
+        </span>
+        <span className="memberUsername">({member.username})</span>
       </div>
     );
   });
@@ -178,19 +180,22 @@ function Space(props) {
           >
             <Icon name="expand arrows alternate" color="blue" />
           </button>
-          <span>Members</span>
+          <span className="sectionHeader">Members</span>
           <div id="memberList">{allMembers}</div>
-        </section>
-        <section id="userInvite">
-          <span>User Invite</span>
-          <input
-            type="text"
-            value={recipientUserName}
-            placeholder="Enter Username for Invite"
-            name="usernameInput"
-            onChange={handleUsernameInput}
-          />
-          <button onClick={handleInviteSubmit}>Invite</button>
+          <section id="userInvite">
+            <span className="sectionHeader">User Invite</span>
+            <input
+              id="inviteInput"
+              value={recipientUserName}
+              type="text"
+              placeholder="Enter Username for Invite"
+              name="usernameInput"
+              onChange={handleUsernameInput}
+            />
+            <button id="inviteBtn" onClick={handleInviteSubmit}>
+              Invite
+            </button>
+          </section>
         </section>
         <section
           id={
