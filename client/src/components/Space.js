@@ -8,6 +8,7 @@ import MobileSpace from './MobileSpace';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { Icon } from 'semantic-ui-react';
+import { useMediaQuery } from 'react-responsive';
 import Post from './Post';
 import * as actionCreators from '../stores/creators/actionCreators';
 
@@ -22,12 +23,16 @@ function Space(props) {
   const [singleEventToggle, setSingleEventToggle] = useState(0);
   const [isEventSlideDown, setIsEventSlideDown] = useState(false);
   const [eventAttendees, setEventAttendees] = useState([]);
+  const [isActive, setActive] = useState({
+    active: 'titleAndMembers'
+  });
   const spaceID = useParams().spaceid;
   const spaceName = useParams().spacename;
   const userID = localStorage.getItem('userID');
   const username = localStorage.getItem('username');
   const calendarStyle = { height: 400, width: 300, margin: '50px' };
   const expandedCalendarStyle = { height: 600, width: 600, margin: '50px' };
+  const isMobile = useMediaQuery({ query: `(max-width: 1024px)` });
 
   useEffect(() => {
     authSpaceUsers();
@@ -139,153 +144,271 @@ function Space(props) {
     setExpanded({ expanded: componentName, close: !isExpanded['close'] });
   };
 
-  return (
-    <div id="spaceContainer">
-      <MobileSpace socket={socket} username={username} spaceID={spaceID} />
-      <section id="space">
-        <section id="spaceTitle">
-          <h1>{spaceName}</h1>
-        </section>
-        <section
-          id={
-            isExpanded['expanded'] === 'spaces' && isExpanded['close'] === false
-              ? 'expandedSpacesInfo'
-              : 'spacesInfo'
-          }
-        >
-          <button
-            name="spaces"
-            className="expandComponent"
-            onClick={toggleExpanded}
-          >
-            <Icon
-              className="icon"
-              name="expand arrows alternate"
-              color="blue"
-            />
-          </button>
-          <SpaceNav />
-        </section>
-        <section
-          id={
-            isExpanded['expanded'] === 'members' &&
-            isExpanded['close'] === false
-              ? 'expandedMemberInfo'
-              : 'memberInfo'
-          }
-        >
-          <button
-            name="members"
-            className="expandComponent"
-            onClick={toggleExpanded}
-          >
-            <Icon name="expand arrows alternate" color="blue" />
-          </button>
-          <span className="sectionHeader">Members</span>
-          <div id="memberList">{allMembers}</div>
-          <section id="userInvite">
-            <span className="sectionHeader">User Invite</span>
-            <input
-              id="inviteInput"
-              value={recipientUserName}
-              type="text"
-              placeholder="Enter Username for Invite"
-              name="usernameInput"
-              onChange={handleUsernameInput}
-            />
-            <button id="inviteBtn" onClick={handleInviteSubmit}>
-              Invite
-            </button>
+  const handleActive = (e) => {
+    let componentName = e.target.name;
+    setActive({
+      active: componentName
+    });
+  };
+
+  if (!isMobile) {
+    return (
+      <div id="spaceContainer">
+        <section id="space">
+          <section id="spaceTitle">
+            <h1>{spaceName}</h1>
           </section>
-        </section>
-        <section
-          id={
-            isExpanded['expanded'] === 'posts' && isExpanded['close'] === false
-              ? 'expandedPostSection'
-              : 'postSection'
-          }
-        >
-          <button
-            name="posts"
-            className="expandComponent"
-            onClick={toggleExpanded}
+          <section
+            id={
+              isExpanded['expanded'] === 'spaces' &&
+              isExpanded['close'] === false
+                ? 'expandedSpacesInfo'
+                : 'spacesInfo'
+            }
           >
-            <Icon name="expand arrows alternate" color="blue" />
-          </button>
-          <span id="postSectionTitle">Post Feed</span>
-          <Post posts={posts} setPosts={setPosts} spaceID={spaceID} />
-        </section>
-        <section
-          id={
-            isExpanded['expanded'] === 'chat' && isExpanded['close'] === false
-              ? 'expandedChatSection'
-              : 'chatSection'
-          }
-        >
-          <button
-            name="chat"
-            className="expandComponent"
-            onClick={toggleExpanded}
+            <button
+              name="spaces"
+              className="expandComponent"
+              onClick={toggleExpanded}
+            >
+              <Icon
+                className="icon"
+                name="expand arrows alternate"
+                color="blue"
+              />
+            </button>
+            <SpaceNav />
+          </section>
+          <section
+            id={
+              isExpanded['expanded'] === 'members' &&
+              isExpanded['close'] === false
+                ? 'expandedMemberInfo'
+                : 'memberInfo'
+            }
           >
-            <Icon name="expand arrows alternate" color="blue" />
-          </button>
-          <span id="chatTitle">Let's Chat</span>
-          <Chat socket={socket} username={username} spaceID={spaceID} />
-        </section>
-        <section
-          id={
-            isExpanded['expanded'] === 'eventList' &&
-            isExpanded['close'] === false
-              ? 'expandedEventList'
-              : 'eventList'
-          }
-        >
-          <button
-            name="eventList"
-            className="expandComponent"
-            onClick={toggleExpanded}
+            <button
+              name="members"
+              className="expandComponent"
+              onClick={toggleExpanded}
+            >
+              <Icon name="expand arrows alternate" color="blue" />
+            </button>
+            <span className="sectionHeader">Members</span>
+            <div id="memberList">{allMembers}</div>
+            <section id="userInvite">
+              <span className="sectionHeader">User Invite</span>
+              <input
+                id="inviteInput"
+                value={recipientUserName}
+                type="text"
+                placeholder="Enter Username for Invite"
+                name="usernameInput"
+                onChange={handleUsernameInput}
+              />
+              <button id="inviteBtn" onClick={handleInviteSubmit}>
+                Invite
+              </button>
+            </section>
+          </section>
+          <section
+            id={
+              isExpanded['expanded'] === 'posts' &&
+              isExpanded['close'] === false
+                ? 'expandedPostSection'
+                : 'postSection'
+            }
           >
-            <Icon name="expand arrows alternate" color="blue" />
-          </button>
-          <h3 id="eventListTitle">Upcoming Events</h3>
-          {allEvents}
-        </section>
-        <div
-          id={
-            isExpanded['expanded'] === 'event' && isExpanded['close'] === false
-              ? 'expandedEventContainer'
-              : 'eventContainer'
-          }
-        >
-          <button
-            name="event"
-            className="expandComponent"
-            onClick={toggleExpanded}
+            <button
+              name="posts"
+              className="expandComponent"
+              onClick={toggleExpanded}
+            >
+              <Icon name="expand arrows alternate" color="blue" />
+            </button>
+            <span id="postSectionTitle">Post Feed</span>
+            <Post posts={posts} setPosts={setPosts} spaceID={spaceID} />
+          </section>
+          <section
+            id={
+              isExpanded['expanded'] === 'chat' && isExpanded['close'] === false
+                ? 'expandedChatSection'
+                : 'chatSection'
+            }
           >
-            <Icon
-              className="icon"
-              name="expand arrows alternate"
-              color="blue"
-            />
-          </button>
-          {isExpanded['expanded'] === 'event' &&
-          isExpanded['close'] === false ? (
-            <Event
-              events={events}
-              setEvents={setEvents}
-              style={expandedCalendarStyle}
-            />
-          ) : (
-            <Event
-              events={events}
-              setEvents={setEvents}
-              style={calendarStyle}
-            />
-          )}
-        </div>
-      </section>
-    </div>
-  );
+            <button
+              name="chat"
+              className="expandComponent"
+              onClick={toggleExpanded}
+            >
+              <Icon name="expand arrows alternate" color="blue" />
+            </button>
+            <span id="chatTitle">Let's Chat</span>
+            <Chat socket={socket} username={username} spaceID={spaceID} />
+          </section>
+          <section
+            id={
+              isExpanded['expanded'] === 'eventList' &&
+              isExpanded['close'] === false
+                ? 'expandedEventList'
+                : 'eventList'
+            }
+          >
+            <button
+              name="eventList"
+              className="expandComponent"
+              onClick={toggleExpanded}
+            >
+              <Icon name="expand arrows alternate" color="blue" />
+            </button>
+            <h3 id="eventListTitle">Upcoming Events</h3>
+            {allEvents}
+          </section>
+          <div
+            id={
+              isExpanded['expanded'] === 'event' &&
+              isExpanded['close'] === false
+                ? 'expandedEventContainer'
+                : 'eventContainer'
+            }
+          >
+            <button
+              name="event"
+              className="expandComponent"
+              onClick={toggleExpanded}
+            >
+              <Icon
+                className="icon"
+                name="expand arrows alternate"
+                color="blue"
+              />
+            </button>
+            {isExpanded['expanded'] === 'event' &&
+            isExpanded['close'] === false ? (
+              <Event
+                events={events}
+                setEvents={setEvents}
+                style={expandedCalendarStyle}
+              />
+            ) : (
+              <Event
+                events={events}
+                setEvents={setEvents}
+                style={calendarStyle}
+              />
+            )}
+          </div>
+        </section>
+      </div>
+    );
+  } else {
+    return (
+      <div id="spaceContainer">
+        <section id="mobileSpace">
+          <nav id="componentSelect">
+            <button
+              name="spaces"
+              className="toggleComponents"
+              onClick={handleActive}
+            >
+              Spaces
+            </button>
+            <button
+              name="titleAndMembers"
+              className="toggleComponents"
+              onClick={handleActive}
+            >
+              Info
+            </button>
+            <button
+              name="posts"
+              className="toggleComponents"
+              onClick={handleActive}
+            >
+              Posts
+            </button>
+            <button
+              name="chat"
+              className="toggleComponents"
+              onClick={handleActive}
+            >
+              Chat
+            </button>
+            <button
+              name="events"
+              className="toggleComponents"
+              onClick={handleActive}
+            >
+              Events
+            </button>
+          </nav>
+
+          {isActive['active'] === 'titleAndMembers' ? (
+            <div id="spaceAdmin">
+              <section id="spaceTitle">
+                <h1>{spaceName}</h1>
+              </section>
+              <section id="memberInfo">
+                <span className="sectionHeader">Members</span>
+                <div id="memberList">{allMembers}</div>
+              </section>
+              <section id="userInvite">
+                <span className="sectionHeader">User Invite</span>
+                <input
+                  id="inviteInput"
+                  value={recipientUserName}
+                  type="text"
+                  placeholder="Enter Username for Invite"
+                  name="usernameInput"
+                  onChange={handleUsernameInput}
+                />
+                <button id="inviteBtn" onClick={handleInviteSubmit}>
+                  Invite
+                </button>
+              </section>
+            </div>
+          ) : null}
+
+          {isActive['active'] === 'spaces' ? (
+            <section id="mobileSpacesInfo">
+              <SpaceNav active={setActive} />
+            </section>
+          ) : null}
+
+          {isActive['active'] === 'posts' ? (
+            <section id="postSection">
+              <span id="postSectionTitle">Post Feed</span>
+              <Post posts={posts} setPosts={setPosts} spaceID={spaceID} />
+            </section>
+          ) : null}
+
+          {isActive['active'] === 'chat' ? (
+            <section id="chatSection">
+              <span id="chatTitle">Let's Chat</span>
+              <Chat
+                socket={socket}
+                username={localStorage.username}
+                spaceID={spaceID}
+              />
+            </section>
+          ) : null}
+          {isActive['active'] === 'events' ? (
+            <div id="eventAdmin">
+              <section id="eventList">
+                <h3>Upcoming Events</h3>
+                {allEvents}
+              </section>
+              <Event
+                events={events}
+                setEvents={setEvents}
+                style={calendarStyle}
+              />
+            </div>
+          ) : null}
+        </section>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
