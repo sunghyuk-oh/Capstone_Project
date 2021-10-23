@@ -117,7 +117,7 @@ function Post(props) {
 
   return (
     <section id="postComponent">
-      {/* <div id="posts">{posts}</div> */}
+      <div id="posts">{posts}</div>
       <div id="createPostSection">
         <textarea
           wrap="soft"
