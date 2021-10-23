@@ -43,7 +43,7 @@ function Post(props) {
   };
 
   const handleSaveComment = () => {
-    actionCreators.saveAndDisplayComments(comment, setAllComments);
+    actionCreators.saveAndDisplayComments(comment, setAllComments, props.setPosts);
     setComment({
       userID: '',
       postID: '',
@@ -51,7 +51,7 @@ function Post(props) {
       spaceID: ''
     });
   };
-
+  
   const comments = allComments.map((comment) => {
     return (
       <div className="comment">
@@ -62,7 +62,7 @@ function Post(props) {
       </div>
     );
   });
-
+  
   const posts = props.posts.map((post) => {
     return (
       <div className="post">
@@ -74,7 +74,7 @@ function Post(props) {
           <div className="socialBtns">
             <button
               className="likeBtn"
-              onClick={() => actionCreators.incrementLike(post.post_id)}
+              onClick={() => actionCreators.incrementLike(post.post_id, props.spaceID, props.setPosts)}
             >
               <Icon name="heart" color="red" />({post.like})
             </button>

@@ -60,11 +60,11 @@ function Space(props) {
   const displayAllEvents = () => {
     actionCreators.displayAllEvents(spaceID, setEvents);
   };
-
+  
   const renderAllPosts = () => {
     actionCreators.displayAllPosts(spaceID, setPosts);
   };
-
+  
   const handleUsernameInput = (e) => {
     setRecipientUserName(e.target.value);
   };
