@@ -206,7 +206,7 @@ function MobileSpace(props) {
       ) : null}
 
       {isActive['active'] === 'spaces' ? (
-        <section id="spacesInfo">
+        <section id="mobileSpacesInfo">
           <SpaceNav active={setActive} />
         </section>
       ) : null}

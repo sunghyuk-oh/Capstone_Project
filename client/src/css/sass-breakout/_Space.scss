@@ -4,7 +4,7 @@
   display: none;
 }
 
-// portrait tablets
+// larger screens
 @media (min-width: 1025px) {
   // regular layout
   #space {
@@ -26,17 +26,144 @@
       @include scroll();
       @include hideScroll();
       grid-column: 1 / 3;
-      grid-row: 1 / 3;
+      grid-row: 1 / 4;
       margin-left: 10px;
       background-color: white;
       border-radius: 2px;
-      height: 100px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      .expandComponent {
+        width: 40px;
+        height: 40px;
+        margin: 10px;
+        border: 2px solid $lightPalette4;
+        border-radius: 4px;
+        outline: none;
+        background: transparent;
+        &:hover {
+          background-color: $lightPalette4;
+          cursor: pointer;
+        }
+        .icon {
+          margin: 0px;
+        }
+      }
+      #spaceNav {
+        justify-self: center;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, 1fr);
+        background-color: white;
+        border-radius: 4px;
+        height: 200px;
+        width: 200px;
+        @include flex(column, center, center);
+        #spaceCredentials {
+          @include flex(column, center, center);
+          margin: 10px 25px 0px 25px;
+          background: linear-gradient($lightPalette2, $lightPalette4);
+          border: 2px solid black;
+          border-radius: 10px;
+          z-index: 10;
+          height: 50px;
+          #minSpaceBtn {
+            align-self: flex-end;
+            margin: 10px 30px 0px 0px;
+            outline: none;
+            border: none;
+            border-radius: 3px;
+            height: 30px;
+            width: 40px;
+            background-color: $lightPalette3;
+            &:hover {
+              cursor: pointer;
+              background-color: $lightPalette1;
+            }
+          }
+          p {
+            width: 70%;
+          }
+          input {
+            margin: 3px auto;
+            padding: 3px 0px 3px 5px;
+            height: 25px;
+            width: 190px;
+            border: none;
+            border-radius: 3px;
+          }
+          #submitSpaceBtn {
+            &:hover {
+              cursor: pointer;
+              background-color: $lightPalette2;
+            }
+            outline: none;
+            border: none;
+            border-radius: 3px;
+            margin: 3px auto;
+            padding: 3px 0px 3px 5px;
+            width: 190px;
+            height: 30px;
+            transition: 0.25s;
+            font-weight: 200;
+            background-color: $lightPalette1;
+          }
+        }
+        #createSpaceSection {
+          grid-column: 1 / 2;
+          grid-row: 1 / 2;
+          @include flex(row, center, center);
+          h1 {
+            margin-bottom: 0px;
+            font-size: 1.5em;
+          }
+          #createSpaceBtn {
+            &:hover {
+              cursor: pointer;
+              background-color: $lightPalette1;
+            }
+            outline: none;
+            border: none;
+            border-radius: 8px;
+            margin-left: 10px;
+            height: 25px;
+            width: 30px;
+            background-color: $lightPalette3;
+          }
+        }
+        #mySpacesList {
+          grid-column: 1 / 2;
+          grid-row: 2 / 4;
+          justify-self: center;
+          .spaceBlock {
+            margin: 10px 0px;
+            .spaceTitle {
+              font-size: 1.1em;
+              .toSpaceBtn {
+                &:hover {
+                  cursor: pointer;
+                  background-color: $lightPalette3;
+                }
+                outline: none;
+                border: none;
+                border-radius: 3px;
+                margin: 3px auto;
+                width: 190px;
+                height: 60px;
+                transition: 0.25s;
+                font-size: 1.1em;
+                font-weight: 500;
+                background-color: $lightPalette4;
+              }
+            }
+          }
+        }
+      }
     }
     #memberInfo {
       @include scroll();
       @include hideScroll();
       grid-column: 1 / 3;
-      grid-row: 3 / 4;
+      grid-row: 4 / 5;
       background-color: white;
       @include flex(column, center, center);
       #memberList {
@@ -45,7 +172,7 @@
     }
     #userInvite {
       grid-column: 1 / 3;
-      grid-row: 4 / 6;
+      grid-row: 5 / 6;
       border: 2px solid black;
     }
     #postSection {
@@ -135,102 +262,116 @@
   #space {
     #expandedSpacesInfo {
       @include expandLrgScreens();
+      @include scroll();
+      @include hideScroll();
     }
     #expandedMemberInfo {
       @include expandLrgScreens();
+      @include scroll();
+      @include hideScroll();
       #memberList {
         @include flex(row, center, center);
       }
     }
     #expandedPostSection {
       @include expandLrgScreens();
+      @include scroll();
+      @include hideScroll();
     }
     #expandedChatSection {
       @include expandLrgScreens();
+      @include scroll();
+      @include hideScroll();
     }
     #expandedEventContainer {
       @include expandLrgScreens();
+      @include scroll();
+      @include hideScroll();
     }
     #expandedEventList {
       @include expandLrgScreens();
+      @include scroll();
+      @include hideScroll();
     }
     #expandedEventDetailsContainer {
       @include expandLrgScreens();
+      @include scroll();
+      @include hideScroll();
     }
   }
 }
 
-@media (min-width: 1025px) {
-  // regular layout
-  #space {
-    grid-template-columns: 20% repeat(5, 1fr) 20%;
-    grid-template-rows: auto repeat(10, 1fr);
-    width: 100%;
-    #spaceTitle {
-      grid-column: 2 / 6;
-      grid-row: 1 / 2;
-    }
-    #spacesInfo {
-      grid-column: 1 / 2;
-      grid-row: 1 / 6;
-      height: auto;
-    }
-    #memberInfo {
-      grid-column: 2 / 6;
-      grid-row: 2 / 3;
-      height: 200px;
-      #memberList {
-        @include flex(row, center, center);
-      }
-    }
-    #postSection {
-      grid-column: 2 / 6;
-      grid-row: 3 / 11;
-      margin: 0px 0px 10px 0px;
-    }
-    #chatSection {
-      grid-column: 1 / 2;
-      grid-row: 6 / 11;
-    }
-    #eventContainer {
-      grid-column: 6 / 8;
-      grid-row: 1 / 5;
-    }
-    #eventList {
-      grid-column: 6 / 8;
-      grid-row: 5 / 8;
-    }
-    #eventDetailsContainer {
-      grid-column: 6 / 8;
-      grid-row: 8 / 11;
-    }
-  }
+// @media (min-width: 1025px) {
+//   // regular layout
+//   #space {
+//     grid-template-columns: 20% repeat(5, 1fr) 20%;
+//     grid-template-rows: auto repeat(10, 1fr);
+//     width: 100%;
+//     #spaceTitle {
+//       grid-column: 2 / 6;
+//       grid-row: 1 / 2;
+//     }
+//     #spacesInfo {
+//       grid-column: 1 / 2;
+//       grid-row: 1 / 6;
+//       height: auto;
+//     }
+//     #memberInfo {
+//       grid-column: 2 / 6;
+//       grid-row: 2 / 3;
+//       height: 200px;
+//       #memberList {
+//         @include flex(row, center, center);
+//       }
+//     }
+//     #postSection {
+//       grid-column: 2 / 6;
+//       grid-row: 3 / 11;
+//       margin: 0px 0px 10px 0px;
+//     }
+//     #chatSection {
+//       grid-column: 1 / 2;
+//       grid-row: 6 / 11;
+//     }
+//     #eventContainer {
+//       grid-column: 6 / 8;
+//       grid-row: 1 / 5;
+//     }
+//     #eventList {
+//       grid-column: 6 / 8;
+//       grid-row: 5 / 8;
+//     }
+//     #eventDetailsContainer {
+//       grid-column: 6 / 8;
+//       grid-row: 8 / 11;
+//     }
+//   }
 
-  // expanded windows
-  #space {
-    #expandedSpacesInfo {
-      @include expandLrgScreens();
-    }
-    #expandedMemberInfo {
-      @include expandLrgScreens();
-      #memberList {
-        @include flex(row, center, center);
-      }
-    }
-    #expandedPostSection {
-      @include expandLrgScreens();
-    }
-    #expandedChatSection {
-      @include expandLrgScreens();
-    }
-    #expandedEventContainer {
-      @include expandLrgScreens();
-    }
-    #expandedEventList {
-      @include expandLrgScreens();
-    }
-    #expandedEventDetailsContainer {
-      @include expandLrgScreens();
-    }
-  }
-}
+//   // expanded windows
+//   #space {
+//     #expandedSpacesInfo {
+//       @include expandLrgScreens();
+//     }
+//     #expandedMemberInfo {
+//       @include expandLrgScreens();
+//       #memberList {
+//         @include flex(row, center, center);
+//       }
+//     }
+//     #expandedPostSection {
+//       @include expandLrgScreens();
+//     }
+//     #expandedChatSection {
+//       @include expandLrgScreens();
+//     }
+//     #expandedEventContainer {
+//       @include expandLrgScreens();
+//     }
+//     #expandedEventList {
+//       @include expandLrgScreens();
+//     }
+//     #expandedEventDetailsContainer {
+//       @include expandLrgScreens();
+//     }
+//   }
+// }

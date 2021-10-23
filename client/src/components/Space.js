@@ -7,6 +7,7 @@ import SpaceNav from './SpaceNav';
 import MobileSpace from './MobileSpace';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
+import { Icon } from 'semantic-ui-react';
 import Post from './Post';
 import * as actionCreators from '../stores/creators/actionCreators';
 
@@ -154,7 +155,11 @@ function Space(props) {
             className="expandComponent"
             onClick={toggleExpanded}
           >
-            [ + ]
+            <Icon
+              className="icon"
+              name="expand arrows alternate"
+              color="blue"
+            />
           </button>
           <SpaceNav />
         </section>
@@ -171,7 +176,7 @@ function Space(props) {
             className="expandComponent"
             onClick={toggleExpanded}
           >
-            [ + ]
+            <Icon name="expand arrows alternate" color="blue" />
           </button>
           <span>Members</span>
           <div id="memberList">{allMembers}</div>
@@ -199,7 +204,7 @@ function Space(props) {
             className="expandComponent"
             onClick={toggleExpanded}
           >
-            [ + ]
+            <Icon name="expand arrows alternate" color="blue" />
           </button>
           <span id="postSectionTitle">Post Feed</span>
           <Post posts={posts} setPosts={setPosts} spaceID={spaceID} />
@@ -216,7 +221,7 @@ function Space(props) {
             className="expandComponent"
             onClick={toggleExpanded}
           >
-            [ + ]
+            <Icon name="expand arrows alternate" color="blue" />
           </button>
           <span>Chat</span>
           <Chat socket={socket} username={username} spaceID={spaceID} />
@@ -234,7 +239,7 @@ function Space(props) {
             className="expandComponent"
             onClick={toggleExpanded}
           >
-            [ + ]
+            <Icon name="expand arrows alternate" color="blue" />
           </button>
           <h3>Upcoming Events</h3>
           {allEvents}
@@ -251,7 +256,11 @@ function Space(props) {
             className="expandComponent"
             onClick={toggleExpanded}
           >
-            [ + ]
+            <Icon
+              className="icon"
+              name="expand arrows alternate"
+              color="blue"
+            />
           </button>
           <Event events={events} setEvents={setEvents} style={calendarStyle} />
         </div>
