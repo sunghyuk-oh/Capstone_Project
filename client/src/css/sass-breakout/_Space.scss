@@ -130,7 +130,10 @@
           @include flex(row, center, center);
           h1 {
             margin-bottom: 0px;
-            font-size: 1.1em;
+            margin-left: 50px;
+            font-size: 1.25em;
+            padding-bottom: 5px;
+            border-bottom: 2px solid $lightPalette5;
           }
           #createSpaceBtn {
             &:hover {
@@ -181,7 +184,8 @@
           justify-self: center;
           align-self: center;
           h1 {
-            font-size: 1.1em;
+            font-size: 1.25em;
+            padding-bottom: 5px;
             border-bottom: 2px solid $lightPalette5;
           }
         }
@@ -224,6 +228,8 @@
         align-self: center;
         font-size: 1.5em;
         margin-bottom: 15px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid $lightPalette1;
       }
       #memberList {
         @include flex(row, center, center);
@@ -246,6 +252,8 @@
         .sectionHeader {
           font-size: 1.5em;
           margin-bottom: 15px;
+          padding-bottom: 5px;
+          border-bottom: 2px solid $lightPalette1;
         }
         #inviteInput {
           margin: 3px auto;
@@ -570,9 +578,27 @@
       @include scroll();
       @include hideScroll();
       grid-column: 6 / 9;
-      grid-row: 1 / 2;
+      grid-row: 1 / 4;
       margin-right: 10px;
       background-color: white;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      .expandComponent {
+        width: 40px;
+        height: 40px;
+        margin: 10px;
+        border: 2px solid $lightPalette4;
+        border-radius: 4px;
+        outline: none;
+        background: transparent;
+        &:hover {
+          background-color: $lightPalette4;
+          cursor: pointer;
+        }
+        .icon {
+          margin: 0px;
+        }
+      }
       #eventBlock {
         .eventInfo {
           color: black;
@@ -601,9 +627,27 @@
       @include scroll();
       @include hideScroll();
       grid-column: 6 / 9;
-      grid-row: 2 / 9;
+      grid-row: 4 / 9;
       margin-right: 10px;
       background-color: white;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      .expandComponent {
+        width: 40px;
+        height: 40px;
+        margin: 10px;
+        border: 2px solid $lightPalette4;
+        border-radius: 4px;
+        outline: none;
+        background: transparent;
+        &:hover {
+          background-color: $lightPalette4;
+          cursor: pointer;
+        }
+        .icon {
+          margin: 0px;
+        }
+      }
       #event {
         @include flex(column, flex-start, center);
         padding-bottom: 25px;
@@ -723,6 +767,7 @@
           h1 {
             margin-bottom: 0px;
             margin-left: 50px;
+            padding-bottom: 5px;
             border-bottom: 2px solid $lightPalette5;
             font-size: 1.5em;
           }
@@ -775,6 +820,7 @@
           justify-self: center;
           align-self: center;
           h1 {
+            padding-bottom: 5px;
             font-size: 1.5em;
             border-bottom: 2px solid $lightPalette5;
           }

@@ -574,7 +574,10 @@
   }
   #space #spacesInfo #spaceNav #createSpaceSection h1 {
     margin-bottom: 0px;
-    font-size: 1.1em;
+    margin-left: 50px;
+    font-size: 1.25em;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #a2d2ff;
   }
   #space #spacesInfo #spaceNav #createSpaceSection #createSpaceBtn {
     outline: none;
@@ -625,7 +628,8 @@
     align-self: center;
   }
   #space #spacesInfo #spaceNav #inviteHeader h1 {
-    font-size: 1.1em;
+    font-size: 1.25em;
+    padding-bottom: 5px;
     border-bottom: 2px solid #a2d2ff;
   }
   #space #spacesInfo #spaceNav #myInviteList {
@@ -670,6 +674,8 @@
     align-self: center;
     font-size: 1.5em;
     margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #cdb4db;
   }
   #space #memberInfo #memberList {
     display: flex;
@@ -702,6 +708,8 @@
   #space #memberInfo #userInvite .sectionHeader {
     font-size: 1.5em;
     margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #cdb4db;
   }
   #space #memberInfo #userInvite #inviteInput {
     margin: 3px auto;
@@ -1062,12 +1070,30 @@
     scroll-snap-type: y proximity;
     scroll-behavior: smooth;
     grid-column: 6/9;
-    grid-row: 1/2;
+    grid-row: 1/4;
     margin-right: 10px;
     background-color: white;
+    display: grid;
+    grid-template-rows: auto 1fr;
   }
   #space #eventList::-webkit-scrollbar {
     display: none;
+  }
+  #space #eventList .expandComponent {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    border: 2px solid #bde0fe;
+    border-radius: 4px;
+    outline: none;
+    background: transparent;
+  }
+  #space #eventList .expandComponent:hover {
+    background-color: #bde0fe;
+    cursor: pointer;
+  }
+  #space #eventList .expandComponent .icon {
+    margin: 0px;
   }
   #space #eventList #eventBlock .eventInfo {
     color: black;
@@ -1089,12 +1115,30 @@
     scroll-snap-type: y proximity;
     scroll-behavior: smooth;
     grid-column: 6/9;
-    grid-row: 2/9;
+    grid-row: 4/9;
     margin-right: 10px;
     background-color: white;
+    display: grid;
+    grid-template-rows: auto 1fr;
   }
   #space #eventContainer::-webkit-scrollbar {
     display: none;
+  }
+  #space #eventContainer .expandComponent {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    border: 2px solid #bde0fe;
+    border-radius: 4px;
+    outline: none;
+    background: transparent;
+  }
+  #space #eventContainer .expandComponent:hover {
+    background-color: #bde0fe;
+    cursor: pointer;
+  }
+  #space #eventContainer .expandComponent .icon {
+    margin: 0px;
   }
   #space #eventContainer #event {
     display: flex;
@@ -1240,6 +1284,7 @@
   #space #expandedSpacesInfo #spaceNav #createSpaceSection h1 {
     margin-bottom: 0px;
     margin-left: 50px;
+    padding-bottom: 5px;
     border-bottom: 2px solid #a2d2ff;
     font-size: 1.5em;
   }
@@ -1292,6 +1337,7 @@
     align-self: center;
   }
   #space #expandedSpacesInfo #spaceNav #inviteHeader h1 {
+    padding-bottom: 5px;
     font-size: 1.5em;
     border-bottom: 2px solid #a2d2ff;
   }
