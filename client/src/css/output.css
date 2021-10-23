@@ -926,22 +926,136 @@
     scroll-behavior: smooth;
     grid-column: 1/3;
     grid-row: 6/9;
-    margin: 0px 0px 10px 10px;
+    margin-left: 10px;
     background-color: white;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
   }
   #space #chatSection::-webkit-scrollbar {
     display: none;
+  }
+  #space #chatSection .expandComponent {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    border: 2px solid #bde0fe;
+    border-radius: 4px;
+    outline: none;
+    background: transparent;
+  }
+  #space #chatSection .expandComponent:hover {
+    background-color: #bde0fe;
+    cursor: pointer;
+  }
+  #space #chatSection .expandComponent .icon {
+    margin: 0px;
+  }
+  #space #chatSection #chatTitle {
+    justify-self: center;
+    align-self: center;
+    font-size: 1.5em;
+    font-weight: 800;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #ffc8dd;
+  }
+  #space #chatSection #chatBox {
+    align-self: center;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   #space #chatSection #chatBox #chatWindow {
     overflow-y: scroll;
     scroll-snap-type: y proximity;
     scroll-behavior: smooth;
-    border: 2px solid black;
-    height: 150px;
-    width: 150px;
+    border-radius: 4px;
+    height: 200px;
+    width: 250px;
+    box-shadow: 2px 2px 5px 0.8px gray;
+    display: grid;
+    grid-template-columns: 1fr;
   }
   #space #chatSection #chatBox #chatWindow::-webkit-scrollbar {
     display: none;
+  }
+  #space #chatSection #chatBox #chatWindow .myMsg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  #space #chatSection #chatBox #chatWindow .myMsg .msgContent {
+    margin-top: 10px;
+    background-color: #cdb4db;
+    width: 60%;
+    margin-top: 10px;
+    padding: 10px;
+    font-weight: 400;
+    font-size: 1.25em;
+  }
+  #space #chatSection #chatBox #chatWindow .myMsg .msgInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 5px;
+  }
+  #space #chatSection #chatBox #chatWindow .myMsg .msgInfo span {
+    margin-left: 5px;
+  }
+  #space #chatSection #chatBox #chatWindow .otherUserMsg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  #space #chatSection #chatBox #chatWindow .otherUserMsg .msgContent {
+    margin-top: 10px;
+    background-color: #ffafcc;
+    width: 60%;
+    margin-top: 10px;
+    padding: 10px;
+    font-weight: 400;
+    font-size: 1.25em;
+  }
+  #space #chatSection #chatBox #chatWindow .otherUserMsg .msgInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 5px;
+  }
+  #space #chatSection #chatBox #chatWindow .otherUserMsg .msgInfo span {
+    margin-right: 5px;
+  }
+  #space #chatSection #chatBox #enterChatMsg {
+    margin: 15px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  #space #chatSection #chatBox #enterChatMsg textarea {
+    width: 200px;
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 4px;
+    font-size: 1em;
+  }
+  #space #chatSection #chatBox #enterChatMsg button {
+    margin-left: 5px;
+    height: 50px;
+    width: 50px;
+    font-weight: 800;
+    border: none;
+    background-color: #bde0fe;
+  }
+  #space #chatSection #chatBox #enterChatMsg button:hover {
+    cursor: pointer;
+    background-color: #ffafcc;
   }
   #space #eventList {
     overflow-y: scroll;
@@ -1496,9 +1610,134 @@
     overflow-y: scroll;
     scroll-snap-type: y proximity;
     scroll-behavior: smooth;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
   }
   #space #expandedChatSection::-webkit-scrollbar {
     display: none;
+  }
+  #space #expandedChatSection .expandComponent {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    border: 2px solid #bde0fe;
+    border-radius: 4px;
+    outline: none;
+    background: transparent;
+  }
+  #space #expandedChatSection .expandComponent:hover {
+    background-color: #bde0fe;
+    cursor: pointer;
+  }
+  #space #expandedChatSection .expandComponent .icon {
+    margin: 0px;
+  }
+  #space #expandedChatSection #chatTitle {
+    justify-self: center;
+    align-self: center;
+    font-size: 1.5em;
+    font-weight: 800;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #ffc8dd;
+  }
+  #space #expandedChatSection #chatBox {
+    align-self: flex-start;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #expandedChatSection #chatBox #chatWindow {
+    overflow-y: scroll;
+    scroll-snap-type: y proximity;
+    scroll-behavior: smooth;
+    border-radius: 4px;
+    height: 400px;
+    width: 350px;
+    box-shadow: 2px 2px 5px 0.8px gray;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  #space #expandedChatSection #chatBox #chatWindow::-webkit-scrollbar {
+    display: none;
+  }
+  #space #expandedChatSection #chatBox #chatWindow .myMsg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  #space #expandedChatSection #chatBox #chatWindow .myMsg .msgContent {
+    margin-top: 10px;
+    background-color: #cdb4db;
+    width: 60%;
+    margin-top: 10px;
+    padding: 10px;
+    font-weight: 400;
+    font-size: 1.25em;
+  }
+  #space #expandedChatSection #chatBox #chatWindow .myMsg .msgInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 5px;
+  }
+  #space #expandedChatSection #chatBox #chatWindow .myMsg .msgInfo span {
+    margin-left: 5px;
+  }
+  #space #expandedChatSection #chatBox #chatWindow .otherUserMsg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  #space #expandedChatSection #chatBox #chatWindow .otherUserMsg .msgContent {
+    margin-top: 10px;
+    background-color: #ffafcc;
+    width: 60%;
+    margin-top: 10px;
+    padding: 10px;
+    font-weight: 400;
+    font-size: 1.25em;
+  }
+  #space #expandedChatSection #chatBox #chatWindow .otherUserMsg .msgInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 5px;
+  }
+  #space #expandedChatSection #chatBox #chatWindow .otherUserMsg .msgInfo span {
+    margin-right: 5px;
+  }
+  #space #expandedChatSection #chatBox #enterChatMsg {
+    margin: 15px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  #space #expandedChatSection #chatBox #enterChatMsg textarea {
+    width: 275px;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 1.25em;
+  }
+  #space #expandedChatSection #chatBox #enterChatMsg button {
+    margin-left: 5px;
+    height: 50px;
+    width: 75px;
+    font-weight: 800;
+    border: none;
+    background-color: #bde0fe;
+  }
+  #space #expandedChatSection #chatBox #enterChatMsg button:hover {
+    cursor: pointer;
+    background-color: #ffafcc;
   }
   #space #expandedEventContainer {
     grid-column: 2/7;
@@ -2086,7 +2325,7 @@
   margin-right: 5px;
 }
 #mobileSpace #chatSection #chatBox #enterChatMsg {
-  margin-top: 5px;
+  margin-top: 15px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;

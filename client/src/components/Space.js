@@ -228,7 +228,7 @@ function Space(props) {
           >
             <Icon name="expand arrows alternate" color="blue" />
           </button>
-          <span>Chat</span>
+          <span id="chatTitle">Let's Chat</span>
           <Chat socket={socket} username={username} spaceID={spaceID} />
         </section>
         <section

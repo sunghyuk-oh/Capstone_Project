@@ -484,7 +484,7 @@
         }
       }
       #enterChatMsg {
-        margin-top: 5px;
+        margin-top: 15px;
         @include flex(row, flex-end, center);
         textarea {
           width: 300px;
