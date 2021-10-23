@@ -41,6 +41,9 @@ app.use('/posts', postsRouter);
 
 io.on('connection', (socket) => {
   console.log(`User ${socket.id} Connected`);
+  server.getConnections(function (error, count) {
+    console.log(`Number of server connections: ${count}`);
+  });
 
   socket.on('join_space', (data) => {
     socket.join(data);
