@@ -54,7 +54,7 @@ function Space(props) {
   };
 
   const joinSpace = () => {
-    socket.emit('join_space', { spaceID, username, spaceName });
+    socket.emit('join_space', spaceID);
   };
 
   const displayAllEvents = () => {
