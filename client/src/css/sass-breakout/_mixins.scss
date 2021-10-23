@@ -11,7 +11,8 @@
 
 @mixin expandLrgScreens() {
   grid-column: 2 / 7;
-  grid-row: 1 / 10;
+  grid-row: 1 / 9;
+  margin-bottom: 30px;
   background-color: white;
   border-radius: 2px;
   box-shadow: 0px 1px 10px 1px black;
@@ -27,5 +28,24 @@
 @mixin hideScroll() {
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+@mixin expandBtn() {
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+  border: 2px solid $lightPalette4;
+  border-radius: 4px;
+  outline: none;
+  background: transparent;
+  margin: 10px 10px 2px 10px;
+  @include flex(column, center, center);
+  &:hover {
+    background-color: $lightPalette4;
+    cursor: pointer;
+  }
+  .icon {
+    margin: 0px;
   }
 }

@@ -26,7 +26,8 @@ function Space(props) {
   const spaceName = useParams().spacename;
   const userID = localStorage.getItem('userID');
   const username = localStorage.getItem('username');
-  const calendarStyle = { height: 300, width: 300, margin: '50px' };
+  const calendarStyle = { height: 400, width: 300, margin: '50px' };
+  const expandedCalendarStyle = { height: 600, width: 600, margin: '50px' };
 
   useEffect(() => {
     authSpaceUsers();
@@ -246,7 +247,7 @@ function Space(props) {
           >
             <Icon name="expand arrows alternate" color="blue" />
           </button>
-          <h3>Upcoming Events</h3>
+          <h3 id="eventListTitle">Upcoming Events</h3>
           {allEvents}
         </section>
         <div
@@ -267,7 +268,20 @@ function Space(props) {
               color="blue"
             />
           </button>
-          <Event events={events} setEvents={setEvents} style={calendarStyle} />
+          {isExpanded['expanded'] === 'event' &&
+          isExpanded['close'] === false ? (
+            <Event
+              events={events}
+              setEvents={setEvents}
+              style={expandedCalendarStyle}
+            />
+          ) : (
+            <Event
+              events={events}
+              setEvents={setEvents}
+              style={calendarStyle}
+            />
+          )}
         </div>
       </section>
     </div>
