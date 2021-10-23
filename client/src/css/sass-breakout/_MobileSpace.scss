@@ -36,19 +36,19 @@
     background-color: white;
     border-radius: 4px;
     height: 450px;
-    width: 95%;
+    width: 90%;
     @include flex(column, center, center);
     #spaceTitle {
       @include flex(column, center, center);
       height: 75px;
       width: 250px;
       margin-bottom: 30px;
-      color: white;
-      background-color: $lightPalette5;
+      color: black;
+      background-color: $lightPalette1;
       border-radius: 4px;
-      box-shadow: 2px 2px 5px 0.5px gray;
+      border: 2px solid black;
       h1 {
-        font-size: 3em;
+        font-size: 1.4em;
       }
     }
     #memberInfo {
@@ -66,10 +66,11 @@
           .memberInitials {
             padding: 4px;
             color: white;
-            background-color: $lightPalette4;
+            background-color: $lightPalette1;
             border-radius: 8px;
             font-size: 1.2em;
             font-weight: 800;
+            border: 1px solid black;
           }
         }
       }
@@ -98,6 +99,7 @@
         outline: none;
         border: none;
         border-radius: 3px;
+        border: 1px solid black;
         margin: 3px auto;
         padding: 3px 0px 3px 5px;
         width: 190px;
@@ -105,40 +107,90 @@
         transition: 0.25s;
         font-size: 1.2em;
         font-weight: 500;
-        background-color: $lightPalette4;
+        color: black;
+        background-color: $lightPalette1;
       }
     }
   }
-  #spacesInfo {
+  #mobileSpacesInfo {
     grid-column: 1 / 4;
     grid-row: 1 / 5;
     align-self: center;
     justify-self: center;
     background-color: white;
     border-radius: 4px;
-    height: 450px;
-    width: 95%;
+    height: 550px;
+    width: 90%;
     @include flex(column, center, center);
     #spaceNav {
       display: grid;
       grid-template-columns: 1fr;
-      grid-template-rows: repeat(3, 1fr);
+      grid-template-rows: auto 1fr auto 1fr;
+      height: 100%;
+      width: 100%;
       #spaceCredentials {
         grid-column: 1 / 2;
         grid-row: 1 / 4;
         align-self: center;
-        justify-self: center;
-        z-index: 10;
-        height: 450px;
-        width: 100%;
         @include flex(column, flex-start, center);
+        margin: 10px 25px 0px 25px;
+        background: linear-gradient($lightPalette2, $lightPalette4);
+        border: 2px solid black;
+        border-radius: 2px;
+        z-index: 10;
+        height: 350px;
+        #minSpaceBtn {
+          align-self: flex-end;
+          margin: 10px 30px 0px 0px;
+          outline: none;
+          border: none;
+          border-radius: 3px;
+          height: 30px;
+          width: 40px;
+          background-color: $lightPalette3;
+          &:hover {
+            cursor: pointer;
+            background-color: $lightPalette1;
+          }
+        }
+        p {
+          width: 70%;
+        }
+        input {
+          margin: 3px auto;
+          padding: 3px 0px 3px 5px;
+          height: 25px;
+          width: 190px;
+          border: none;
+          border-radius: 3px;
+        }
+        #submitSpaceBtn {
+          &:hover {
+            cursor: pointer;
+            background-color: $lightPalette2;
+          }
+          outline: none;
+          border: none;
+          border-radius: 3px;
+          margin: 3px auto;
+          padding: 3px 0px 3px 5px;
+          width: 190px;
+          height: 30px;
+          transition: 0.25s;
+          font-weight: 200;
+          background-color: $lightPalette1;
+        }
       }
       #createSpaceSection {
         grid-column: 1 / 2;
         grid-row: 1 / 2;
+        margin-top: 20px;
         @include flex(row, center, center);
         h1 {
           margin-bottom: 0px;
+          margin-left: 50px;
+          border-bottom: 2px solid $lightPalette5;
+          font-size: 1.5em;
         }
         #createSpaceBtn {
           &:hover {
@@ -156,8 +208,13 @@
       }
       #mySpacesList {
         grid-column: 1 / 2;
-        grid-row: 2 / 4;
+        grid-row: 2 / 3;
         justify-self: center;
+        align-self: center;
+        @include scroll();
+        &::-webkit-scrollbar {
+          display: none;
+        }
         .spaceBlock {
           margin: 10px 0px;
           .spaceTitle {
@@ -172,16 +229,34 @@
               outline: none;
               border: none;
               border-radius: 3px;
+              border: 1px solid black;
               margin: 3px auto;
               width: 190px;
-              height: 40px;
+              height: 50px;
               transition: 0.25s;
-              font-size: 1.1em;
+              font-size: 1em;
               font-weight: 500;
               background-color: $lightPalette4;
             }
           }
         }
+      }
+      #inviteHeader {
+        margin-top: 20px;
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+        justify-self: center;
+        align-self: center;
+        h1 {
+          font-size: 1.5em;
+          border-bottom: 2px solid $lightPalette5;
+        }
+      }
+      #myInviteList {
+        grid-column: 1 / 2;
+        grid-row: 4 / 5;
+        justify-self: center;
+        align-self: center;
       }
     }
   }
@@ -199,6 +274,8 @@
       font-weight: 800;
       font-size: 1.5em;
       margin-bottom: 5px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid $lightPalette5;
     }
     #postComponent {
       height: 400px;
@@ -318,12 +395,14 @@
           width: 250px;
           height: 40px;
           border-radius: 8px;
+          padding: 10px;
         }
         #submitPostBtn {
           border: none;
           outline: none;
           background-color: $lightPalette1;
           border-radius: 4px;
+          border: 1px solid black;
           height: 40px;
           width: 80px;
           margin-left: 4px;
@@ -348,6 +427,8 @@
       font-size: 1.5em;
       font-weight: 800;
       margin-bottom: 15px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid $lightPalette2;
     }
     #chatBox {
       #chatWindow {
@@ -403,7 +484,7 @@
         }
       }
       #enterChatMsg {
-        margin-top: 5px;
+        margin-top: 15px;
         @include flex(row, flex-end, center);
         textarea {
           width: 300px;
@@ -411,6 +492,7 @@
           border: none;
           border-radius: 4px;
           font-size: 1.25em;
+          padding: 10px;
         }
         button {
           margin-left: 5px;
@@ -436,12 +518,39 @@
     grid-row: 1 / 5;
     justify-self: center;
     width: 95%;
+    @include flex(column, center, center);
     #eventList {
       @include scroll();
+      @include flex(column, center, center);
       background-color: white;
       padding: 15px;
+      width: 95%;
+      margin-bottom: 20px;
       &::-webkit-scrollbar {
         display: none;
+      }
+      #eventBlock {
+        .eventInfo {
+          color: black;
+          h4 {
+            color: black;
+          }
+          p {
+            color: black;
+          }
+        }
+        .eventDetailsBlock {
+          #eventDetails {
+            #details {
+              .attendees {
+                color: black;
+              }
+            }
+            #eventInvite {
+              color: black;
+            }
+          }
+        }
       }
     }
     #event {
@@ -449,15 +558,47 @@
       &::-webkit-scrollbar {
         display: none;
       }
-      @include testBorder(purple);
+      width: 95%;
+      border-radius: 4px;
+      box-shadow: 0px 1px 5px 0.3px gray;
       @include flex(column, flex-start, center);
       padding-bottom: 25px;
-      // #calendar {
-      //   padding-top: 260px;
-      // }
+      #calendar {
+        padding-top: 20px;
+        @include flex(column, center, center);
+        h3 {
+          margin-bottom: none;
+          padding-bottom: 5px;
+          border-bottom: 2px solid $lightPalette2;
+        }
+      }
       #newEvent {
         #eventDataInput {
           @include flex(column, center, center);
+          .newEventInputs {
+            border: none;
+            margin-bottom: 10px;
+            height: 30px;
+            width: 250px;
+          }
+          #addEventBtn {
+            &:hover {
+              cursor: pointer;
+              background-color: $lightPalette3;
+            }
+            outline: none;
+            border: none;
+            border-radius: 3px;
+            margin: 3px auto;
+            padding: 3px 0px 3px 5px;
+            width: 250px;
+            height: 30px;
+            transition: 0.25s;
+            font-size: 1.2em;
+            font-weight: 500;
+            color: black;
+            background-color: $lightPalette5;
+          }
         }
       }
     }
@@ -466,13 +607,89 @@
       &::-webkit-scrollbar {
         display: none;
       }
-      @include testBorder(gold);
     }
   }
 }
 
-// portrait tablets
+// complete:  tablet styling
 @media (min-width: 641px) {
+  #mobileSpace {
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    #componentSelect {
+      grid-column: 1 / 3;
+      grid-row: 1 / 8;
+      align-self: flex-end;
+      justify-self: center;
+      height: 85vh;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(5, 1fr);
+      .toggleComponents {
+        height: 60px;
+        width: 120px;
+        margin-left: 20px;
+        border-radius: 4px;
+        background-color: $lightPalette4;
+        border: 1px solid black;
+        &:hover {
+          background-color: $lightPalette4;
+        }
+      }
+    }
+    #spaceAdmin {
+      grid-column: 3 / 9;
+      grid-row: 1 / 8;
+      align-self: flex-start;
+      justify-self: center;
+      background-color: white;
+      border-radius: 4px;
+      height: 85vh;
+      width: 85%;
+    }
+    #mobileSpacesInfo {
+      grid-column: 3 / 9;
+      grid-row: 1 / 8;
+      align-self: flex-start;
+      justify-self: center;
+      background-color: white;
+      border-radius: 4px;
+      height: 85vh;
+      width: 85%;
+    }
+    #postSection {
+      grid-column: 3 / 9;
+      grid-row: 1 / 8;
+      align-self: flex-start;
+      justify-self: center;
+      background-color: white;
+      border-radius: 4px;
+      height: 85vh;
+      width: 85%;
+    }
+    #chatSection {
+      grid-column: 3 / 9;
+      grid-row: 1 / 8;
+      align-self: flex-start;
+      justify-self: center;
+      height: 85vh;
+      width: 85%;
+    }
+    #eventAdmin {
+      grid-column: 3 / 9;
+      grid-row: 1 / 8;
+      align-self: flex-start;
+      justify-self: center;
+      height: 85vh;
+      width: 85%;
+      #event {
+        height: 500px;
+      }
+    }
+  }
+}
+
+@media (min-width: 1025px) {
   #mobileSpace {
     display: none;
   }

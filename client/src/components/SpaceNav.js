@@ -7,16 +7,19 @@ import * as actionCreators from '../stores/creators/actionCreators';
 
 function SpaceNav(props) {
   const history = useHistory();
-  const [allSpaces, setAllSpaces] = useState([])
+  const [allSpaces, setAllSpaces] = useState([]);
   const [spaceName, setSpaceName] = useState('');
   const [isNewSpace, setIsNewSpace] = useState(false);
-  const [pendingSpace, setPendingSpace] = useState([])
-  const [acceptMsg, setAcceptMsg] = useState({ isDisplay: false, message: '' })
-  const [declineMsg, setDeclineMsg] = useState({ isDisplay: false, message: '' })
+  const [pendingSpace, setPendingSpace] = useState([]);
+  const [acceptMsg, setAcceptMsg] = useState({ isDisplay: false, message: '' });
+  const [declineMsg, setDeclineMsg] = useState({
+    isDisplay: false,
+    message: ''
+  });
   const spaceID = useParams().spaceid;
   const token = localStorage.getItem('userToken');
   const userID = localStorage.getItem('userID');
-  const messageStyle = { color: '#fdafcc'}
+  const messageStyle = { color: '#fdafcc' };
 
   useEffect(() => {
     if (props.isAuth) {
@@ -40,7 +43,7 @@ function SpaceNav(props) {
 
   const viewAllSpaces = () => {
     const viewData = { userID: userID, token: token };
-    actionCreators.loadSpaces(viewData, setAllSpaces)
+    actionCreators.loadSpaces(viewData, setAllSpaces);
   };
 
   const viewAllInvites = () => {
@@ -59,24 +62,33 @@ function SpaceNav(props) {
   };
 
   const handleInviteAccept = (spaceInviteID, spaceID) => {
-    const IDs = { userID: userID, spaceInviteID: spaceInviteID, spaceID: spaceID}
-    actionCreators.acceptSpaceInvite(IDs, setAcceptMsg, setPendingSpace, setAllSpaces)
+    const IDs = {
+      userID: userID,
+      spaceInviteID: spaceInviteID,
+      spaceID: spaceID
+    };
+    actionCreators.acceptSpaceInvite(
+      IDs,
+      setAcceptMsg,
+      setPendingSpace,
+      setAllSpaces
+    );
     viewAllSpaces();
 
-    setTimeout(() => { 
-      setAcceptMsg({ isDisplay: false, message: "" }); 
+    setTimeout(() => {
+      setAcceptMsg({ isDisplay: false, message: '' });
     }, 5000);
-  }
+  };
 
   const handleInviteDecline = (spaceID) => {
-    const IDs = { userID: userID, spaceID: spaceID }
-    actionCreators.declineSpaceInvite(IDs, setDeclineMsg, setPendingSpace)
+    const IDs = { userID: userID, spaceID: spaceID };
+    actionCreators.declineSpaceInvite(IDs, setDeclineMsg, setPendingSpace);
 
-    setTimeout(() => { 
-      setDeclineMsg({ isDisplay: false, message: "" }); 
+    setTimeout(() => {
+      setDeclineMsg({ isDisplay: false, message: '' });
     }, 5000);
-  }
-  
+  };
+
   const allMySpace = allSpaces.map((space) => {
     return (
       <div key={space.space_id} className="spaceBlock">
@@ -95,17 +107,26 @@ function SpaceNav(props) {
       </div>
     );
   });
-  
+
   const allMyInvites = pendingSpace.map((invite) => {
     return (
       <div key={invite.space_invite_id} className="inviteBlock">
         <h3>Invitation to {invite.space_name}</h3>
         <p>
-          You've been invited to join {invite.space_name} by {invite.sender_first_name}, {invite.sender_last_name}
+          You've been invited to join {invite.space_name} by{' '}
+          {invite.sender_first_name}, {invite.sender_last_name}
         </p>
         <div className="inviteBtns">
-          <button onClick={() => handleInviteAccept(invite.space_invite_id, invite.space_id)}>Accept</button>
-          <button onClick={() => handleInviteDecline(invite.space_id)}>Decline</button>
+          <button
+            onClick={() =>
+              handleInviteAccept(invite.space_invite_id, invite.space_id)
+            }
+          >
+            Accept
+          </button>
+          <button onClick={() => handleInviteDecline(invite.space_id)}>
+            Decline
+          </button>
         </div>
       </div>
     );
@@ -140,14 +161,23 @@ function SpaceNav(props) {
         </button>
       </section>
       <section id="mySpacesList">
-        {acceptMsg.isDisplay ? <div><p style={messageStyle}>{acceptMsg.message}</p></div> : null}
+        {acceptMsg.isDisplay ? (
+          <div>
+            <p style={messageStyle}>{acceptMsg.message}</p>
+          </div>
+        ) : null}
         {allMySpace}
       </section>
-      <section>
+      <section id="inviteHeader">
         <h1>Pending Invites</h1>
-        {declineMsg.isDisplay ? <div><p style={messageStyle}>{declineMsg.message}</p></div> : null}
+        {declineMsg.isDisplay ? (
+          <div>
+            <p style={messageStyle}>{declineMsg.message}</p>
+          </div>
+        ) : null}
         {allMyInvites}
       </section>
+      <section id="myInviteList">{allMyInvites}</section>
     </section>
   );
 }

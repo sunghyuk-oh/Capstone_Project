@@ -15,29 +15,28 @@ function MobileSpace(props) {
   const [recipientUserName, setRecipientUserName] = useState('');
   const [members, setMembers] = useState([]);
   const [events, setEvents] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [isActive, setActive] = useState({
     active: 'titleAndMembers'
   });
   const [singleEventToggle, setSingleEventToggle] = useState(0);
   const [isEventSlideDown, setIsEventSlideDown] = useState(false);
   const [eventAttendees, setEventAttendees] = useState([]);
-  const [inviteMsg, setInviteMsg] = useState({ isDisplay: false, message: "" })
+  const [inviteMsg, setInviteMsg] = useState({ isDisplay: false, message: '' });
   const spaceID = useParams().spaceid;
   const spaceName = useParams().spacename;
   const userID = localStorage.getItem('userID');
   const username = localStorage.getItem('username');
-  const messageStyle = { color: '#5487b3'}
+  const messageStyle = { color: '#5487b3' };
   const calendarStyle = { height: 500, width: 380, margin: '50px' };
 
   useEffect(() => {
     authSpaceUsers();
     joinSpace();
-    displaySpaceMembers();
-  }, []);
-
-  useEffect(() => {
     displayAllEvents();
-  }, []);
+    renderAllPosts();
+    displaySpaceMembers();
+  }, [spaceID]);
 
   const authSpaceUsers = () => {
     const authData = { spaceID: spaceID, userID: userID };
@@ -49,13 +48,16 @@ function MobileSpace(props) {
   };
 
   const joinSpace = () => {
-    socket.emit('join_space', spaceID);
+    socket.emit('join_space', { spaceID, username, spaceName });
   };
 
   const displayAllEvents = () => {
     actionCreators.displayAllEvents(spaceID, setEvents);
   };
 
+  const renderAllPosts = () => {
+    actionCreators.displayAllPosts(spaceID, setPosts);
+  };
   const handleUsernameInput = (e) => {
     setRecipientUserName(e.target.value);
   };
@@ -70,8 +72,8 @@ function MobileSpace(props) {
     actionCreators.invite(inviteData, setInviteMsg);
     setRecipientUserName('');
 
-    setTimeout(() => { 
-      setInviteMsg({ isDisplay: false, message: "" }); 
+    setTimeout(() => {
+      setInviteMsg({ isDisplay: false, message: '' });
     }, 5000);
   };
 
@@ -88,7 +90,7 @@ function MobileSpace(props) {
           {member.first_name[0]}
           {member.last_name[0]}
         </span>
-        <span>({member.username})</span>
+        <span className="memberUsername">({member.username})</span>
       </div>
     );
   });
@@ -112,8 +114,9 @@ function MobileSpace(props) {
     const endDate = convertDateFormat(new Date(event.end_date));
 
     return (
-      <div>
+      <div className="eventBlock">
         <div
+          className="eventInfo"
           key={event.event_id}
           onClick={() => handleSingleEventToggle(event.event_id)}
         >
@@ -123,7 +126,7 @@ function MobileSpace(props) {
           </p>
         </div>
         {isEventSlideDown && singleEventToggle === event.event_id ? (
-          <div>
+          <div className="eventDetailsBlock">
             <EventDetails
               event={event}
               attendees={eventAttendees}
@@ -200,13 +203,15 @@ function MobileSpace(props) {
             <button id="inviteBtn" onClick={handleInviteSubmit}>
               Invite
             </button>
-            { inviteMsg.isDisplay ? <span style={messageStyle}>{inviteMsg.message}</span> : null }
+            {inviteMsg.isDisplay ? (
+              <span style={messageStyle}>{inviteMsg.message}</span>
+            ) : null}
           </section>
         </div>
       ) : null}
 
       {isActive['active'] === 'spaces' ? (
-        <section id="spacesInfo">
+        <section id="mobileSpacesInfo">
           <SpaceNav active={setActive} />
         </section>
       ) : null}
@@ -214,7 +219,7 @@ function MobileSpace(props) {
       {isActive['active'] === 'posts' ? (
         <section id="postSection">
           <span id="postSectionTitle">Post Feed</span>
-          <Post spaceID={spaceID} />
+          <Post posts={posts} setPosts={setPosts} spaceID={spaceID} />
         </section>
       ) : null}
 
@@ -231,7 +236,7 @@ function MobileSpace(props) {
       {isActive['active'] === 'events' ? (
         <div id="eventAdmin">
           <section id="eventList">
-            Event List
+            <h3>Upcoming Events</h3>
             {allEvents}
           </section>
           <Event events={events} setEvents={setEvents} style={calendarStyle} />

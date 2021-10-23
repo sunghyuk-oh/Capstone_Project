@@ -57,6 +57,7 @@ function Event(props) {
   return (
     <section id="event">
       <div id="calendar">
+        <h3>Calendar</h3>
         <Calendar
           localizer={localizer}
           events={props.allEvents}
@@ -70,6 +71,7 @@ function Event(props) {
         <div id="eventDataInput">
           <h3>New Event:</h3>
           <input
+            className="newEventInputs"
             type="text"
             placeholder="Event Title"
             value={newEvent.title}
@@ -79,6 +81,7 @@ function Event(props) {
           />
           <div>
             <DatePicker
+              className="newEventInputs"
               placeholderText="Start Date"
               selected={newEvent.start_date}
               showTimeSelect
@@ -89,6 +92,7 @@ function Event(props) {
           </div>
           <div>
             <DatePicker
+              className="newEventInputs"
               placeholderText="End Date"
               selected={newEvent.end_date}
               showTimeSelect
@@ -98,13 +102,16 @@ function Event(props) {
           <h3>Location:</h3>
           <input
             type="text"
+            className="newEventInputs"
             placeholder="Full Address (optional)"
             value={newEvent.location}
             onChange={(e) =>
               setNewEvent({ ...newEvent, location: e.target.value })
             }
           />
-          <button onClick={() => handleAddEvent(newEvent)}>Add Event</button>
+          <button id="addEventBtn" onClick={() => handleAddEvent(newEvent)}>
+            Add Event
+          </button>
         </div>
       </div>
     </section>
