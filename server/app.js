@@ -44,7 +44,9 @@ io.on('connection', (socket) => {
 
   socket.on('join_space', (data) => {
     socket.join(data);
-    console.log(`User: ${socket.id} joined space: ${data}`);
+    console.log(
+      `SocketID: ${socket.id} | Username: ${data.username} joined space: ${data.spaceName} - ${data.spaceID}`
+    );
   });
 
   socket.on('send_msg', (data) => {
