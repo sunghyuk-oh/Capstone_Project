@@ -203,7 +203,7 @@ export const displayAllAttendees = (eventID, spaceID, setEventAttendees) => {
     });
 };
 
-export const inviteMember = (invitee, setAttendee) => {
+export const inviteMember = (invitee, setAttendees, setEventInviteMsg) => {
   fetch('http://localhost:8080/events/inviteMember', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -212,9 +212,10 @@ export const inviteMember = (invitee, setAttendee) => {
     .then((response) => response.json())
     .then((result) => {
       if (result.success) {
-        setAttendee(result.allAttendees);
+        setAttendees(result.allAttendees)
+        setEventInviteMsg(result.message)
       } else {
-        console.log('Adding an attendee to this event failed');
+        setEventInviteMsg(result.message)
       }
     })
     .catch((err) => console.log(err));

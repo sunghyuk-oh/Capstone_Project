@@ -7,6 +7,8 @@ function EventDetails(props) {
     spaceID: props.event.space_id,
     username: ''
   });
+  const [eventInviteMsg, setEventInviteMsg] = useState({ isDisplay: false, message: "" })
+  const messageStyle = { color: '#fed3e4'}
 
   const convertTimeFormat = (date) => {
     if (date.toString() === 'Invalid Date') {
@@ -28,9 +30,10 @@ function EventDetails(props) {
 
   const startTime = convertTimeFormat(new Date(props.event.start_date));
   const endTime = convertTimeFormat(new Date(props.event.end_date));
-
+  
   const inviteUsers = () => {
-    actionCreators.inviteMember(invitee, props.setAttendees);
+    actionCreators.inviteMember(invitee, props.setAttendees, setEventInviteMsg);
+
     setInvitee({ ...invitee, username: '' });
   };
 
@@ -69,6 +72,7 @@ function EventDetails(props) {
           onChange={(e) => setInvitee({ ...invitee, username: e.target.value })}
         />
         <button onClick={inviteUsers}>Invite</button>
+        { eventInviteMsg.isDisplay ? <div><p style={messageStyle}>{eventInviteMsg.message}</p></div> : null }
       </div>
     </section>
   );

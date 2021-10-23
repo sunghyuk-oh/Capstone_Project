@@ -25,7 +25,6 @@ function Login(props) {
     }, 8000);
   };
 
-  console.log(errorMsg)
   return (
     <section id="login">
       <div id="loginCredentials">
