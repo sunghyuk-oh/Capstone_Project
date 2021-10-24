@@ -18,7 +18,7 @@ import Register from './components/Register';
 import io from 'socket.io-client';
 import Account from './components/Account';
 
-window.socket = io.connect('http://gather.surge.sh');
+window.socket = io.connect('https://gather.surge.sh');
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
