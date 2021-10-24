@@ -45,7 +45,7 @@ function Event(props) {
       space_id: spaceID
     });
   };
-
+  
   const allEvents = props.events.map((event) => {
     return {
       title: event.title,
@@ -60,7 +60,7 @@ function Event(props) {
         <h3>Calendar</h3>
         <Calendar
           localizer={localizer}
-          events={props.allEvents}
+          events={allEvents}
           startAccessor="start_date"
           endAccessor="end_date"
           defaultDate={new Date()}
