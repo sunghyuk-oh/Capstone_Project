@@ -18,7 +18,7 @@ import Register from './components/Register';
 import io from 'socket.io-client';
 import Account from './components/Account';
 
-window.socket = io.connect('https://gather.surge.sh');
+window.socket = io.connect('https://safe-anchorage-12116.herokuapp.com');
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
