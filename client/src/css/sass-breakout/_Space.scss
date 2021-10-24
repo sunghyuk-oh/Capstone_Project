@@ -179,8 +179,50 @@
         #myInviteList {
           grid-column: 1 / 2;
           grid-row: 4 / 5;
+          margin-top: 10px;
           justify-self: center;
           align-self: center;
+          .inviteBlock {
+            @include flex(column, center, center);
+            border: 2px solid $lightPalette1;
+            border-radius: 4px;
+            padding: 10px;
+            h3 {
+              margin: 5px;
+              text-align: center;
+            }
+            p {
+              width: 100%;
+            }
+            .inviteBtns {
+              .acceptBtn {
+                border: none;
+                outline: none;
+                margin-right: 3px;
+                background-color: $lightPalette4;
+                border-radius: 4px;
+                height: 30px;
+                width: 70px;
+                &:hover {
+                  cursor: pointer;
+                  background-color: $lightPalette1;
+                }
+              }
+              .declineBtn {
+                border: none;
+                outline: none;
+                margin-right: 3px;
+                background-color: $lightPalette2;
+                border-radius: 4px;
+                height: 30px;
+                width: 70px;
+                &:hover {
+                  cursor: pointer;
+                  background-color: $lightPalette3;
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -404,7 +446,6 @@
             outline: none;
             background-color: $lightPalette1;
             border-radius: 4px;
-            border: 1px solid black;
             height: 40px;
             width: 80px;
             margin-left: 4px;
@@ -536,25 +577,80 @@
         padding-bottom: 5px;
         border-bottom: 2px solid $lightPalette2;
       }
-      #eventBlock {
-        .eventInfo {
-          color: black;
-          h4 {
-            color: black;
-          }
-          p {
-            color: black;
-          }
-        }
-        .eventDetailsBlock {
-          #eventDetails {
-            #details {
-              .attendees {
-                color: black;
+      #allEvents {
+        justify-self: center;
+        @include flex(column, center, center);
+        .eventBlock {
+          border: 2px solid $lightPalette1;
+          padding: 10px 20px;
+          width: 350px;
+          margin-bottom: 10px;
+          @include flex(column, center, center);
+          .eventInfo {
+            @include flex(column, center, center);
+            h4 {
+              color: black;
+              border-bottom: 2px solid $lightPalette5;
+              &:hover {
+                cursor: pointer;
               }
             }
-            #eventInvite {
-              color: black;
+            p {
+              .start {
+                color: rgb(59, 59, 108);
+                font-weight: 900;
+              }
+              .end {
+                color: rgb(194, 123, 135);
+              }
+            }
+          }
+          .eventDetailsBlock {
+            margin-top: 20px;
+            #eventDetails {
+              @include flex(column, center, center);
+              #details {
+                .attendees {
+                  color: black;
+                }
+              }
+              #eventInvite {
+                margin-top: 20px;
+                @include flex(column, center, center);
+                h4 {
+                  color: rgb(59, 59, 108);
+                }
+                #eventInviteInput {
+                  color: black;
+                  margin: 3px auto;
+                  padding: 3px 0px 3px 5px;
+                  height: 30px;
+                  width: 190px;
+                  border: 1px solid $lightPalette2;
+                  background-color: white;
+                  opacity: 0.8;
+                  border-radius: 3px;
+                }
+                #eventInviteBtn {
+                  &:hover {
+                    cursor: pointer;
+                    background-color: $lightPalette3;
+                  }
+                  outline: none;
+                  border: none;
+                  border-radius: 3px;
+                  border: 1px solid black;
+                  margin: 3px auto;
+                  padding: 3px 0px 3px 5px;
+                  width: 190px;
+                  height: 30px;
+                  transition: 0.25s;
+                  font-size: 1.2em;
+                  font-weight: 500;
+                  color: black;
+                  background-color: $lightPalette1;
+                }
+              }
             }
           }
         }
@@ -582,7 +678,7 @@
         @include flex(column, flex-start, center);
         padding-bottom: 25px;
         #calendar {
-          padding-top: 20px;
+          padding-top: 0px;
           @include flex(column, center, center);
           h3 {
             margin-bottom: none;
@@ -771,8 +867,51 @@
         #myInviteList {
           grid-column: 1 / 2;
           grid-row: 4 / 5;
+          margin-top: 20px;
           justify-self: center;
           align-self: center;
+          width: 300px;
+          .inviteBlock {
+            @include flex(column, center, center);
+            border: 2px solid $lightPalette1;
+            border-radius: 4px;
+            padding: 20px 10px;
+            h3 {
+              margin: 5px;
+              text-align: center;
+            }
+            p {
+              width: 100%;
+            }
+            .inviteBtns {
+              .acceptBtn {
+                border: none;
+                outline: none;
+                margin-right: 3px;
+                background-color: $lightPalette4;
+                border-radius: 4px;
+                height: 30px;
+                width: 70px;
+                &:hover {
+                  cursor: pointer;
+                  background-color: $lightPalette1;
+                }
+              }
+              .declineBtn {
+                border: none;
+                outline: none;
+                margin-right: 3px;
+                background-color: $lightPalette2;
+                border-radius: 4px;
+                height: 30px;
+                width: 70px;
+                &:hover {
+                  cursor: pointer;
+                  background-color: $lightPalette3;
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -993,7 +1132,6 @@
             outline: none;
             background-color: $lightPalette1;
             border-radius: 4px;
-            border: 1px solid black;
             height: 40px;
             width: 80px;
             margin-left: 4px;
@@ -1106,6 +1244,7 @@
       @include expandLrgScreens();
       @include scroll();
       @include hideScroll();
+      background-color: white;
       display: grid;
       grid-template-rows: auto auto 1fr;
       .expandComponent {
@@ -1117,25 +1256,81 @@
         padding-bottom: 5px;
         border-bottom: 2px solid $lightPalette2;
       }
-      #eventBlock {
-        .eventInfo {
-          color: black;
-          h4 {
-            color: black;
-          }
-          p {
-            color: black;
-          }
-        }
-        .eventDetailsBlock {
-          #eventDetails {
-            #details {
-              .attendees {
-                color: black;
+      #allEvents {
+        justify-self: center;
+        align-self: flex-start;
+        @include flex(column, center, center);
+        .eventBlock {
+          border: 2px solid $lightPalette1;
+          padding: 10px 20px;
+          width: 350px;
+          margin-bottom: 10px;
+          @include flex(column, center, center);
+          .eventInfo {
+            @include flex(column, center, center);
+            h4 {
+              color: black;
+              border-bottom: 2px solid $lightPalette5;
+              &:hover {
+                cursor: pointer;
               }
             }
-            #eventInvite {
-              color: black;
+            p {
+              .start {
+                color: rgb(59, 59, 108);
+                font-weight: 900;
+              }
+              .end {
+                color: rgb(194, 123, 135);
+              }
+            }
+          }
+          .eventDetailsBlock {
+            margin-top: 20px;
+            #eventDetails {
+              @include flex(column, center, center);
+              #details {
+                .attendees {
+                  color: black;
+                }
+              }
+              #eventInvite {
+                margin-top: 20px;
+                @include flex(column, center, center);
+                h4 {
+                  color: rgb(59, 59, 108);
+                }
+                #eventInviteInput {
+                  color: black;
+                  margin: 3px auto;
+                  padding: 3px 0px 3px 5px;
+                  height: 30px;
+                  width: 190px;
+                  border: 1px solid $lightPalette2;
+                  background-color: white;
+                  opacity: 0.8;
+                  border-radius: 3px;
+                }
+                #eventInviteBtn {
+                  &:hover {
+                    cursor: pointer;
+                    background-color: $lightPalette3;
+                  }
+                  outline: none;
+                  border: none;
+                  border-radius: 3px;
+                  border: 1px solid black;
+                  margin: 3px auto;
+                  padding: 3px 0px 3px 5px;
+                  width: 190px;
+                  height: 30px;
+                  transition: 0.25s;
+                  font-size: 1.2em;
+                  font-weight: 500;
+                  color: black;
+                  background-color: $lightPalette1;
+                }
+              }
             }
           }
         }

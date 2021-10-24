@@ -7,8 +7,11 @@ function EventDetails(props) {
     spaceID: props.event.space_id,
     username: ''
   });
-  const [eventInviteMsg, setEventInviteMsg] = useState({ isDisplay: false, message: "" })
-  const messageStyle = { color: '#fed3e4'}
+  const [eventInviteMsg, setEventInviteMsg] = useState({
+    isDisplay: false,
+    message: ''
+  });
+  const messageStyle = { color: '#fed3e4' };
 
   const convertTimeFormat = (date) => {
     if (date.toString() === 'Invalid Date') {
@@ -30,7 +33,7 @@ function EventDetails(props) {
 
   const startTime = convertTimeFormat(new Date(props.event.start_date));
   const endTime = convertTimeFormat(new Date(props.event.end_date));
-  
+
   const inviteUsers = () => {
     actionCreators.inviteMember(invitee, props.setAttendees, setEventInviteMsg);
 
@@ -49,6 +52,7 @@ function EventDetails(props) {
 
   return (
     <section id="eventDetails">
+      <h5>Details:</h5>
       <div id="details">
         <p>
           <b>Time: </b>
@@ -65,14 +69,21 @@ function EventDetails(props) {
       </div>
       <div id="eventInvite">
         <h4>Invite Friends</h4>
+        {eventInviteMsg.isDisplay ? (
+          <div>
+            <p style={messageStyle}>{eventInviteMsg.message}</p>
+          </div>
+        ) : null}
         <input
+          id="eventInviteInput"
           type="text"
           placeholder="Username"
           value={invitee.username}
           onChange={(e) => setInvitee({ ...invitee, username: e.target.value })}
         />
-        <button onClick={inviteUsers}>Invite</button>
-        { eventInviteMsg.isDisplay ? <div><p style={messageStyle}>{eventInviteMsg.message}</p></div> : null }
+        <button id="eventInviteBtn" onClick={inviteUsers}>
+          Invite
+        </button>
       </div>
     </section>
   );

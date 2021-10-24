@@ -529,25 +529,27 @@
       &::-webkit-scrollbar {
         display: none;
       }
-      #eventBlock {
-        .eventInfo {
-          color: black;
-          h4 {
+      #allEvents {
+        #eventBlock {
+          .eventInfo {
             color: black;
+            h4 {
+              color: black;
+            }
+            p {
+              color: black;
+            }
           }
-          p {
-            color: black;
-          }
-        }
-        .eventDetailsBlock {
-          #eventDetails {
-            #details {
-              .attendees {
+          .eventDetailsBlock {
+            #eventDetails {
+              #details {
+                .attendees {
+                  color: black;
+                }
+              }
+              #eventInvite {
                 color: black;
               }
-            }
-            #eventInvite {
-              color: black;
             }
           }
         }

@@ -640,8 +640,51 @@
   #space #spacesInfo #spaceNav #myInviteList {
     grid-column: 1/2;
     grid-row: 4/5;
+    margin-top: 10px;
     justify-self: center;
     align-self: center;
+  }
+  #space #spacesInfo #spaceNav #myInviteList .inviteBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #cdb4db;
+    border-radius: 4px;
+    padding: 10px;
+  }
+  #space #spacesInfo #spaceNav #myInviteList .inviteBlock h3 {
+    margin: 5px;
+    text-align: center;
+  }
+  #space #spacesInfo #spaceNav #myInviteList .inviteBlock p {
+    width: 100%;
+  }
+  #space #spacesInfo #spaceNav #myInviteList .inviteBlock .inviteBtns .acceptBtn {
+    border: none;
+    outline: none;
+    margin-right: 3px;
+    background-color: #bde0fe;
+    border-radius: 4px;
+    height: 30px;
+    width: 70px;
+  }
+  #space #spacesInfo #spaceNav #myInviteList .inviteBlock .inviteBtns .acceptBtn:hover {
+    cursor: pointer;
+    background-color: #cdb4db;
+  }
+  #space #spacesInfo #spaceNav #myInviteList .inviteBlock .inviteBtns .declineBtn {
+    border: none;
+    outline: none;
+    margin-right: 3px;
+    background-color: #ffc8dd;
+    border-radius: 4px;
+    height: 30px;
+    width: 70px;
+  }
+  #space #spacesInfo #spaceNav #myInviteList .inviteBlock .inviteBtns .declineBtn:hover {
+    cursor: pointer;
+    background-color: #ffafcc;
   }
   #space #memberInfo {
     overflow-y: scroll;
@@ -935,7 +978,6 @@
     outline: none;
     background-color: #cdb4db;
     border-radius: 4px;
-    border: 1px solid black;
     height: 40px;
     width: 80px;
     margin-left: 4px;
@@ -1128,20 +1170,94 @@
     padding-bottom: 5px;
     border-bottom: 2px solid #ffc8dd;
   }
-  #space #eventList #eventBlock .eventInfo {
+  #space #eventList #allEvents {
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #eventList #allEvents .eventBlock {
+    border: 2px solid #cdb4db;
+    padding: 10px 20px;
+    width: 350px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #eventList #allEvents .eventBlock .eventInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #eventList #allEvents .eventBlock .eventInfo h4 {
+    color: black;
+    border-bottom: 2px solid #a2d2ff;
+  }
+  #space #eventList #allEvents .eventBlock .eventInfo h4:hover {
+    cursor: pointer;
+  }
+  #space #eventList #allEvents .eventBlock .eventInfo p .start {
+    color: #3b3b6c;
+    font-weight: 900;
+  }
+  #space #eventList #allEvents .eventBlock .eventInfo p .end {
+    color: #c27b87;
+  }
+  #space #eventList #allEvents .eventBlock .eventDetailsBlock {
+    margin-top: 20px;
+  }
+  #space #eventList #allEvents .eventBlock .eventDetailsBlock #eventDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #eventList #allEvents .eventBlock .eventDetailsBlock #eventDetails #details .attendees {
     color: black;
   }
-  #space #eventList #eventBlock .eventInfo h4 {
-    color: black;
+  #space #eventList #allEvents .eventBlock .eventDetailsBlock #eventDetails #eventInvite {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  #space #eventList #eventBlock .eventInfo p {
-    color: black;
+  #space #eventList #allEvents .eventBlock .eventDetailsBlock #eventDetails #eventInvite h4 {
+    color: #3b3b6c;
   }
-  #space #eventList #eventBlock .eventDetailsBlock #eventDetails #details .attendees {
+  #space #eventList #allEvents .eventBlock .eventDetailsBlock #eventDetails #eventInvite #eventInviteInput {
     color: black;
+    margin: 3px auto;
+    padding: 3px 0px 3px 5px;
+    height: 30px;
+    width: 190px;
+    border: 1px solid #ffc8dd;
+    background-color: white;
+    opacity: 0.8;
+    border-radius: 3px;
   }
-  #space #eventList #eventBlock .eventDetailsBlock #eventDetails #eventInvite {
+  #space #eventList #allEvents .eventBlock .eventDetailsBlock #eventDetails #eventInvite #eventInviteBtn {
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    border: 1px solid black;
+    margin: 3px auto;
+    padding: 3px 0px 3px 5px;
+    width: 190px;
+    height: 30px;
+    transition: 0.25s;
+    font-size: 1.2em;
+    font-weight: 500;
     color: black;
+    background-color: #cdb4db;
+  }
+  #space #eventList #allEvents .eventBlock .eventDetailsBlock #eventDetails #eventInvite #eventInviteBtn:hover {
+    cursor: pointer;
+    background-color: #ffafcc;
   }
   #space #eventContainer {
     overflow-y: scroll;
@@ -1196,7 +1312,7 @@
     display: none;
   }
   #space #eventContainer #event #calendar {
-    padding-top: 20px;
+    padding-top: 0px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1423,8 +1539,52 @@
   #space #expandedSpacesInfo #spaceNav #myInviteList {
     grid-column: 1/2;
     grid-row: 4/5;
+    margin-top: 20px;
     justify-self: center;
     align-self: center;
+    width: 300px;
+  }
+  #space #expandedSpacesInfo #spaceNav #myInviteList .inviteBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #cdb4db;
+    border-radius: 4px;
+    padding: 20px 10px;
+  }
+  #space #expandedSpacesInfo #spaceNav #myInviteList .inviteBlock h3 {
+    margin: 5px;
+    text-align: center;
+  }
+  #space #expandedSpacesInfo #spaceNav #myInviteList .inviteBlock p {
+    width: 100%;
+  }
+  #space #expandedSpacesInfo #spaceNav #myInviteList .inviteBlock .inviteBtns .acceptBtn {
+    border: none;
+    outline: none;
+    margin-right: 3px;
+    background-color: #bde0fe;
+    border-radius: 4px;
+    height: 30px;
+    width: 70px;
+  }
+  #space #expandedSpacesInfo #spaceNav #myInviteList .inviteBlock .inviteBtns .acceptBtn:hover {
+    cursor: pointer;
+    background-color: #cdb4db;
+  }
+  #space #expandedSpacesInfo #spaceNav #myInviteList .inviteBlock .inviteBtns .declineBtn {
+    border: none;
+    outline: none;
+    margin-right: 3px;
+    background-color: #ffc8dd;
+    border-radius: 4px;
+    height: 30px;
+    width: 70px;
+  }
+  #space #expandedSpacesInfo #spaceNav #myInviteList .inviteBlock .inviteBtns .declineBtn:hover {
+    cursor: pointer;
+    background-color: #ffafcc;
   }
   #space #expandedMemberInfo {
     grid-column: 2/7;
@@ -1728,7 +1888,6 @@
     outline: none;
     background-color: #cdb4db;
     border-radius: 4px;
-    border: 1px solid black;
     height: 40px;
     width: 80px;
     margin-left: 4px;
@@ -1893,6 +2052,7 @@
     overflow-y: scroll;
     scroll-snap-type: y proximity;
     scroll-behavior: smooth;
+    background-color: white;
     display: grid;
     grid-template-rows: auto auto 1fr;
   }
@@ -1926,20 +2086,95 @@
     padding-bottom: 5px;
     border-bottom: 2px solid #ffc8dd;
   }
-  #space #expandedEventList #eventBlock .eventInfo {
+  #space #expandedEventList #allEvents {
+    justify-self: center;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #expandedEventList #allEvents .eventBlock {
+    border: 2px solid #cdb4db;
+    padding: 10px 20px;
+    width: 350px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #expandedEventList #allEvents .eventBlock .eventInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #expandedEventList #allEvents .eventBlock .eventInfo h4 {
+    color: black;
+    border-bottom: 2px solid #a2d2ff;
+  }
+  #space #expandedEventList #allEvents .eventBlock .eventInfo h4:hover {
+    cursor: pointer;
+  }
+  #space #expandedEventList #allEvents .eventBlock .eventInfo p .start {
+    color: #3b3b6c;
+    font-weight: 900;
+  }
+  #space #expandedEventList #allEvents .eventBlock .eventInfo p .end {
+    color: #c27b87;
+  }
+  #space #expandedEventList #allEvents .eventBlock .eventDetailsBlock {
+    margin-top: 20px;
+  }
+  #space #expandedEventList #allEvents .eventBlock .eventDetailsBlock #eventDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #space #expandedEventList #allEvents .eventBlock .eventDetailsBlock #eventDetails #details .attendees {
     color: black;
   }
-  #space #expandedEventList #eventBlock .eventInfo h4 {
-    color: black;
+  #space #expandedEventList #allEvents .eventBlock .eventDetailsBlock #eventDetails #eventInvite {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  #space #expandedEventList #eventBlock .eventInfo p {
-    color: black;
+  #space #expandedEventList #allEvents .eventBlock .eventDetailsBlock #eventDetails #eventInvite h4 {
+    color: #3b3b6c;
   }
-  #space #expandedEventList #eventBlock .eventDetailsBlock #eventDetails #details .attendees {
+  #space #expandedEventList #allEvents .eventBlock .eventDetailsBlock #eventDetails #eventInvite #eventInviteInput {
     color: black;
+    margin: 3px auto;
+    padding: 3px 0px 3px 5px;
+    height: 30px;
+    width: 190px;
+    border: 1px solid #ffc8dd;
+    background-color: white;
+    opacity: 0.8;
+    border-radius: 3px;
   }
-  #space #expandedEventList #eventBlock .eventDetailsBlock #eventDetails #eventInvite {
+  #space #expandedEventList #allEvents .eventBlock .eventDetailsBlock #eventDetails #eventInvite #eventInviteBtn {
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    border: 1px solid black;
+    margin: 3px auto;
+    padding: 3px 0px 3px 5px;
+    width: 190px;
+    height: 30px;
+    transition: 0.25s;
+    font-size: 1.2em;
+    font-weight: 500;
     color: black;
+    background-color: #cdb4db;
+  }
+  #space #expandedEventList #allEvents .eventBlock .eventDetailsBlock #eventDetails #eventInvite #eventInviteBtn:hover {
+    cursor: pointer;
+    background-color: #ffafcc;
   }
   #space #expandedEventContainer {
     grid-column: 2/7;
@@ -2640,19 +2875,19 @@
 #mobileSpace #eventAdmin #eventList::-webkit-scrollbar {
   display: none;
 }
-#mobileSpace #eventAdmin #eventList #eventBlock .eventInfo {
+#mobileSpace #eventAdmin #eventList #allEvents #eventBlock .eventInfo {
   color: black;
 }
-#mobileSpace #eventAdmin #eventList #eventBlock .eventInfo h4 {
+#mobileSpace #eventAdmin #eventList #allEvents #eventBlock .eventInfo h4 {
   color: black;
 }
-#mobileSpace #eventAdmin #eventList #eventBlock .eventInfo p {
+#mobileSpace #eventAdmin #eventList #allEvents #eventBlock .eventInfo p {
   color: black;
 }
-#mobileSpace #eventAdmin #eventList #eventBlock .eventDetailsBlock #eventDetails #details .attendees {
+#mobileSpace #eventAdmin #eventList #allEvents #eventBlock .eventDetailsBlock #eventDetails #details .attendees {
   color: black;
 }
-#mobileSpace #eventAdmin #eventList #eventBlock .eventDetailsBlock #eventDetails #eventInvite {
+#mobileSpace #eventAdmin #eventList #allEvents #eventBlock .eventDetailsBlock #eventDetails #eventInvite {
   color: black;
 }
 #mobileSpace #eventAdmin #event {

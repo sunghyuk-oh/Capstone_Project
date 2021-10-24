@@ -129,7 +129,12 @@ function Space(props) {
         >
           <h4>{event.title}</h4>
           <p>
-            {startDate} - {endDate}
+            <span className="start">Start Date</span> -{' '}
+            <span className="end">End Date</span>
+          </p>
+          <p>
+            <span className="start">{startDate}</span> -{' '}
+            <span className="end">{endDate}</span>
           </p>
         </div>
         {isEventSlideDown && singleEventToggle === event.event_id ? (
@@ -273,7 +278,7 @@ function Space(props) {
               <Icon name="expand arrows alternate" color="blue" />
             </button>
             <h3 id="eventListTitle">Upcoming Events</h3>
-            {allEvents}
+            <div id="allEvents">{allEvents}</div>
           </section>
           <div
             id={
@@ -412,7 +417,7 @@ function Space(props) {
             <div id="eventAdmin">
               <section id="eventList">
                 <h3>Upcoming Events</h3>
-                {allEvents}
+                <div id="allEvents">{allEvents}</div>
               </section>
               <Event
                 events={events}

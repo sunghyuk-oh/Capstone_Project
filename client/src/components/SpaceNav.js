@@ -118,13 +118,17 @@ function SpaceNav(props) {
         </p>
         <div className="inviteBtns">
           <button
+            className="acceptBtn"
             onClick={() =>
               handleInviteAccept(invite.space_invite_id, invite.space_id)
             }
           >
             Accept
           </button>
-          <button onClick={() => handleInviteDecline(invite.space_id)}>
+          <button
+            className="declineBtn"
+            onClick={() => handleInviteDecline(invite.space_id)}
+          >
             Decline
           </button>
         </div>
