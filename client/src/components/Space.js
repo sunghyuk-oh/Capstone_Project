@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Chat from './Chat';
 import SpaceNav from './SpaceNav';
-import MobileSpace from './MobileSpace';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { Icon } from 'semantic-ui-react';
