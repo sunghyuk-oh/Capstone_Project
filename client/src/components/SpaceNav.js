@@ -175,7 +175,6 @@ function SpaceNav(props) {
             <p style={messageStyle}>{declineMsg.message}</p>
           </div>
         ) : null}
-        {allMyInvites}
       </section>
       <section id="myInviteList">{allMyInvites}</section>
     </section>

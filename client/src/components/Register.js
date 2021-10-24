@@ -6,8 +6,8 @@ import * as actionCreators from '../stores/creators/actionCreators';
 function Register(props) {
   const history = useHistory();
   const [userRegister, setUserRegister] = useState({});
-  const [errorMsg, setErrorMsg] = useState({ isDisplay: false, message: '' })
-  const messageStyle = { color: '#fdafcc'}
+  const [errorMsg, setErrorMsg] = useState({ isDisplay: false, message: '' });
+  const messageStyle = { color: '#8a2846' };
 
   const handleRegisterInput = (e) => {
     setUserRegister({
@@ -20,8 +20,8 @@ function Register(props) {
     props.onRegister(userRegister, history, setErrorMsg);
     setUserRegister({});
 
-    setTimeout(() => { 
-      setErrorMsg({ isDisplay: false, message: '' }) 
+    setTimeout(() => {
+      setErrorMsg({ isDisplay: false, message: '' });
     }, 8000);
   };
 
@@ -29,7 +29,11 @@ function Register(props) {
     <section id="register">
       <div id="registerCredentials">
         <h3 id="registerTitle">Register</h3>
-        { errorMsg.isDisplay ? <div><p style={messageStyle}>{errorMsg.message}</p></div> : null }
+        {errorMsg.isDisplay ? (
+          <div>
+            <p style={messageStyle}>{errorMsg.message}</p>
+          </div>
+        ) : null}
         <input
           type="text"
           onChange={handleRegisterInput}

@@ -55,6 +55,7 @@
         background-color: white;
         border-radius: 4px;
         width: 250px;
+        margin-bottom: 10px;
         @include flex(column, center, center);
         #spaceCredentials {
           grid-column: 1 / 2;
