@@ -3,28 +3,27 @@ const router = express.Router();
 router.post('/createSpace', (req, res) => {
   const { spaceName, userID } = req.body;
 
-  db.none('INSERT INTO spaces (space_name, user_id) VALUES ($1, $2)', [
-    spaceName,
-    userID
-  ])
-    .then(() => {
-      db.any(
-        'SELECT space_id FROM spaces WHERE space_name = $1 AND user_id = $2',
+  db.tx((t) => {
+    return t
+      .one(
+        'INSERT INTO spaces (space_name, user_id) VALUES ($1, $2) RETURNING space_id',
         [spaceName, userID]
-      ).then((space) => {
-        db.none(
-          'INSERT INTO space_members (space_id, user_id, created_space) VALUES ($1, $2, $3)',
-          [space[0].space_id, userID, true]
-        );
-        res.json({
-          success: true,
-          message: 'The new space has been created!',
-          spaceID: space[0].space_id,
-          spaceName: spaceName
+      )
+      .then((space) => {
+        t.one(
+          'INSERT INTO space_members (space_id, user_id, created_space) VALUES ($1, $2, $3) RETURNING space_id',
+          [space.space_id, userID, true]
+        ).then((space) => {
+          res.json({
+            success: true,
+            message: 'The new space has been created!',
+            spaceID: space.space_id,
+            spaceName: spaceName
+          });
         });
-      });
-    })
-    .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  });
 });
 
 router.post('/acceptSpaceInvite', (req, res) => {
@@ -80,6 +79,83 @@ router.delete('/declineSpaceInvite', (req, res) => {
     .catch((err) => console.log(err));
 });
 
+// router.post('/invite', (req, res) => {
+//   const recipientUserName = req.body.recipientUserName;
+//   const senderUserID = req.body.userID;
+//   const spaceID = req.body.spaceID;
+//   const spaceName = req.body.spaceName;
+//   let transport = nodemailer.createTransport({
+//     host: 'smtp.mailtrap.io',
+//     port: 2525,
+//     auth: {
+//       user: '3442ef7accc2bb',
+//       pass: 'cdbb4398ec1243'
+//     }
+//   });
+
+//   db.one('SELECT first_name, last_name FROM users WHERE user_id = $1', [
+//     senderUserID
+//   ])
+//     .then((sender) => {
+//       const senderFirstName = sender.first_name;
+//       const senderLastName = sender.last_name;
+
+//       db.any('SELECT user_id, username, email FROM users WHERE username = $1', [
+//         recipientUserName
+//       ]).then((user) => {
+//         if (user.length > 0) {
+//           const recipientUserID = user[0].user_id;
+//           const recipientEmail = user[0].email;
+//           const recipientUsername = user[0].username;
+
+//           db.any(
+//             'SELECT space_invite_id from space_invites where recipient_user_id = $1 and space_id = $2',
+//             [recipientUserID, spaceID]
+//           ).then((foundRecipient) => {
+//             if (foundRecipient.length > 0) {
+//               res.json({
+//                 success: false,
+//                 message: `${recipientUsername} has already been invited to Space.`
+//               });
+//             } else {
+//               const message = {
+//                 from: 'gatheround@email.com',
+//                 to: `${recipientEmail}`,
+//                 subject: `You've been invited to a new Gather Space!`,
+//                 html: `
+//               <h3>You've been invited to a new Space!</h3>
+//               <p>Hi ${recipientUserName}! You've been invited to ${spaceName} by ${senderFirstName} ${senderLastName}! Click the button below to view your invite!</p>
+//               <button href="http://localhost:3000/home" style="border: none; outline: none; border-radius: 3px; border: 1px solid black; margin: 3px auto; padding: 3px 0px 3px 5px; width: 190px; height: 30px; transition: 0.25s; font-size: 12px; font-weight: 500; color: black; background-color: #cdb4db;">View</button> `
+//               };
+
+//               transport.sendMail(message, function (err, info) {
+//                 if (err) {
+//                   console.log(err);
+//                 } else {
+//                   console.log(info);
+//                 }
+//               });
+
+//               db.none(
+//                 'INSERT INTO space_invites (space_id, sender_user_id, recipient_user_id) VALUES($1, $2, $3)',
+//                 [spaceID, senderUserID, recipientUserID]
+//               ).then(
+//                 res.json({
+//                   success: true,
+//                   message: `${recipientUsername} has been invited to Space.`
+//                 })
+//               );
+//             }
+//           });
+//         } else {
+//           res.json({ success: false, message: 'Username does not exist.' });
+//         }
+//       });
+//     })
+//     .catch((err) => console.log(err));
+// });
+
+// complete:  Using Tasks and Transactions
 router.post('/invite', (req, res) => {
   const recipientUserName = req.body.recipientUserName;
   const senderUserID = req.body.userID;
@@ -94,66 +170,82 @@ router.post('/invite', (req, res) => {
     }
   });
 
-  db.one('SELECT first_name, last_name FROM users WHERE user_id = $1', [
-    senderUserID
-  ])
-    .then((sender) => {
-      const senderFirstName = sender.first_name;
-      const senderLastName = sender.last_name;
+  db.task(async (t) => {
+    return t
+      .oneOrNone(
+        'SELECT users.first_name, last_name FROM users WHERE user_id = $1',
+        [senderUserID]
+      )
+      .then((sender) => {
+        const senderFirstName = sender.first_name;
+        const senderLastName = sender.last_name;
 
-      db.any('SELECT user_id, username, email FROM users WHERE username = $1', [
-        recipientUserName
-      ]).then((user) => {
-        if (user.length > 0) {
-          const recipientUserID = user[0].user_id;
-          const recipientEmail = user[0].email;
-          const recipientUsername = user[0].username;
+        return t
+          .oneOrNone(
+            'SELECT user_id, email, username from users where username = $1',
+            [recipientUserName]
+          )
+          .then((user) => {
+            if (user) {
+              const recipientUserID = user.user_id;
+              const recipientEmail = user.email;
 
-          db.any(
-            'SELECT space_invite_id from space_invites where recipient_user_id = $1 and space_id = $2',
-            [recipientUserID, spaceID]
-          ).then((foundRecipient) => {
-            if (foundRecipient.length > 0) {
-              res.json({
-                success: false,
-                message: `${recipientUsername} has already been invited to Space.`
-              });
-            } else {
-              const message = {
-                from: 'gatheround@email.com',
-                to: `${recipientEmail}`,
-                subject: `You've been invited to a new Gather Space!`,
-                html: `
+              return t
+                .oneOrNone(
+                  'SELECT space_invite_id, recipient_username from space_invites where recipient_user_id = $1 and space_id = $2',
+                  [recipientUserID, spaceID]
+                )
+                .then((foundRecipient) => {
+                  if (foundRecipient) {
+                    res.json({
+                      success: false,
+                      message: `${recipientUserName} has already been invited to Space.`
+                    });
+                  } else {
+                    const message = {
+                      from: 'gatheround@email.com',
+                      to: `${recipientEmail}`,
+                      subject: `You've been invited to a new Gather Space!`,
+                      html: `
               <h3>You've been invited to a new Space!</h3>
               <p>Hi ${recipientUserName}! You've been invited to ${spaceName} by ${senderFirstName} ${senderLastName}! Click the button below to view your invite!</p>
-              <button href="http://localhost:3000/home" style="border: none; outline: none; border-radius: 3px; border: 1px solid black; margin: 3px auto; padding: 3px 0px 3px 5px; width: 190px; height: 30px; transition: 0.25s; font-size: 12px; font-weight: 500; color: black; background-color: #cdb4db;">View</button> `
-              };
+              <a href="http://localhost:3000/home"><button style="border: none; outline: none; border-radius: 3px; border: 1px solid black; margin: 3px auto; padding: 3px 0px 3px 5px; width: 100px; height: 30px; transition: 0.25s; font-size: 12px; font-weight: 500; color: black; background-color: #cdb4db;">View</button> </a>`
+                    };
 
-              transport.sendMail(message, function (err, info) {
-                if (err) {
-                  console.log(err);
-                } else {
-                  console.log(info);
-                }
-              });
+                    transport.sendMail(message, function (err, info) {
+                      if (err) {
+                        console.log(err);
+                      } else {
+                        console.log(info);
+                      }
+                    });
 
-              db.none(
-                'INSERT INTO space_invites (space_id, sender_user_id, recipient_user_id) VALUES($1, $2, $3)',
-                [spaceID, senderUserID, recipientUserID]
-              ).then(
-                res.json({
-                  success: true,
-                  message: `${recipientUsername} has been invited to Space.`
-                })
-              );
+                    db.tx(async (t) => {
+                      await t.none(
+                        'INSERT INTO space_invites (space_id, sender_user_id, recipient_username, recipient_user_id) VALUES($1, $2, $3, $4)',
+                        [
+                          spaceID,
+                          senderUserID,
+                          recipientUserName,
+                          recipientUserID
+                        ]
+                      );
+                    }).then(() => {
+                      res.json({
+                        success: true,
+                        message: `${recipientUserName} has been invited to Space: ${spaceID}`
+                      });
+                    });
+                  }
+                });
+            } else {
+              res.json({ success: false, message: 'Username does not exist.' });
             }
-          });
-        } else {
-          res.json({ success: false, message: 'Username does not exist.' });
-        }
-      });
-    })
-    .catch((err) => console.log(err));
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  });
 });
 
 // authenticate space

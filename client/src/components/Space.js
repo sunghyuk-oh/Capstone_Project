@@ -60,11 +60,11 @@ function Space(props) {
   const displayAllEvents = () => {
     actionCreators.displayAllEvents(spaceID, setEvents);
   };
-  
+
   const renderAllPosts = () => {
     actionCreators.displayAllPosts(spaceID, setPosts);
   };
-  
+
   const handleUsernameInput = (e) => {
     setRecipientUserName(e.target.value);
   };
@@ -204,6 +204,11 @@ function Space(props) {
             <div id="memberList">{allMembers}</div>
             <section id="userInvite">
               <span className="sectionHeader">User Invite</span>
+              {inviteMsg.isDisplay ? (
+                <div>
+                  <p style={messageStyle}>{inviteMsg.message}</p>
+                </div>
+              ) : null}
               <input
                 id="inviteInput"
                 value={recipientUserName}
@@ -360,6 +365,11 @@ function Space(props) {
               </section>
               <section id="userInvite">
                 <span className="sectionHeader">User Invite</span>
+                {inviteMsg.isDisplay ? (
+                  <div>
+                    <p style={messageStyle}>{inviteMsg.message}</p>
+                  </div>
+                ) : null}
                 <input
                   id="inviteInput"
                   value={recipientUserName}
