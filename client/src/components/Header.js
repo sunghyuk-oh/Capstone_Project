@@ -8,9 +8,9 @@ const Header = (props) => {
   const history = useHistory();
 
   const handleGuestLogin = () => {
-    const guest = {username: 'guest', password: 'guest123'}
+    const guest = { username: 'guest', password: 'guest123' };
     props.onLogin(guest, history, {});
-  }
+  };
 
   return (
     <header id="header">
@@ -36,7 +36,7 @@ const Header = (props) => {
         ) : (
           <div className="authBtns">
             <button id="guest" onClick={handleGuestLogin}>
-              Login as guest
+              Guest Login
             </button>
           </div>
         )}
@@ -53,7 +53,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLogin: (data, history, setErrorMsg) => dispatch(actionCreators.login(data, history, setErrorMsg))
+    onLogin: (data, history, setErrorMsg) =>
+      dispatch(actionCreators.login(data, history, setErrorMsg))
   };
 };
 
