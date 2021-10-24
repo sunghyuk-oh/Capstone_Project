@@ -134,7 +134,7 @@ router.post('/invite', (req, res) => {
               <h3>You've been invited to a new Space!</h3>
               <p>Hi ${recipientUserName}! You've been invited to ${spaceName} by ${senderFirstName} ${senderLastName}!</p> 
               <p>Click the button below to view your invite!</p>
-              <a href="http://gather.surge.sh/"><button style="border: none; outline: none; border-radius: 3px; border: 1px solid black; margin: 3px auto; padding: 3px 0px 3px 5px; width: 100px; height: 30px; transition: 0.25s; font-size: 12px; font-weight: 500; color: black; background-color: #cdb4db;">View</button> </a>`
+              <a href="http://gather.surge.sh/home"><button style="border: none; outline: none; border-radius: 3px; border: 1px solid black; margin: 3px auto; padding: 3px 0px 3px 5px; width: 100px; height: 30px; transition: 0.25s; font-size: 12px; font-weight: 500; color: black; background-color: #cdb4db;">View</button> </a>`
                     };
 
                     transport.sendMail(message, function (err, info) {
