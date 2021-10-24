@@ -15,6 +15,17 @@ const Landing = () => {
       <div id="bodyLogo">
         <img id="logo1" src={logo1} alt="Gather Main Logo"></img>
       </div>
+      <div id="siteInfo">
+        <h2>Welcome To Gather</h2>
+        <h3>
+          We are a social media site where you can create Gathering Spaces for
+          you and your friends
+        </h3>
+        <h4>
+          You can post messages, chat, create events just for your inner circle
+        </h4>
+        <h4>Keep it in your circle, and Gather today!</h4>
+      </div>
     </section>
   );
 };
