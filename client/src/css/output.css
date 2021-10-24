@@ -745,6 +745,7 @@
     border: 2px solid #cdb4db;
     border-radius: 4px;
     padding: 10px;
+    margin: 10px 0px;
   }
   #space #spacesInfo #spaceNav #myInviteList .inviteBlock h3 {
     margin: 5px;
@@ -1645,6 +1646,7 @@
     border: 2px solid #cdb4db;
     border-radius: 4px;
     padding: 20px 10px;
+    margin: 10px 0px;
   }
   #space #expandedSpacesInfo #spaceNav #myInviteList .inviteBlock h3 {
     margin: 5px;
@@ -2652,8 +2654,53 @@
 #mobileSpace #mobileSpacesInfo #spaceNav #myInviteList {
   grid-column: 1/2;
   grid-row: 4/5;
+  margin: 20px;
   justify-self: center;
   align-self: center;
+  width: 300px;
+}
+#mobileSpace #mobileSpacesInfo #spaceNav #myInviteList .inviteBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #cdb4db;
+  border-radius: 4px;
+  padding: 20px 10px;
+  margin: 10px 0px;
+}
+#mobileSpace #mobileSpacesInfo #spaceNav #myInviteList .inviteBlock h3 {
+  margin: 5px;
+  text-align: center;
+}
+#mobileSpace #mobileSpacesInfo #spaceNav #myInviteList .inviteBlock p {
+  width: 100%;
+}
+#mobileSpace #mobileSpacesInfo #spaceNav #myInviteList .inviteBlock .inviteBtns .acceptBtn {
+  border: none;
+  outline: none;
+  margin-right: 3px;
+  background-color: #bde0fe;
+  border-radius: 4px;
+  height: 30px;
+  width: 70px;
+}
+#mobileSpace #mobileSpacesInfo #spaceNav #myInviteList .inviteBlock .inviteBtns .acceptBtn:hover {
+  cursor: pointer;
+  background-color: #cdb4db;
+}
+#mobileSpace #mobileSpacesInfo #spaceNav #myInviteList .inviteBlock .inviteBtns .declineBtn {
+  border: none;
+  outline: none;
+  margin-right: 3px;
+  background-color: #ffc8dd;
+  border-radius: 4px;
+  height: 30px;
+  width: 70px;
+}
+#mobileSpace #mobileSpacesInfo #spaceNav #myInviteList .inviteBlock .inviteBtns .declineBtn:hover {
+  cursor: pointer;
+  background-color: #ffafcc;
 }
 #mobileSpace #postSection {
   grid-column: 1/4;
