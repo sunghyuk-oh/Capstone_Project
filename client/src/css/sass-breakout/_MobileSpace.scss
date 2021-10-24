@@ -511,9 +511,7 @@
   }
   #eventAdmin {
     @include scroll();
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    @include hideScroll();
     grid-column: 1 / 4;
     grid-row: 1 / 5;
     justify-self: center;
@@ -521,34 +519,92 @@
     @include flex(column, center, center);
     #eventList {
       @include scroll();
-      @include flex(column, center, center);
-      background-color: white;
+      @include hideScroll();
       padding: 15px;
       width: 95%;
       margin-bottom: 20px;
-      &::-webkit-scrollbar {
-        display: none;
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      #eventListTitle {
+        justify-self: center;
+        margin-bottom: none;
+        padding-bottom: 5px;
+        border-bottom: 2px solid $lightPalette2;
       }
       #allEvents {
-        #eventBlock {
+        justify-self: center;
+        @include flex(column, center, center);
+        .eventBlock {
+          border: 2px solid $lightPalette1;
+          background-color: white;
+          padding: 10px 20px;
+          width: 350px;
+          margin-bottom: 10px;
+          @include flex(column, center, center);
           .eventInfo {
-            color: black;
+            @include flex(column, center, center);
             h4 {
               color: black;
+              border-bottom: 2px solid $lightPalette5;
+              &:hover {
+                cursor: pointer;
+              }
             }
             p {
-              color: black;
+              .start {
+                color: rgb(59, 59, 108);
+                font-weight: 900;
+              }
+              .end {
+                color: rgb(194, 123, 135);
+              }
             }
           }
           .eventDetailsBlock {
+            margin-top: 20px;
             #eventDetails {
+              @include flex(column, center, center);
               #details {
                 .attendees {
                   color: black;
                 }
               }
               #eventInvite {
-                color: black;
+                margin-top: 20px;
+                @include flex(column, center, center);
+                h4 {
+                  color: rgb(59, 59, 108);
+                }
+                #eventInviteInput {
+                  color: black;
+                  margin: 3px auto;
+                  padding: 3px 0px 3px 5px;
+                  height: 30px;
+                  width: 190px;
+                  border: 1px solid $lightPalette2;
+                  background-color: white;
+                  opacity: 0.8;
+                  border-radius: 3px;
+                }
+                #eventInviteBtn {
+                  &:hover {
+                    cursor: pointer;
+                    background-color: $lightPalette3;
+                  }
+                  outline: none;
+                  border: none;
+                  border-radius: 3px;
+                  border: 1px solid black;
+                  margin: 3px auto;
+                  padding: 3px 0px 3px 5px;
+                  width: 190px;
+                  height: 30px;
+                  transition: 0.25s;
+                  font-size: 1.2em;
+                  font-weight: 500;
+                  color: black;
+                  background-color: $lightPalette1;
+                }
               }
             }
           }

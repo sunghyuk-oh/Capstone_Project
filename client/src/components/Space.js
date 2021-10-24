@@ -416,7 +416,7 @@ function Space(props) {
           {isActive['active'] === 'events' ? (
             <div id="eventAdmin">
               <section id="eventList">
-                <h3>Upcoming Events</h3>
+                <h3 id="eventListTitle">Upcoming Events</h3>
                 <div id="allEvents">{allEvents}</div>
               </section>
               <Event
