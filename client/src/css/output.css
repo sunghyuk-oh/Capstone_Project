@@ -2520,6 +2520,12 @@
   grid-template-rows: auto 1fr auto 1fr;
   height: 100%;
   width: 100%;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+#mobileSpace #mobileSpacesInfo #spaceNav::-webkit-scrollbar {
+  display: none;
 }
 #mobileSpace #mobileSpacesInfo #spaceNav #spaceCredentials {
   grid-column: 1/2;
@@ -2656,8 +2662,14 @@
   grid-row: 4/5;
   margin: 20px;
   justify-self: center;
-  align-self: center;
-  width: 300px;
+  align-self: flex-start;
+  width: 275px;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+#mobileSpace #mobileSpacesInfo #spaceNav #myInviteList::-webkit-scrollbar {
+  display: none;
 }
 #mobileSpace #mobileSpacesInfo #spaceNav #myInviteList .inviteBlock {
   display: flex;
@@ -3273,6 +3285,12 @@
   border-radius: 4px;
   height: 80vh;
   width: 85%;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+#home #spaceNav::-webkit-scrollbar {
+  display: none;
 }
 #home #spaceNav #spaceCredentials {
   grid-column: 1/2;
@@ -3411,8 +3429,14 @@
   grid-row: 4/5;
   margin-top: 20px;
   justify-self: center;
-  align-self: center;
+  align-self: flex-start;
   width: 300px;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+#home #spaceNav #myInviteList::-webkit-scrollbar {
+  display: none;
 }
 #home #spaceNav #myInviteList .inviteBlock {
   display: flex;
@@ -3422,6 +3446,7 @@
   border: 2px solid #cdb4db;
   border-radius: 4px;
   padding: 20px 10px;
+  margin: 10px 0px;
 }
 #home #spaceNav #myInviteList .inviteBlock h3 {
   margin: 5px;
