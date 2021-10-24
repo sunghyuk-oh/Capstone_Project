@@ -14,14 +14,14 @@ function authenticate(req, res, next) {
                 if (authUser.length > 0) {
                     next()
                 } else {
-                    res.redirect('http://localhost:8080/')
+                    res.redirect('http://gather.surge.sh/')
                 }
             })
         } else {
-            res.redirect('http://localhost:8080/')
+            res.redirect('http://gather.surge.sh/')
         }
     } else {
-        res.redirect('http://localhost:8080/')
+        res.redirect('http://gather.surge.sh/')
     }
 }
 

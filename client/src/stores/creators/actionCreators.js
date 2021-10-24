@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 // Home Component Actions
 export const addSpace = (data, history) => {
-  fetch('http://localhost:8080/spaces/createSpace', {
+  fetch('https://safe-anchorage-12116.herokuapp.com/spaces/createSpace', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
@@ -19,7 +19,7 @@ export const addSpace = (data, history) => {
 };
 
 export const loadSpaces = (data, setAllSpaces) => {
-  fetch(`http://localhost:8080/spaces/viewSpace/${data.userID}`, {
+  fetch(`https://safe-anchorage-12116.herokuapp.com/spaces/viewSpace/${data.userID}`, {
     method: 'GET',
     headers: { Authorization: `Bearer ${data.token}` }
   })
@@ -30,7 +30,7 @@ export const loadSpaces = (data, setAllSpaces) => {
 };
 
 export const loadInvites = (data, setPendingSpace) => {
-  fetch(`http://localhost:8080/spaces/viewInvites/${data.userID}`, {
+  fetch(`https://safe-anchorage-12116.herokuapp.com/spaces/viewInvites/${data.userID}`, {
     method: 'GET',
     headers: { Authorization: `Bearer ${data.token}` }
   })
@@ -41,7 +41,7 @@ export const loadInvites = (data, setPendingSpace) => {
 };
 
 export const acceptSpaceInvite = (IDs, setPendingMsg, setPendingSpace, setAllSpaces) => {
-  fetch(`http://localhost:8080/spaces/acceptSpaceInvite`, {
+  fetch(`https://safe-anchorage-12116.herokuapp.com/spaces/acceptSpaceInvite`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(IDs)
@@ -55,7 +55,7 @@ export const acceptSpaceInvite = (IDs, setPendingMsg, setPendingSpace, setAllSpa
 }
 
 export const declineSpaceInvite = (IDs, setDeclineMsg, setPendingSpace) => {
-  fetch(`http://localhost:8080/spaces/declineSpaceInvite`, {
+  fetch(`https://safe-anchorage-12116.herokuapp.com/spaces/declineSpaceInvite`, {
     method: "DELETE",
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(IDs)
@@ -71,7 +71,7 @@ export const declineSpaceInvite = (IDs, setDeclineMsg, setPendingSpace) => {
 // Login Component Actions
 export const login = (data, history, setErrorMsg) => {
   return (dispatch) => {
-    fetch('http://localhost:8080/users/login', {
+    fetch('https://safe-anchorage-12116.herokuapp.com/users/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -94,7 +94,7 @@ export const login = (data, history, setErrorMsg) => {
 
 export const register = (data, history, setErrorMsg) => {
   return (dispatch) => {
-    fetch('http://localhost:8080/users/register', {
+    fetch('https://safe-anchorage-12116.herokuapp.com/users/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -117,7 +117,7 @@ export const register = (data, history, setErrorMsg) => {
 
 // Space Component Actions
 export const authUsers = (data, history) => {
-  fetch(`http://localhost:8080/spaces/auth/${data.spaceID}/${data.userID}`)
+  fetch(`https://safe-anchorage-12116.herokuapp.com/spaces/auth/${data.spaceID}/${data.userID}`)
     .then((response) => response.json())
     .then((result) => {
       if (result.success) {
@@ -132,7 +132,7 @@ export const authUsers = (data, history) => {
 };
 
 export const listMembers = (data, updateState) => {
-  fetch(`http://localhost:8080/spaces/displayMembers/${data}`)
+  fetch(`https://safe-anchorage-12116.herokuapp.com/spaces/displayMembers/${data}`)
     .then((response) => response.json())
     .then((result) => {
       if (result.success) {
@@ -143,7 +143,7 @@ export const listMembers = (data, updateState) => {
 };
 
 export const invite = (data, setInviteMsg) => {
-  fetch('http://localhost:8080/spaces/invite', {
+  fetch('https://safe-anchorage-12116.herokuapp.com/spaces/invite', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
@@ -163,7 +163,7 @@ export const invite = (data, setInviteMsg) => {
 
 // Event Component Actions
 export const displayAllEvents = (spaceID, setAllEvents) => {
-  fetch(`http://localhost:8080/events/displayAllEvents/${spaceID}`)
+  fetch(`https://safe-anchorage-12116.herokuapp.com/events/displayAllEvents/${spaceID}`)
     .then((response) => response.json())
     .then((result) => {
       if (result.success) {
@@ -176,7 +176,7 @@ export const displayAllEvents = (spaceID, setAllEvents) => {
 };
 
 export const addNewEvent = (event, setEvents) => {
-  fetch('http://localhost:8080/events/createEvent', {
+  fetch('https://safe-anchorage-12116.herokuapp.com/events/createEvent', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(event)
@@ -195,7 +195,7 @@ export const addNewEvent = (event, setEvents) => {
 
 export const displayAllAttendees = (eventID, spaceID, setEventAttendees) => {
   fetch(
-    `http://localhost:8080/events/displayAllEventAttendees/${eventID}/${spaceID}`
+    `https://safe-anchorage-12116.herokuapp.com/events/displayAllEventAttendees/${eventID}/${spaceID}`
   )
     .then((response) => response.json())
     .then((result) => {
@@ -204,7 +204,7 @@ export const displayAllAttendees = (eventID, spaceID, setEventAttendees) => {
 };
 
 export const inviteMember = (invitee, setAttendees, setEventInviteMsg) => {
-  fetch('http://localhost:8080/events/inviteMember', {
+  fetch('https://safe-anchorage-12116.herokuapp.com/events/inviteMember', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(invitee)
@@ -223,7 +223,7 @@ export const inviteMember = (invitee, setAttendees, setEventInviteMsg) => {
 
 // User Account Component
 export const displayUserInfo = (userID, userToken, setUserInfo) => {
-  fetch(`http://localhost:8080/accounts/displayUserInfo/${userID}`, {
+  fetch(`https://safe-anchorage-12116.herokuapp.com/accounts/displayUserInfo/${userID}`, {
     method: 'GET',
     headers: { Authorization: `Bearer ${userToken}` }
   })
@@ -237,7 +237,7 @@ export const displayUserInfo = (userID, userToken, setUserInfo) => {
 };
 
 export const updateUserInfo = (userInfo) => {
-  fetch('http://localhost:8080/accounts/updateUserInfo', {
+  fetch('https://safe-anchorage-12116.herokuapp.com/accounts/updateUserInfo', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(userInfo)
@@ -253,7 +253,7 @@ export const updateUserInfo = (userInfo) => {
 
 // Post component
 export const displayAllPosts = (spaceID, setPosts) => {
-  fetch(`http://localhost:8080/posts/displayAllPosts/${spaceID}`)
+  fetch(`https://safe-anchorage-12116.herokuapp.com/posts/displayAllPosts/${spaceID}`)
     .then((response) => response.json())
     .then((result) => {
       if (result.success) {
@@ -264,7 +264,7 @@ export const displayAllPosts = (spaceID, setPosts) => {
 };
 
 export const onPost = (post, setPost) => {
-  fetch('http://localhost:8080/posts/savePost', {
+  fetch('https://safe-anchorage-12116.herokuapp.com/posts/savePost', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(post)
@@ -279,7 +279,7 @@ export const onPost = (post, setPost) => {
 };
 
 export const displayAllComments = (postID, setAllComments) => {
-  fetch(`http://localhost:8080/posts/DisplayAllComments/${postID}`)
+  fetch(`https://safe-anchorage-12116.herokuapp.com/posts/DisplayAllComments/${postID}`)
     .then((response) => response.json())
     .then((result) => {
       if (result.success) {
@@ -289,7 +289,7 @@ export const displayAllComments = (postID, setAllComments) => {
 };
 
 export const saveAndDisplayComments = (comment, setAllComments, setPosts) => {
-  fetch('http://localhost:8080/posts/saveAndDisplayComments', {
+  fetch('https://safe-anchorage-12116.herokuapp.com/posts/saveAndDisplayComments', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(comment)
@@ -305,7 +305,7 @@ export const saveAndDisplayComments = (comment, setAllComments, setPosts) => {
 };
 
 export const incrementLike = (postID, spaceID, setPosts) => {
-  fetch('http://localhost:8080/posts/incrementLike', {
+  fetch('https://safe-anchorage-12116.herokuapp.com/posts/incrementLike', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ postID: postID, spaceID: spaceID })

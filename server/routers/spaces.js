@@ -79,7 +79,7 @@ router.delete('/declineSpaceInvite', (req, res) => {
     .catch((err) => console.log(err));
 });
 
-// complete:  Using Tasks and Transactions
+
 router.post('/invite', (req, res) => {
   const recipientUserName = req.body.recipientUserName;
   const senderUserID = req.body.userID;
@@ -132,8 +132,9 @@ router.post('/invite', (req, res) => {
                       subject: `You've been invited to a new Gather Space!`,
                       html: `
               <h3>You've been invited to a new Space!</h3>
-              <p>Hi ${recipientUserName}! You've been invited to ${spaceName} by ${senderFirstName} ${senderLastName}! Click the button below to view your invite!</p>
-              <a href="http://localhost:3000/home"><button style="border: none; outline: none; border-radius: 3px; border: 1px solid black; margin: 3px auto; padding: 3px 0px 3px 5px; width: 100px; height: 30px; transition: 0.25s; font-size: 12px; font-weight: 500; color: black; background-color: #cdb4db;">View</button> </a>`
+              <p>Hi ${recipientUserName}! You've been invited to ${spaceName} by ${senderFirstName} ${senderLastName}!</p> 
+              <p>Click the button below to view your invite!</p>
+              <a href="http://gather.surge.sh/"><button style="border: none; outline: none; border-radius: 3px; border: 1px solid black; margin: 3px auto; padding: 3px 0px 3px 5px; width: 100px; height: 30px; transition: 0.25s; font-size: 12px; font-weight: 500; color: black; background-color: #cdb4db;">View</button> </a>`
                     };
 
                     transport.sendMail(message, function (err, info) {
@@ -172,7 +173,7 @@ router.post('/invite', (req, res) => {
   });
 });
 
-// authenticate space
+
 router.get('/auth/:spaceID/:userID', (req, res) => {
   const spaceID = req.params.spaceID;
   const userID = req.params.userID;
