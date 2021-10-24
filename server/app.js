@@ -6,7 +6,7 @@ global.pgp = require('pg-promise')();
 global.db = pgp(`${process.env.DATABASE}`);
 global.authenticate = require('./middlewares/auth');
 global.nodemailer = require('nodemailer');
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 const cors = require('cors');
 const { urlencoded } = require('express');
 
@@ -16,7 +16,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: 'gather.surge.sh',
     methods: ['GET', 'POST']
   }
 });
