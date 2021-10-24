@@ -255,8 +255,51 @@
       #myInviteList {
         grid-column: 1 / 2;
         grid-row: 4 / 5;
+        margin: 20px;
         justify-self: center;
         align-self: center;
+        width: 300px;
+        .inviteBlock {
+          @include flex(column, center, center);
+          border: 2px solid $lightPalette1;
+          border-radius: 4px;
+          padding: 20px 10px;
+          h3 {
+            margin: 5px;
+            text-align: center;
+          }
+          p {
+            width: 100%;
+          }
+          .inviteBtns {
+            .acceptBtn {
+              border: none;
+              outline: none;
+              margin-right: 3px;
+              background-color: $lightPalette4;
+              border-radius: 4px;
+              height: 30px;
+              width: 70px;
+              &:hover {
+                cursor: pointer;
+                background-color: $lightPalette1;
+              }
+            }
+            .declineBtn {
+              border: none;
+              outline: none;
+              margin-right: 3px;
+              background-color: $lightPalette2;
+              border-radius: 4px;
+              height: 30px;
+              width: 70px;
+              &:hover {
+                cursor: pointer;
+                background-color: $lightPalette3;
+              }
+            }
+          }
+        }
       }
     }
   }
