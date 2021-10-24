@@ -114,7 +114,7 @@ function SpaceNav(props) {
         <h3>Invitation to {invite.space_name}</h3>
         <p>
           You've been invited to join {invite.space_name} by{' '}
-          {invite.sender_first_name}, {invite.sender_last_name}
+          {invite.sender_first_name} {invite.sender_last_name}
         </p>
         <div className="inviteBtns">
           <button
