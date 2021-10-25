@@ -22,19 +22,25 @@ This app serves as
 
 
 
-### Screenshots:
+## Screenshots:
 
-## Landing Page
-
-## Home Page
-
-## Main Page
-
-## Mobile Landing Page Screenshot
+### Landing Page
+<img width="1916" alt="landing" src="https://user-images.githubusercontent.com/28845972/138714482-85a87e2c-1848-40eb-b2ec-95f4a4a85462.png">
 
 
+### Home Page
+<img width="1916" alt="home" src="https://user-images.githubusercontent.com/28845972/138714507-e506e07e-54c3-4111-b097-ce73c4beb3fc.png">
 
-### Video Sections:
+
+### Main Page
+<img width="1916" alt="main" src="https://user-images.githubusercontent.com/28845972/138714532-f0c972de-a1fc-4064-9309-3997f7c52cb1.png">
+
+
+### Mobile Landing Page Screenshot
+
+
+
+## Video Sections:
 
 
 
