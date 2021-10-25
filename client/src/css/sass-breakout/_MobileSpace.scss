@@ -4,8 +4,9 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr) 0.5fr;
-  height: 100vh;
+  height: 70vh;
   width: 100%;
+  row-gap: 20px;
   #componentSelect {
     grid-column: 1 / 5;
     grid-row: 5 / 6;
@@ -477,14 +478,13 @@
       border-bottom: 2px solid $lightPalette2;
     }
     #chatBox {
+      @include flex(column, center, center);
       #chatWindow {
         @include scroll();
-        &::-webkit-scrollbar {
-          display: none;
-        }
+        @include hideScroll();
         border-radius: 4px;
         height: 300px;
-        width: 380px;
+        width: 300px;
         box-shadow: 2px 2px 5px 0.8px gray;
         display: grid;
         grid-template-columns: 1fr;
@@ -533,7 +533,7 @@
         margin-top: 15px;
         @include flex(row, flex-end, center);
         textarea {
-          width: 300px;
+          width: 250px;
           height: 50px;
           border: none;
           border-radius: 4px;
@@ -561,6 +561,7 @@
     grid-column: 1 / 4;
     grid-row: 1 / 5;
     justify-self: center;
+    height: 450px;
     width: 95%;
     @include flex(column, center, center);
     #eventList {
@@ -570,7 +571,7 @@
       width: 95%;
       margin-bottom: 20px;
       display: grid;
-      grid-template-rows: 1fr 1fr;
+      grid-template-rows: auto 1fr;
       #eventListTitle {
         justify-self: center;
         margin-bottom: none;
@@ -584,7 +585,7 @@
           border: 2px solid $lightPalette1;
           background-color: white;
           padding: 10px 20px;
-          width: 350px;
+          width: 300px;
           margin-bottom: 10px;
           @include flex(column, center, center);
           .eventInfo {
@@ -748,7 +749,7 @@
       justify-self: center;
       background-color: white;
       border-radius: 4px;
-      height: 85vh;
+      height: 75vh;
       width: 85%;
     }
     #mobileSpacesInfo {
@@ -758,7 +759,7 @@
       justify-self: center;
       background-color: white;
       border-radius: 4px;
-      height: 85vh;
+      height: 75vh;
       width: 85%;
     }
     #postSection {
@@ -768,7 +769,7 @@
       justify-self: center;
       background-color: white;
       border-radius: 4px;
-      height: 85vh;
+      height: 75vh;
       width: 85%;
     }
     #chatSection {
@@ -776,16 +777,29 @@
       grid-row: 1 / 8;
       align-self: flex-start;
       justify-self: center;
-      height: 85vh;
+      height: 75vh;
       width: 85%;
+      #chatBox {
+        #chatWindow {
+          width: 350px;
+        }
+        #enterChatMsg {
+          textarea {
+            width: 300px;
+          }
+        }
+      }
     }
     #eventAdmin {
       grid-column: 3 / 9;
       grid-row: 1 / 8;
       align-self: flex-start;
       justify-self: center;
-      height: 85vh;
+      height: 75vh;
       width: 85%;
+      #eventList {
+        grid-template-rows: auto 1fr;
+      }
       #event {
         height: 500px;
       }
