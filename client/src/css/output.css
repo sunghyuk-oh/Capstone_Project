@@ -2375,9 +2375,9 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr) 0.5fr;
-  height: 70vh;
+  height: 100vh;
   width: 100%;
-  row-gap: 20px;
+  row-gap: 10px;
 }
 #mobileSpace #componentSelect {
   grid-column: 1/5;
@@ -2388,6 +2388,7 @@
   grid-template-rows: 1fr;
 }
 #mobileSpace #componentSelect .toggleComponents {
+  margin-bottom: 40px;
   height: 50px;
   outline: none;
   border: none;
@@ -3194,14 +3195,6 @@
   cursor: pointer;
   background-color: #ffafcc;
 }
-#mobileSpace #eventAdmin #eventDetails {
-  overflow-y: scroll;
-  scroll-snap-type: y proximity;
-  scroll-behavior: smooth;
-}
-#mobileSpace #eventAdmin #eventDetails::-webkit-scrollbar {
-  display: none;
-}
 
 @media (min-width: 641px) {
   #mobileSpace {
@@ -3211,9 +3204,9 @@
   #mobileSpace #componentSelect {
     grid-column: 1/3;
     grid-row: 1/8;
-    align-self: flex-end;
+    align-self: center;
     justify-self: center;
-    height: 85vh;
+    height: 75vh;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(5, 1fr);
