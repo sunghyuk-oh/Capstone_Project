@@ -36,7 +36,14 @@ This app serves as
 <img width="1916" alt="main" src="https://user-images.githubusercontent.com/28845972/138714532-f0c972de-a1fc-4064-9309-3997f7c52cb1.png">
 
 
-### Mobile Landing Page Screenshot
+### Mobile Pages
+
+<img width="493" alt="mobile-landing" src="https://user-images.githubusercontent.com/28845972/138715874-9a747a20-c9e8-4e84-8b5b-a222d15ddfa3.png">  <img width="493" alt="mobile-home" src="https://user-images.githubusercontent.com/28845972/138715902-12952fd0-d8e7-4451-8934-0794f1095314.png">  
+<img width="493" alt="mobile-home-info" src="https://user-images.githubusercontent.com/28845972/138715945-301210b7-fb57-42e1-9503-4acff6f00b0d.png">
+<img width="493" alt="mobile-home-post" src="https://user-images.githubusercontent.com/28845972/138715976-db01854e-489f-4ace-857e-c43fe349eb32.png">
+<img width="493" alt="mobile-home-chat" src="https://user-images.githubusercontent.com/28845972/138715986-fe3eb0d1-c753-4cee-ac6e-cecf8ae8084b.png">
+<img width="493" alt="mobile-home-event" src="https://user-images.githubusercontent.com/28845972/138716005-14e34123-97e4-43fb-a65c-faf4659bab0a.png">
+
 
 
 
