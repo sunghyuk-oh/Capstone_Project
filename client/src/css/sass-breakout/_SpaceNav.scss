@@ -13,6 +13,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto 1fr;
+    row-gap: 10px;
     background-color: white;
     border-radius: 4px;
     height: 60vh;
@@ -105,7 +106,6 @@
       grid-column: 1 / 2;
       grid-row: 2 / 3;
       justify-self: center;
-      align-self: center;
       @include scroll();
       @include hideScroll();
       .spaceBlock {

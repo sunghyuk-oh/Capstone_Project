@@ -181,12 +181,12 @@
           grid-row: 4 / 5;
           margin-top: 10px;
           justify-self: center;
-          align-self: center;
           .inviteBlock {
             @include flex(column, center, center);
             border: 2px solid $lightPalette1;
             border-radius: 4px;
             padding: 10px;
+            margin: 10px 0px;
             h3 {
               margin: 5px;
               text-align: center;
@@ -869,13 +869,13 @@
           grid-row: 4 / 5;
           margin-top: 20px;
           justify-self: center;
-          align-self: center;
           width: 300px;
           .inviteBlock {
             @include flex(column, center, center);
             border: 2px solid $lightPalette1;
             border-radius: 4px;
             padding: 20px 10px;
+            margin: 10px 0px;
             h3 {
               margin: 5px;
               text-align: center;
