@@ -2,24 +2,31 @@
 
 ## App: Gather
 
-app link: https://gather.surge.sh/
+App Link: https://gather.surge.sh/
+
+### Software Engineers:
+- Alexander Brooks
+- Sung Oh
 
 ## App Description:
 
-This app serves as 
+This app serves as a gathering place for you and your personal connections. You can create private spaces where you can chat, post messages, and create events for your group.
 
 ## Motivation
 
-
+We wanted to create a more personal social media experience that contained an element of exclusivity. There isn't any added distractions - whether that be a really long post/news feed, posts from people you don't know that well, or any of the added pressure of keeping up your online presence. This app is strictly for YOU and those closest to you.
 
 ## Features
 
-
-
-#### Images Used For App:
-
-- 
-
+- Account Authentication (login and register)
+- View and update your account information
+- Create Gathering spaces
+- Invite members to your spaces
+- Email notifications when you've been invited to a new space
+- List of current spaces, and pending invites
+- Chat Box where you can communicate directly and instantly with others in the space
+- Post feed with comment sections and like buttons
+- Event section where you can create, and view upcoming events
 
 ## Screenshots:
 
