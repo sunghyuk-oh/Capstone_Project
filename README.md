@@ -48,20 +48,21 @@ This app serves as
 
 ## Video Clips:
 
-#### Login
+#### Creating a new space
 
-#### Register
+https://user-images.githubusercontent.com/28845972/138726923-a0825721-2d44-4bc5-b90e-093e7f7caa45.mp4
 
-#### Invite A User To Space / Accept The Invitation
+
+#### Invite a user to space / Accept the invitation
 
 https://user-images.githubusercontent.com/28845972/138725538-41e0ad9e-33d2-4781-b0c2-267ac71e623b.mp4
 
 
-#### Chat Between Users
+#### Chat between users
 
-#### Post Feed / Leave A Comment / Like Post
+#### Post feed / Leave a comment / Like post
 
-#### Add An Event
+#### Add a new event
 
 
 
