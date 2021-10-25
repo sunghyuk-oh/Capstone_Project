@@ -52,7 +52,10 @@ This app serves as
 
 #### Register
 
-#### Invite A User To Space
+#### Invite A User To Space / Accept The Invitation
+
+https://user-images.githubusercontent.com/28845972/138725538-41e0ad9e-33d2-4781-b0c2-267ac71e623b.mp4
+
 
 #### Chat Between Users
 
