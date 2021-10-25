@@ -62,7 +62,7 @@ This app serves as
 
 
 
-#### Front-End Technologies
+### Front-End Technologies
 
 - HTML
 - CSS
@@ -74,7 +74,7 @@ This app serves as
   - socket.io-client
 - Redux
 
-#### Back-End Technologies / Dependencies
+### Back-End Technologies / Dependencies
 
 - Node.js
   - express
