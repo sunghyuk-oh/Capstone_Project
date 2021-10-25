@@ -1,6 +1,7 @@
 # DigitalCrafts Capstone Project
 
 ## App: Gather
+![Gather-favicon](https://user-images.githubusercontent.com/47277927/138738933-bcec7c00-69d3-42fb-b880-b7188e1fe5b1.png)
 
 App Link: https://gather.surge.sh/
 
@@ -28,6 +29,34 @@ We wanted to create a more personal social media experience that contained an el
 - Post feed with comment sections and like buttons
 - Event section where you can create, and view upcoming events
 
+### Front-End Technologies
+
+- HTML
+- CSS
+- Sass
+- JavaScript
+- React
+  - react-big-claendar
+  - react-datepicker
+  - socket.io-client
+- Redux
+
+### Back-End Technologies / Dependencies
+
+- Node.js
+  - express
+  - pg-promise
+  - socket.io
+  - bcryptjs
+  - jsonwebtoken
+  - nodemailer
+
+#### Database:
+
+- Elephant SQL
+- PostgreSQL
+
+
 ## Screenshots:
 
 #### Landing Page
@@ -41,6 +70,8 @@ We wanted to create a more personal social media experience that contained an el
 #### Main Page
 <img width="1916" alt="main" src="https://user-images.githubusercontent.com/28845972/138714532-f0c972de-a1fc-4064-9309-3997f7c52cb1.png">
 
+#### Email Notification - Invited to a space
+![emailnotification](https://user-images.githubusercontent.com/47277927/138739005-fc4f4895-56b2-411b-841a-1fcc9d689747.png)
 
 #### Mobile Layout
 
@@ -85,31 +116,3 @@ https://user-images.githubusercontent.com/28845972/138729827-bf9422dc-ef99-4ed1-
 #### Add a new event / Invite friends to the event
 
 https://user-images.githubusercontent.com/28845972/138730759-342d330b-a5a0-4963-a1cf-e0a7cfaaf9a0.mp4
-
-
-### Front-End Technologies
-
-- HTML
-- CSS
-- Sass
-- JavaScript
-- React
-  - react-big-claendar
-  - react-datepicker
-  - socket.io-client
-- Redux
-
-### Back-End Technologies / Dependencies
-
-- Node.js
-  - express
-  - pg-promise
-  - socket.io
-  - bcryptjs
-  - jsonwebtoken
-  - nodemailer
-
-#### Database:
-
-- Elephant SQL
-- PostgreSQL
