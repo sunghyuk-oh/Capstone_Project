@@ -316,8 +316,15 @@
     border-radius: 4px;
     height: 450px;
     width: 95%;
-    @include flex(column, center, center);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    row-gap: 20px;
     #postSectionTitle {
+      margin-top: 30px;
+      grid-row: 1 / 2;
+      align-self: center;
+      justify-self: center;
       font-weight: 800;
       font-size: 1.5em;
       margin-bottom: 5px;
@@ -325,14 +332,15 @@
       border-bottom: 2px solid $lightPalette5;
     }
     #postComponent {
-      height: 400px;
+      // align-self: center;
+      justify-self: center;
+      grid-row: 2 / 3;
+      height: 350px;
       width: 95%;
       @include flex(column, center, center);
       #posts {
         @include scroll();
-        &::-webkit-scrollbar {
-          display: none;
-        }
+        @include hideScroll();
         .post {
           @include flex(column, center, center);
           .postContent {
@@ -340,7 +348,7 @@
             grid-template-columns: 1fr;
             grid-template-rows: auto 1fr auto;
             // height: 200px;
-            width: 350px;
+            width: 300px;
             margin: 10px 0px;
             border-top: 1px solid $lightPalette4;
             // border-bottom: 1px solid $lightPalette4;
@@ -389,7 +397,7 @@
           }
           .commentSection {
             padding: 10px;
-            width: 300px;
+            width: 280px;
             height: 300px;
             border-radius: 5px;
             background-color: $lightPalette4;
@@ -439,7 +447,7 @@
         margin: 10px 0px 10px 0px;
         #postInput {
           border: 1px solid $lightPalette1;
-          width: 250px;
+          width: 220px;
           height: 40px;
           border-radius: 8px;
           padding: 10px;
@@ -771,6 +779,25 @@
       border-radius: 4px;
       height: 75vh;
       width: 85%;
+      #postComponent {
+        align-self: flex-start;
+        justify-self: center;
+        height: 650px;
+        width: 95%;
+        #posts {
+          .post {
+            @include flex(column, center, center);
+            .postContent {
+              width: 400px;
+            }
+          }
+        }
+        #createPostSection {
+          #postInput {
+            width: 320px;
+          }
+        }
+      }
     }
     #chatSection {
       grid-column: 3 / 9;
