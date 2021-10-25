@@ -42,7 +42,7 @@ We wanted to create a more personal social media experience that contained an el
 <img width="1916" alt="main" src="https://user-images.githubusercontent.com/28845972/138714532-f0c972de-a1fc-4064-9309-3997f7c52cb1.png">
 
 
-#### Mobile Layouts
+#### Mobile Layout
 
 <img width="493" alt="mobile-landing" src="https://user-images.githubusercontent.com/28845972/138715874-9a747a20-c9e8-4e84-8b5b-a222d15ddfa3.png">  <img width="493" alt="mobile-home" src="https://user-images.githubusercontent.com/28845972/138715902-12952fd0-d8e7-4451-8934-0794f1095314.png">  
 <img width="493" alt="mobile-home-info" src="https://user-images.githubusercontent.com/28845972/138715945-301210b7-fb57-42e1-9503-4acff6f00b0d.png">
@@ -50,7 +50,14 @@ We wanted to create a more personal social media experience that contained an el
 <img width="493" alt="mobile-home-chat" src="https://user-images.githubusercontent.com/28845972/138715986-fe3eb0d1-c753-4cee-ac6e-cecf8ae8084b.png">
 <img width="493" alt="mobile-home-event" src="https://user-images.githubusercontent.com/28845972/138716005-14e34123-97e4-43fb-a65c-faf4659bab0a.png">
 
+#### Tablet Layout
 
+<img width="493" alt="Tablet-landing" src="https://user-images.githubusercontent.com/47277927/138737846-96ea39d4-ea2f-46d5-a232-92920f08b878.png">
+<img width="493" alt="Tablet-spaces" src="https://user-images.githubusercontent.com/47277927/138737915-b010ad93-924d-4d73-9fe5-0d1b89d05802.png">
+<img width="493" alt="Tablet-info" src="https://user-images.githubusercontent.com/47277927/138737934-f9a94601-2da7-424c-afbd-b9bad4fa2a8f.png">
+<img width="493" alt="Tablet-posts" src="https://user-images.githubusercontent.com/47277927/138737953-4675197c-2a58-4eef-8324-619590097ff8.png">
+<img width="493" alt="Tablet-chat" src="https://user-images.githubusercontent.com/47277927/138737966-ce270f41-d893-4abd-9264-1485ad1a4af8.png">
+<img width="493" alt="Tablet-events" src="https://user-images.githubusercontent.com/47277927/138737980-a246a82c-c768-4f90-bc0a-86d9cd99084d.png">
 
 
 ## Video Clips:
