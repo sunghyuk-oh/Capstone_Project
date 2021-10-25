@@ -315,7 +315,7 @@
     background-color: white;
     border-radius: 4px;
     height: 450px;
-    width: 95%;
+    width: 90%;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
@@ -769,6 +769,7 @@
       grid-row: 1 / 8;
       height: 75vh;
       width: 85%;
+      align-self: flex-start;
       #postComponent {
         justify-self: center;
         height: 400px;
