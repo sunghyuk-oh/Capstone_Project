@@ -70,7 +70,7 @@
   border: none;
   border-radius: 3px;
   height: 30px;
-  width: 50px;
+  width: 80px;
   background-color: #ffafcc;
   margin-right: 5px;
   box-shadow: 2px 2px 5px 0.5px gray;
@@ -89,12 +89,15 @@
   }
   #headerNav .authBtns #logout {
     width: 120px;
+    height: 40px;
   }
   #headerNav .authBtns #userAccount {
     width: 120px;
+    height: 40px;
   }
   #headerNav .authBtns #guest {
     width: 120px;
+    height: 40px;
   }
 }
 @media (min-width: 1025px) {
@@ -262,12 +265,12 @@
 }
 #login {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   height: 100vh;
 }
 #login #loginCredentials {
-  grid-column: 1/2;
+  grid-column: 1/span 2;
   grid-row: 1/2;
   width: 300px;
   height: 300px;
@@ -353,14 +356,15 @@
 }
 #register {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   height: 100vh;
 }
 #register #registerCredentials {
-  grid-column: 1/2;
+  margin-top: 20px;
+  grid-column: 1/span 2;
   grid-row: 1/2;
-  width: 400px;
+  width: 300px;
   height: 400px;
   align-self: center;
   justify-self: center;
@@ -405,7 +409,7 @@
 
 @media (min-width: 641px) {
   #register #registerCredentials {
-    width: 500px;
+    width: 400px;
     height: 500px;
   }
   #register #registerCredentials #registerTitle {
@@ -426,8 +430,8 @@
 }
 @media (min-width: 1025px) {
   #register #registerCredentials {
-    width: 550px;
-    height: 550px;
+    width: 500px;
+    height: 600px;
   }
   #register #registerCredentials #registerTitle {
     font-size: 2.2em;
@@ -2373,8 +2377,9 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr) 0.5fr;
-  height: 100vh;
+  height: 70vh;
   width: 100%;
+  row-gap: 20px;
 }
 #mobileSpace #componentSelect {
   grid-column: 1/5;
@@ -2723,12 +2728,16 @@
   border-radius: 4px;
   height: 450px;
   width: 95%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  row-gap: 20px;
 }
 #mobileSpace #postSection #postSectionTitle {
+  margin-top: 30px;
+  grid-row: 1/2;
+  align-self: center;
+  justify-self: center;
   font-weight: 800;
   font-size: 1.5em;
   margin-bottom: 5px;
@@ -2736,7 +2745,9 @@
   border-bottom: 2px solid #a2d2ff;
 }
 #mobileSpace #postSection #postComponent {
-  height: 400px;
+  justify-self: center;
+  grid-row: 2/3;
+  height: 350px;
   width: 95%;
   display: flex;
   flex-direction: column;
@@ -2761,7 +2772,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
-  width: 350px;
+  width: 300px;
   margin: 10px 0px;
   border-top: 1px solid #bde0fe;
 }
@@ -2809,7 +2820,7 @@
 }
 #mobileSpace #postSection #postComponent #posts .post .commentSection {
   padding: 10px;
-  width: 300px;
+  width: 280px;
   height: 300px;
   border-radius: 5px;
   background-color: #bde0fe;
@@ -2865,7 +2876,7 @@
 }
 #mobileSpace #postSection #postComponent #createPostSection #postInput {
   border: 1px solid #cdb4db;
-  width: 250px;
+  width: 220px;
   height: 40px;
   border-radius: 8px;
   padding: 10px;
@@ -2904,13 +2915,19 @@
   padding-bottom: 5px;
   border-bottom: 2px solid #ffc8dd;
 }
+#mobileSpace #chatSection #chatBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 #mobileSpace #chatSection #chatBox #chatWindow {
   overflow-y: scroll;
   scroll-snap-type: y proximity;
   scroll-behavior: smooth;
   border-radius: 4px;
   height: 300px;
-  width: 380px;
+  width: 300px;
   box-shadow: 2px 2px 5px 0.8px gray;
   display: grid;
   grid-template-columns: 1fr;
@@ -2976,7 +2993,7 @@
   align-items: center;
 }
 #mobileSpace #chatSection #chatBox #enterChatMsg textarea {
-  width: 300px;
+  width: 250px;
   height: 50px;
   border: none;
   border-radius: 4px;
@@ -3002,6 +3019,7 @@
   grid-column: 1/4;
   grid-row: 1/5;
   justify-self: center;
+  height: 450px;
   width: 95%;
   display: flex;
   flex-direction: column;
@@ -3019,7 +3037,7 @@
   width: 95%;
   margin-bottom: 20px;
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: auto 1fr;
 }
 #mobileSpace #eventAdmin #eventList::-webkit-scrollbar {
   display: none;
@@ -3041,7 +3059,7 @@
   border: 2px solid #cdb4db;
   background-color: white;
   padding: 10px 20px;
-  width: 350px;
+  width: 300px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
@@ -3220,7 +3238,7 @@
     justify-self: center;
     background-color: white;
     border-radius: 4px;
-    height: 85vh;
+    height: 75vh;
     width: 85%;
   }
   #mobileSpace #mobileSpacesInfo {
@@ -3230,7 +3248,7 @@
     justify-self: center;
     background-color: white;
     border-radius: 4px;
-    height: 85vh;
+    height: 75vh;
     width: 85%;
   }
   #mobileSpace #postSection {
@@ -3240,24 +3258,51 @@
     justify-self: center;
     background-color: white;
     border-radius: 4px;
-    height: 85vh;
+    height: 75vh;
     width: 85%;
+  }
+  #mobileSpace #postSection #postComponent {
+    align-self: flex-start;
+    justify-self: center;
+    height: 650px;
+    width: 95%;
+  }
+  #mobileSpace #postSection #postComponent #posts .post {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #mobileSpace #postSection #postComponent #posts .post .postContent {
+    width: 400px;
+  }
+  #mobileSpace #postSection #postComponent #createPostSection #postInput {
+    width: 320px;
   }
   #mobileSpace #chatSection {
     grid-column: 3/9;
     grid-row: 1/8;
     align-self: flex-start;
     justify-self: center;
-    height: 85vh;
+    height: 75vh;
     width: 85%;
+  }
+  #mobileSpace #chatSection #chatBox #chatWindow {
+    width: 350px;
+  }
+  #mobileSpace #chatSection #chatBox #enterChatMsg textarea {
+    width: 300px;
   }
   #mobileSpace #eventAdmin {
     grid-column: 3/9;
     grid-row: 1/8;
     align-self: flex-start;
     justify-self: center;
-    height: 85vh;
+    height: 75vh;
     width: 85%;
+  }
+  #mobileSpace #eventAdmin #eventList {
+    grid-template-rows: auto 1fr;
   }
   #mobileSpace #eventAdmin #event {
     height: 500px;
@@ -3274,6 +3319,7 @@
   grid-template-rows: repeat(5, 1fr);
 }
 #home #spaceNav {
+  margin: 30px;
   grid-column: 1/2;
   grid-row: 1/5;
   justify-self: center;
@@ -3283,7 +3329,7 @@
   grid-template-rows: auto 1fr auto 1fr;
   background-color: white;
   border-radius: 4px;
-  height: 80vh;
+  height: 60vh;
   width: 85%;
   overflow-y: scroll;
   scroll-snap-type: y proximity;
@@ -3484,7 +3530,7 @@
 
 @media (min-width: 641px) {
   #home #spaceNav {
-    height: 85vh;
+    height: 70vh;
     width: 450px;
   }
   #home #spaceNav #createSpaceSection {
@@ -3514,11 +3560,6 @@
   }
   #home #spaceNav #inviteHeader h1 {
     font-size: 1.75em;
-  }
-}
-@media (min-width: 1025px) {
-  #home #spaceNav {
-    height: 85vh;
   }
 }
 

@@ -51,7 +51,7 @@
       border: none;
       border-radius: 3px;
       height: 30px;
-      width: 50px;
+      width: 80px;
       background-color: $lightPalette3;
       margin-right: 5px;
       box-shadow: 2px 2px 5px 0.5px gray;
@@ -76,12 +76,15 @@
       font-size: 1.2em;
       #logout {
         width: 120px;
+        height: 40px;
       }
       #userAccount {
         width: 120px;
+        height: 40px;
       }
       #guest {
         width: 120px;
+        height: 40px;
       }
     }
   }
