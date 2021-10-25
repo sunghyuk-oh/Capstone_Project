@@ -8,10 +8,6 @@ app link: https://gather.surge.sh/
 
 This app serves as 
 
-#### Images Used For App:
-
-- 
-
 ## Motivation
 
 
@@ -20,6 +16,9 @@ This app serves as
 
 
 
+#### Images Used For App:
+
+- 
 
 
 ## Screenshots:
@@ -47,7 +46,7 @@ This app serves as
 
 
 
-## Video Sections:
+## App Functionalities Video Clips:
 
 ### Login
 
