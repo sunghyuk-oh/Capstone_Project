@@ -60,10 +60,17 @@ https://user-images.githubusercontent.com/28845972/138725538-41e0ad9e-33d2-4781-
 
 #### Chat between users
 
+https://user-images.githubusercontent.com/28845972/138729326-de0f5a4f-cf41-4af1-92ce-e38ce7cefdc8.mp4
+
+
 #### Post feed / Leave a comment / Like post
 
-#### Add a new event
+https://user-images.githubusercontent.com/28845972/138729827-bf9422dc-ef99-4ed1-987d-38ca3a25e430.mp4
 
+
+#### Add a new event / Invite friends to the event
+
+https://user-images.githubusercontent.com/28845972/138730759-342d330b-a5a0-4963-a1cf-e0a7cfaaf9a0.mp4
 
 
 ### Front-End Technologies
