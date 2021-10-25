@@ -1,7 +1,7 @@
 # DigitalCrafts Capstone Project
 
 ## App: Gather
-![Gather-favicon](https://user-images.githubusercontent.com/47277927/138738933-bcec7c00-69d3-42fb-b880-b7188e1fe5b1.png)
+<img width="200" alt="logo" src="https://user-images.githubusercontent.com/47277927/138738933-bcec7c00-69d3-42fb-b880-b7188e1fe5b1.png" >
 
 App Link: https://gather.surge.sh/
 
