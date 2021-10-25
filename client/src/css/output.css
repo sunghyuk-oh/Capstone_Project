@@ -3244,17 +3244,12 @@
   #mobileSpace #postSection {
     grid-column: 3/9;
     grid-row: 1/8;
-    align-self: flex-start;
-    justify-self: center;
-    background-color: white;
-    border-radius: 4px;
     height: 75vh;
     width: 85%;
   }
   #mobileSpace #postSection #postComponent {
-    align-self: flex-start;
     justify-self: center;
-    height: 650px;
+    height: 400px;
     width: 95%;
   }
   #mobileSpace #postSection #postComponent #posts .post {
