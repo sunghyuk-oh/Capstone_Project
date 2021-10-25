@@ -36,7 +36,7 @@ This app serves as
 <img width="1916" alt="main" src="https://user-images.githubusercontent.com/28845972/138714532-f0c972de-a1fc-4064-9309-3997f7c52cb1.png">
 
 
-### Mobile Pages
+### Mobile Layouts
 
 <img width="493" alt="mobile-landing" src="https://user-images.githubusercontent.com/28845972/138715874-9a747a20-c9e8-4e84-8b5b-a222d15ddfa3.png">  <img width="493" alt="mobile-home" src="https://user-images.githubusercontent.com/28845972/138715902-12952fd0-d8e7-4451-8934-0794f1095314.png">  
 <img width="493" alt="mobile-home-info" src="https://user-images.githubusercontent.com/28845972/138715945-301210b7-fb57-42e1-9503-4acff6f00b0d.png">
@@ -49,7 +49,17 @@ This app serves as
 
 ## Video Sections:
 
+### Login
 
+### Register
+
+### Invite A User To Space
+
+### Chat Between Users
+
+### Post Feed / Leave A Comment / Like Post
+
+### Add An Event
 
 
 
